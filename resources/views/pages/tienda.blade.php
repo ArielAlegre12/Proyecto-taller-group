@@ -9,7 +9,7 @@
 @endsection
 
 @section('h1')
-    Tienda
+    Tienda <i class="bi bi-shop-window"></i>
 @endsection
 
 @section('content')

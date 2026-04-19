@@ -1,10 +1,107 @@
 @extends('layouts.app')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/inicioStyle.css') }}">
+@endpush
+
 @section('h1')
-    Inicio
+    Inicio <i class="bi bi-house"></i>
 @endsection
 
 @section('content')
-    <img src="https://images.unsplash.com/photo-1770836037793-95bdbf190f71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2ZXRlcmluYXJpYW4lMjBleGFtaW5pbmclMjBkb2d8ZW58MXx8fHwxNzc2MzI5NDc0fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-        alt="" class="w-100 h-100 object-cover">
+    <!--sección carrusel---->
+    <section id="heroCarousel" class="carousel slide carousel-fade hero" data-bs-ride="carousel" data-bs-interval="4000">
+
+        <!--indicadores--->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+        </div>
+
+        <!--slides--->
+        <div class="carousel-inner">
+
+            <div class="carousel-item active hero-slide"
+                style="background-image:url('{{ asset('images/carrusel/slide1.png') }}')">
+
+                <div class="hero-content">
+                    <h1>Cuidamos a tus mascotas <strong>como si fueran nuestras</strong></h1>
+                    <p>Atención veterinaria profesional para animales domésticos y de campo.</p>
+
+                    <div class="hero-buttons">
+                        <a href="/servicios" class="btn-primary">Ver Servicios</a>
+                        <a href="/tienda" class="btn-secondary">Ir a la Tienda</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item hero-slide" style="background-image:url('{{ asset('images/carrusel/slide2.png') }}')">
+
+                <div class="hero-content">
+                    <h1>Emergencias 24/7</h1>
+                    <p>Siempre listos para cuidar a tu mascota en cualquier momento.</p>
+
+                    <div class="hero-buttons">
+                        <a href="/contacto" class="btn-primary">Contactar</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item hero-slide" style="background-image:url('{{ asset('images/carrusel/slide3.png') }}')">
+                <div class="hero-content">
+                    <h1>Equipo profesional certificado</h1>
+                    <p>Experiencia y amor por los animales en cada consulta.</p>
+
+                    <div class="hero-buttons">
+                        <a href="/quienesSomos" class="btn-primary">Conocenos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--controles-->
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </section>
+
+    <!--sección iconos--->
+    <section class="features">
+
+        <div class="feature">
+            <i class="bi bi-heart"></i>
+            <h3>Atención Personalizada</h3>
+            <p>Cada mascota recibe un trato único</p>
+        </div>
+
+        <div class="feature">
+            <i class="bi bi-clock"></i>
+            <h3>Servicio 24/7</h3>
+            <p>Emergencias siempre disponibles</p>
+        </div>
+
+        <div class="feature">
+            <i class="bi bi-shield"></i>
+            <h3>Instalaciones Modernas</h3>
+            <p>Equipamiento de última generación</p>
+        </div>
+
+        <div class="feature">
+            <i class="bi bi-award"></i>
+            <h3>Professionales</h3>
+            <p>Equipo certificado y con experiencia</p>
+        </div>
+    </section>
+
+    <!--cta-->
+    <section class="cta">
+        <h2>¿Necesitas atención urgente?</h2>
+        <p>Contáctanos ahora y te atendemos</p>
+
+        <a href="tel:+543791323421" class="cta-btn">Llamar ahora</a>
+    </section>
 @endsection

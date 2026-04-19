@@ -9,7 +9,7 @@
 @endsection
 
 @section('h1')
-    Servicios de Turnos
+    Servicios de Turnos <i class="bi bi-calendar-check"></i>
 @endsection
 
 @section('content')

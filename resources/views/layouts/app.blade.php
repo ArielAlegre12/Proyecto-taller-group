@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Huellas Felices - Tienda para animales">
     <title>@yield('title', 'Huellas Felices')</title>
+    <link rel="preload" as="image" href="{{ asset('images/carrusel/slide1.jpg') }}">
+    <link rel="preload" as="image" href="{{ asset('images/carrusel/slide2.jpg') }}">
+    <link rel="preload" as="image" href="{{ asset('images/carrusel/slide3.jpg') }}">
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/font/bootstrap-icons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -17,7 +20,7 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-    
+
     <!--Cabezera-->
     <header>
         @include('partials.nav')
