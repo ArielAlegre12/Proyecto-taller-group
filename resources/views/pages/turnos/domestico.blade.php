@@ -7,18 +7,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endpush
 
+@section('h1')
+    Animales Domésticos
+@endsection
+
 @section('content')
-
-    <div class="header-domestico">
-                <div class="container text-center">
-                    <h1>Animales Domésticos</h1>
-                </div>
-            </div>
-
 
     <div class="container">
         <div class="form-container">
-            
+
             <div class="container mt-5">
                 <div class="mb-3">
                     <label class="form-label">Nombre del dueño</label>

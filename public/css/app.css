@@ -1,0 +1,14 @@
+/*estilos del header*/
+
+.header-turno {
+    width: 100%;
+    background-color: #28a745;
+    color: white;
+    padding: 70px 0;
+    margin: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.header-turno h1 {
+    margin: 0;
+}

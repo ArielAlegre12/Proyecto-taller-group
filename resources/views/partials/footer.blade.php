@@ -3,6 +3,7 @@
         <div class="footer-content">
             <div class="footer-brand">
                 <h5>Huellas Felices</h5>
+                
                 <small>@ {{ date('Y') }} - Todos los derechos reservados</small>
             </div>
 

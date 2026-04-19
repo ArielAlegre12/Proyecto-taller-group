@@ -1,0 +1,15 @@
+/*estilos min para info de contacto*/
+.card{
+    border-radius: 12px;
+}
+h4{
+    font-weight: bold;
+}
+iframe{
+    min-height: 300px;
+}
+@media(max-width: 768px){
+    iframe{
+        height: 300px;
+    }
+}

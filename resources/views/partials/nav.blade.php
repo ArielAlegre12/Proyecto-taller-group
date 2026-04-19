@@ -1,85 +1,54 @@
-<nav class="navbar navbar-expand-lg navbar-estilo shadow-sm sticky-top">
-    <div class="container-fluid">
+<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+    <div class="container">
 
-        <!--LOGO-->
-        <a href="/principal" class="navbar-brand fw-bold brand">Huellas Felices</a>
+        <!--logo-->
+        <a href="/" class="navbar-brand d-flex align-items-center gap-2">
+            <div class="logo-circle">
+                <i class="bi bi-clipboard-pulse"></i>
+            </div>
+            <span class="fw semibold-text-success">Huellas Felices</span>
+        </a>
 
-        <!--TOGGLER-->
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navMain">
-            <span class="navbar-toggler-icon"></span>
+        <!--btn mobile-->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <i class="bi bi-list fs-3"></i>
         </button>
 
-        <div class="collapse navbar-collapse" id="navMain">
-            <!--BUSCADOR--->
-            <form class="search-bar d-flex mx-auto">
-                <input type="search" placeholder="Buscar productos, servicios...">
-                <button type="submit"><i class="bi bi-search"></i></button>
-            </form>
+        <!---contenido-->
+        <div class="collapse navbar-collapse" id="navbarNav">
 
-            <!--ACCIONES DE LA DERECHA-->
-            <div class="nav-actions ms-auto d-flex align-items-center gap-3">
+            <!--links-->
+            <ul class="navbar-nav mx-auto gap-lg-4 text-center">
 
-                <!--Usuario-->
-                <a href="#" class="nav-link">Ingresar</a>
-
-                <!--Carrito-->
-                <div class="cart mobile-cart">
-                    <i class="bi bi-cart"></i>
-                    <span>0</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</nav>
-
-<!--NAV SECUNDARIO-->
-<nav class="subnav">
-    <div class="container-fluid">
-        
-        <a href="/principal">Principal</a>
-        <a href="/tienda">Tienda</a>
-        <a href="/servicios">Servicios</a>
-
-        <!--dropdown menú--->
-        <div class="dropdown">
-            
-            <a class="dropdown-toggle subnav-link" href="#" role="button" data-bs-toggle="dropdown">Info</a>
-
-            <ul class="dropdown-menu">
-                <li>
-                    <a href="/informacionContactos" class="dropdown-item">Información de Contacto</a>
+                <li class="nav-item">
+                    <a href="/principal" class="nav-link {{ request()->is('principal') ? 'active' : '' }}">Inicio</a>
                 </li>
 
-                <li><hr class="dropdown-divider"></li>
-
-                <li>
-                    <a href="/consultas" class="dropdown-item">Consultas</a>
+                <li class="nav-item">
+                    <a href="/servicios" class="nav-link {{ request()->is('servicios') ? 'active' : '' }}">Servicios</a>
                 </li>
 
-                <li><hr class="dropdown-divider"></li>
-
-                <li>
-                    <a href="/comercializacion" class="dropdown-item">Comercialización</a>
-                </li>
-
-                <li><hr class=" dropdown-divider"></li>
-
-                <li>
-                    <a href=""></a>
-                </li>
-
-                <li><hr class="dropdown-divider"></li>
-
-                <li>
-                    <a href="/quienesSomos" class="dropdown-item">Quienes Somos</a>
-                </li>
-
-                <li><hr class="dropdown-divider"></li>
-
-                <li>
-                    <a href="/terminosUsos" class="dropdown-item">Términos y Uso</a>
+                <li class="nav-item">
+                    <a href="/tienda" class="nav-link {{ request()->is('tienda') ? 'active' : '' }}">Tienda</a>
                 </li>
             </ul>
+
+            <!--derecha-->
+            <div class="d-flex align-items-center gap-3 justify-content-center mt-3 mt-lg-0">
+
+                <!--carrito-->
+                <div class="position-relative">
+                    <a href="#" class="text-dark fs-5">
+                        <i class="carrito bi bi-cart3"></i>
+                    </a>
+                    <span class="cart-badge">0</span>
+                </div>
+
+                <!--btn login-->
+                <a href="/login" class="btn btn-success px-4 rounded-3">
+                    Login
+                </a>
+            </div>
         </div>
     </div>
 </nav>

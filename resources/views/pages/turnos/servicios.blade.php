@@ -8,13 +8,12 @@
     Servicios de turnos
 @endsection
 
+@section('h1')
+    Servicios de Turnos <i class="bi bi-calendar-check"></i>
+@endsection
+
 @section('content')
 
-    <div class="header-turno">
-        <div class="container">
-            <h1 class="text-center">Servicios de turnos</h1>
-        </div>
-    </div>
     <div class="container-fluid mt-5">
         <div class="row text-center ">
             <div class="col-12 col-md-6 mb-2">

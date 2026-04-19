@@ -1,0 +1,41 @@
+.bg-verde{
+    background-color: #28a745;
+}
+
+.btn-verde{
+    background-color: 28a745;
+    color: white;
+    border: none;
+}
+
+.btn-verde:hover{
+    background-color: #218838;
+}
+
+.form-card{
+    border-radius: 15px;
+    border: none;
+}
+
+.beneficio {
+    padding: 20px;
+}
+
+.icono {
+    width: 60px;
+    height: 60px;
+    background: rgba(40, 167, 69, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 24px;
+}
+
+.texto-aviso {
+    font-size: 0.9rem;
+    color: #6c757d;
+    text-align: center;
+    margin-top: 15px;
+}

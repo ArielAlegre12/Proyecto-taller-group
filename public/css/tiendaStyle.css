@@ -1,42 +1,51 @@
 /*estilos para tienda*/
 
 /*contenedor del div*/
-.tienda-container{
+.tienda-container {
     display: flex;
     gap: 20px;
     padding: 20px;
 }
 
 /*sidebar*/
-.sidebar{
+.sidebar {
+    position: sticky;
+    top: 80px;
     width: 250px;
     background: #e8f5e9;
     padding: 15px;
     border-radius: 10px;
     margin-top: 5vh;
 }
-.sidebar h4{
+
+.sidebar h4 {
     margin-bottom: 10px;
 }
-.sidebar ul{
+
+.sidebar ul {
     list-style: none;
-    padding: 0; 
+    padding: 0;
 }
-.sidebar li{
+
+.sidebar li {
     padding: 8px;
     cursor: pointer;
     border-radius: 5px;
     transition: 0.3s;
 }
-.sidebar li:hover{
+
+.sidebar li:hover {
     background: #8fb191;
 }
-.sidebar .activo{
+
+.sidebar .activo {
     background: #6f8370;
+    font-weight: bold;
+    transform: scale(1.02);
 }
 
 /*productos*/
-.productos{
+.productos {
     flex: 1;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -45,28 +54,54 @@
 }
 
 /*card*/
-.card-producto{
+.card-producto {
     background: white;
     border-radius: 10px;
     padding: 10px;
+    margin-top: 15px;
     text-align: center;
-    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.25s ease;
 }
-.card-producto:hover{
+
+/*contenido*/
+.info-producto {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.bottom-producto{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.precio{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.card-producto:hover {
     transform: translateY(-5px);
-    background: #e0eee3 ;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    background: #e0eee3;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
+
 /*imagen*/
-.card-producto img{
+.card-producto img {
     width: 100%;
     height: 150px;
     object-fit: contain;
-    background: #f5f5f5;
+    background: white;
     border-radius: 8px;
 }
+
 /*botón*/
-.card-producto button{
+.card-producto button {
     margin-top: 10px;
     padding: 6px 10px;
     border: none;
@@ -74,23 +109,26 @@
     border-radius: 6px;
     color: white;
 }
-.card-producto button:hover{
+
+.card-producto button:hover {
     background: #5f7260;
 }
-.card-producto button:active{
+
+.card-producto button:active {
     background: #6f8370;
     transform: scale(0.95);
 }
-.card-producto p:first-of-type{
+
+.card-producto p:first-of-type {
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 3;
     line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
 
 /*estilos para sección de cantidades*/
-.cantidad{
+.cantidad {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -98,7 +136,7 @@
     margin: 10px 0;
 }
 
-.cantidad button{
+.cantidad button {
     width: 30px;
     height: 30px;
     border: none;
@@ -107,8 +145,119 @@
     border-radius: 5px;
     cursor: pointer;
 }
-.cantidad span{
+
+.cantidad span {
     min-width: 20px;
     text-align: center;
     font-weight: bold;
+}
+
+/*estilo msj de producto en 0*/
+.forelse-msj {
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
+/*estilos para contenido de tienda, categorias, productos*/
+.contenido-tienda {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/*estilos tipo producto*/
+.filtro-tipo {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+}
+
+.filtro-tipo button {
+    flex: 1;
+    border: none;
+    background: #f3f3f3;
+    padding: 6px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .3s;
+    font-size: 14px;
+}
+
+/*hover*/
+.filtro-tipo button:hover {
+    background: #8fb191;
+    color: white;
+}
+
+/*activo*/
+.filtro-tipo button.activo {
+    background: #00a650;
+    color: white;
+    font-weight: bold;
+}
+
+/*hacer que las categorías queden fijas y los productos sean scrolleables(en pantallas chicas)*/
+@media(max-width: 992px) {
+
+    /*layout general en columna*/
+    .tienda-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /*sidebar se vuelve barra horizontal*/
+    .sidebar {
+        position: sticky;
+        width: 100%;
+        top: 0;
+        z-index: 999;
+        background: white;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .sidebar ul {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 0 10px;
+        margin: 0;
+    }
+
+    .sidebar li {
+        flex-shrink: 0;
+        list-style: none;
+        padding: 6px 12px;
+        border-radius: 20px;
+        background: #f3f3f3;
+        font-size: 14px;
+    }
+
+    .sidebar li.activo {
+        background: #00a650;
+        color: white;
+    }
+
+    /*los productos ocupan todo*/
+    .productos {
+        width: 100%;
+    }
+
+    .filtro-tipo {
+        display: flex;
+        overflow-x: auto;
+        gap: 10px;
+        padding: 10px;
+        white-space: nowrap;
+    }
+
+    .filtro-tipo button {
+        flex-shrink: 0;
+    }
 }

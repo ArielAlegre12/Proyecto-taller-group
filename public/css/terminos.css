@@ -1,0 +1,52 @@
+.card{
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.card h2{
+    font-weight: bold;
+    color: #333;
+}
+
+.card h5{
+    color: #555;
+    font-weight: 600;
+}
+
+.card p{
+    color: #666;
+    text-align: justify;
+}
+
+.card ul{
+    padding-left: 20px;
+}
+
+ul li{
+    margin-bottom: 5px;
+}
+
+.bg-success{
+    background-color: #28a745 !important;
+}
+
+.card i {
+    min-width: 40px;
+}
+
+.bg-contacto{
+     background-color: #eaf7ee;
+    border-left: 5px solid #28a745;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.bg-contacto ul {
+    padding-left: 20px;
+}
+
+.bg-contacto li{
+    margin-bottom: 6px;
+    color: #444;
+}
