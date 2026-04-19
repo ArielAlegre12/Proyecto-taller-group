@@ -26,6 +26,7 @@
                     <p><i class="bi bi-telephone-fill text-success me-2"></i>+54 3791323421</p>
                     <p><i class="bi bi-envelope-fill text-success me-2"></i>huellasFelicesShop@gmail.com</p>
                     <p><i class="bi bi-clock-fill text-success me-2"></i>Lunes a Sábado de 09:00 a 18:00</p>
+                     <p><i class="bi bi-exclamation-circle-fill text-success me-2"></i>Emergencias siempre disponibles</p>
 
                     <h4 class="mt-3">Envíanos un mensaje</h4>
 
