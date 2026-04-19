@@ -46,3 +46,7 @@ Route::get('/servicios/produccion', function(){
 Route::get('/servicios/domestico', function(){
     return view('pages.turnos.domestico');
 })->name('pages.turnos.domestico');
+
+Route::get('/login', function(){
+    return view('pages.login');
+});
