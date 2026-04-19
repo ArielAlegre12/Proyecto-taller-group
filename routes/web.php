@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use PhpParser\Builder\Function_;
+use App\Http\Controllers\TiendaController;
 
 Route::get('/', function () {
     return view('pages.principal');
@@ -11,9 +11,8 @@ Route::get('/principal', function () {
     return view('pages.principal');
 });
 
-Route::get('tienda', function(){
-    return view('pages.tienda');
-});
+
+Route::get('/tienda', [TiendaController::class, 'index']);//para que cargue el controller de tienda
 
 Route::get('/servicios', function(){
     return view('pages.turnos.servicios');
@@ -46,3 +45,4 @@ Route::get('/servicios/produccion', function(){
 Route::get('/servicios/domestico', function(){
     return view('pages.turnos.domestico');
 })->name('pages.turnos.domestico');
+

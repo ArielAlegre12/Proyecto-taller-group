@@ -160,3 +160,9 @@
         width: 100%;
     }
 }
+
+/*estilo msj de producto en 0*/
+.forelse-msj{
+    grid-column: 1 / -1;
+    text-align: center;
+}
