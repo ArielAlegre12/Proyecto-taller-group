@@ -6,13 +6,23 @@ return [
         "nombre" => "Alimento Excellent Perro Adulto Mediano y Grande - 20kg",
         "precio" => 86400,
         "imagen" => "images/productosTienda/alimentoPerro20kg.png",
-        "categoria" => "perros"
+        "animal" => "perros",
+        "tipo" => "alimentos"
     ],
     [
         "id" => 2,
         "nombre" => "Alimento Royal Canin Gato Adulto Fit 32 - 7,5 Kg",
         "precio" => 98300,
         "imagen" => "images/productosTienda/AlimentoRoyalCaninGatoAdultoFit 32-7-5Kg.webp",
-        "categoria" => "gatos"
+        "animal" => "gatos",
+        "tipo" => "alimentos"
+    ],
+    [
+        "id" => 3,
+        "nombre" => "Alimento con pellets y granos rolados para caballos de deporte - 25kg",
+        "precio" => 70400,
+        "imagen" => "images/productosTienda/Alimentoconpelletsygranosroladosparacaballosdedeporteyrecreo.png",
+        "animal" => "caballos",
+        "tipo" => "alimentos"
     ]
 ];
