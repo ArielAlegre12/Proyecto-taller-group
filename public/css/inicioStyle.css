@@ -143,6 +143,7 @@
     border-radius: 50px;
     font-weight: bold;
     transition: .2s ease;
+    text-decoration: none;
 }
 
 .cta-btn:hover {
