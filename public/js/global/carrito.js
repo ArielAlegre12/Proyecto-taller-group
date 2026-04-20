@@ -37,12 +37,33 @@ export function initCarrito(){
                     <img src="${prod.imagen}" width="50" class="me-2">
                         <div class="flex-grow-1">
                             <p class="mb-0">${prod.nombre}</p>
-                            <small>Cant: ${prod.cantidad}</small>
+                            <div clas="d-flex align-items-center gap-2">
+                                <button class="btn btn-sm btn-outline-secondary btn-restar" data-id="${prod.id}">-</button>
+                                <span>${prod.cantidad}</span>
+                                <button class ="btn btn-sm btn-outline-secondary btn-sumar" data-id="${prod.id}">+</button>
+                            </div>
                         </div>
                         <button class="btn btn-sm btn-danger" data-id="${prod.id}">X</button>
                 </div>
             `;
         });
+    }
+
+    function cambiarCantidad(id, delta){
+        let carrito = obtenerCarrito();
+
+        const producto = carrito.find(p=>p.id == id);
+
+        if(!producto) return;
+
+        producto.cantidad += delta;
+
+        if(producto.cantidad <= 0){
+            carrito = carrito.filter(p=>p.id != id);
+        }
+
+        guardarCarrito(carrito);
+        renderCarrito();
     }
 
     //agregar producto
@@ -86,6 +107,17 @@ export function initCarrito(){
             renderCarrito();
         }
     });
+
+    //cambiar cantidad de productos en el menú del carrito.
+    document.addEventListener("click", e=>{
+        if(e.target.matches(".btn-sumar")){
+            cambiarCantidad(e.target.dataset.id, 1);
+        }
+
+        if(e.target.matches(".btn-restar")){
+            cambiarCantidad(e.target.dataset.id, -1);
+        }
+    })
 
     //vaciar carrito(para todos)
     window.vaciarCarrito = function(){
