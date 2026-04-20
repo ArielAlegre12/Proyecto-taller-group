@@ -94,6 +94,12 @@ export function initCarrito(){
         actualizarContador();
     };
 
+    //sincronizar entre pestañas
+    window.addEventListener("storage", ()=>{
+        actualizarContador();
+        renderCarrito();
+    })
+
     //inicializar
     actualizarContador();
     renderCarrito();
