@@ -24,5 +24,13 @@ return [
         "imagen" => "images/productosTienda/Alimentoconpelletsygranosroladosparacaballosdedeporteyrecreo.png",
         "animal" => "caballos",
         "tipo" => "alimentos"
+    ],
+    [
+        "id" => 4,
+        "nombre" => "Flash Balanced Lata Balanced Soufflé De Carne Perro Adulto - Balanced 85 Gr",
+        "precio" => 2500,
+        "imagen" => "images/productosTienda/FlashBalancedLataBalancedSouffléDeCarnePerroAdultoBalanced85Gr.png",
+        "animal" => "perros",
+        "tipo" => "alimentos"
     ]
 ];

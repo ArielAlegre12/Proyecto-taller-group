@@ -20,11 +20,11 @@
         <aside class="sidebar">
             <h4>Animales</h4>
             <ul>
-                <li data-animal="todos" class="activo">Todos</li>
-                <li data-animal="perros">Perros</li>
-                <li data-animal="gatos">Gatos</li>
-                <li data-animal="caballos">Caballos</li>
-                <li data-animal="vacas">Vacas</li>
+                <li data-filtro-animal="todos" class="activo">Todos</li>
+                <li data-filtro-animal="perros">Perros</li>
+                <li data-filtro-animal="gatos">Gatos</li>
+                <li data-filtro-animal="caballos">Caballos</li>
+                <li data-filtro-animal="vacas">Vacas</li>
             </ul>
         </aside>
 
@@ -42,7 +42,13 @@
             <main class="productos" id="contenedor-productos">
 
                 @forelse($productos as $producto)
-                    <div class="card-producto" data-animal="{{ $producto['animal'] }}" data-tipo="{{ $producto['tipo'] }}">
+                    <div class="card-producto"
+                        data-id="{{ $producto['id'] }}"
+                        data-nombre="{{ $producto['nombre'] }}"
+                        data-precio="{{ $producto['precio'] }}"
+                        data-imagen="{{ $producto['imagen'] }}"
+                        data-animal="{{ $producto['animal'] }}"
+                        data-tipo="{{ $producto['tipo'] }}">
 
                         <div class="info-producto">
                             <img src="{{ asset($producto['imagen']) }}">
@@ -61,7 +67,7 @@
                             </div>
                         </div>
 
-                        <button>Agregar</button>
+                        <button class="btn-agregar">Agregar</button>
                     </div>
 
                 @empty

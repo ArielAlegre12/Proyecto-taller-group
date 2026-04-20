@@ -14,10 +14,12 @@
 
             <!--carrito-->
             <div class="position-relative d-lg-none">
-                <a href="#" class="text-dark fs-5">
+                <a href="#" class="text-dark fs-5"
+                    data-bs-toggle="offcanvas"
+                    data-bs-target="#carritoCanvas">
                     <i class="bi bi-cart carrito"></i>
                 </a>
-                <span class="cart-badge">0</span>
+                <span class="cart-badge contador-carrito">0</span>
             </div>
 
             <!--toggler--->
@@ -54,10 +56,12 @@
 
                 <!--carrito desktop--->
                 <div class="position-relative">
-                    <a href="#" class="text-dark fs-5">
+                    <a href="#" class="text-dark fs-5"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#carritoCanvas">
                         <i class="bi bi-cart3 carrito"></i>
                     </a>
-                    <span class="cart-badge">0</span>
+                    <span class="cart-badge  contador-carrito">0</span>
                 </div>
 
                 <!---login desktop--->

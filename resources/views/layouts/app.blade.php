@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Huellas Felices - Tienda para animales">
     <title>@yield('title', 'Huellas Felices')</title>
-    <link rel="preload" as="image" href="{{ asset('images/carrusel/slide1.jpg') }}">
-    <link rel="preload" as="image" href="{{ asset('images/carrusel/slide2.jpg') }}">
-    <link rel="preload" as="image" href="{{ asset('images/carrusel/slide3.jpg') }}">
+    <link rel="preload" as="image" href="{{ asset('images/carrusel/slide1.png') }}">
+    <link rel="preload" as="image" href="{{ asset('images/carrusel/slide2.png') }}">
+    <link rel="preload" as="image" href="{{ asset('images/carrusel/slide3.png') }}">
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/font/bootstrap-icons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -36,6 +36,23 @@
     </main>
 
     @include('partials.footer')
+
+    //menú de carrito
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="carritoCanvas">
+        <div class="offcanvas-header">
+            <h5>Carrito</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+
+        <div class="offcanvas-body" id="carrito-contenido">
+            <p class="text-muted">Tu carrito está vacío</p>
+        </div>
+
+        <div class="p-3 border-top">
+            <button class="btn btn-danger w-100 mb-2" onclick="vaciarCarrito()">Vaciar carrito</button>
+            <button class="btn btn-success w-100">Seguir compra</button>
+        </div>
+    </div>
 
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     @stack('scripts')

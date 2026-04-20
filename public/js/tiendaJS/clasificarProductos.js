@@ -1,7 +1,7 @@
 //.js para exportar 
 export function initFiltros() {
     //defino variables
-    const filtrosAnimal = document.querySelectorAll("[data-animal]");
+    const filtrosAnimal = document.querySelectorAll("[data-filtro-animal]");
     const filtrosTipo = document.querySelectorAll("[data-tipo]");
     const productos = document.querySelectorAll(".card-producto");
     const mensajeVacio = document.getElementById("mensaje-vacio");
@@ -52,7 +52,7 @@ export function initFiltros() {
     //filtrar animal
     filtrosAnimal.forEach(btn => {
         btn.addEventListener("click", () => {
-            animalActivo = btn.dataset.animal;
+            animalActivo = btn.dataset.filtroAnimal;
 
             document.querySelectorAll("[data-animal]").forEach(b => {
                 b.classList.remove("activo");
