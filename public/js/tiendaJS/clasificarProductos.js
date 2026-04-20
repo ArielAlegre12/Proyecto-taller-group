@@ -54,7 +54,7 @@ export function initFiltros() {
         btn.addEventListener("click", () => {
             animalActivo = btn.dataset.filtroAnimal;
 
-            document.querySelectorAll("[data-animal]").forEach(b => {
+            filtrosAnimal.forEach(b => {
                 b.classList.remove("activo");
                 b.setAttribute("aria-pressed", "false");
             });
