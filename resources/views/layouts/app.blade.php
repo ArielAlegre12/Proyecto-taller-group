@@ -44,6 +44,7 @@
         <div class="offcanvas-body" id="carrito-contenido">
             <p class="text-muted">Tu carrito está vacío</p>
         </div>
+        <div id="carrito-total"></div>
 
         <div class="p-3 border-top">
             <button class="btn btn-danger w-100 mb-2" onclick="vaciarCarrito()">Vaciar carrito</button>

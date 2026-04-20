@@ -20,33 +20,55 @@ export function initCarrito(){
 
     function renderCarrito(){
         const contenedor = document.getElementById("carrito-contenido");
+        const totalContainer = document.getElementById("carrito-total");
+
         if(!contenedor) return;
 
         const carrito = obtenerCarrito();
 
         if(carrito.length === 0){
             contenedor.innerHTML = ` <p class="text-muted">Tu carrito está vacío</p>`;
+            if(totalContainer) totalContainer.innerHTML = "";
             return;
         }
 
         contenedor.innerHTML="";
 
+        let total = 0;
+
         carrito.forEach(prod=>{
+            const subtotal = prod.precio * prod.cantidad;
+            total += subtotal;
+
             contenedor.innerHTML += `
-                <div class="d-flex align-items-center mb-3">
-                    <img src="${prod.imagen}" width="50" class="me-2">
-                        <div class="flex-grow-1">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <div class="d-flex align-items-center">
+                        <img src="${prod.imagen}" width="50" class="me-2">
+                        <div>
+                        
                             <p class="mb-0">${prod.nombre}</p>
-                            <div clas="d-flex align-items-center gap-2">
+
+                            <div class="d-flex align-items-center gap-2">
                                 <button class="btn btn-sm btn-outline-secondary btn-restar" data-id="${prod.id}">-</button>
                                 <span>${prod.cantidad}</span>
-                                <button class ="btn btn-sm btn-outline-secondary btn-sumar" data-id="${prod.id}">+</button>
+                                <button class="btn btn-sm btn-outline-secondary btn-sumar" data-id="${prod.id}">+</button>
                             </div>
+
+                            <small>$${subtotal.toLocaleString()}</small>
                         </div>
-                        <button class="btn btn-sm btn-danger" data-id="${prod.id}">X</button>
+                    </div>
+
+                    <button class="btn btn-sm btn-danger btn-eliminar" data-id="${prod.id}">X</button>
                 </div>
             `;
         });
+        //total general
+        if(totalContainer){
+            totalContainer.innerHTML = `
+                <hr>
+                <h5>Total: $${total.toLocaleString()}</h5>
+            `;
+        }
     }
 
     function cambiarCantidad(id, delta){
