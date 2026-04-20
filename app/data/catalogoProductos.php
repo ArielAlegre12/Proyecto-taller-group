@@ -32,5 +32,13 @@ return [
         "imagen" => "images/productosTienda/FlashBalancedLataBalancedSouffléDeCarnePerroAdultoBalanced85Gr.png",
         "animal" => "perros",
         "tipo" => "alimentos"
+    ],
+    [
+        "id" => 5,
+        "nombre" => "Acuprin - Suplemento nutricional",
+        "precio" => 2500,
+        "imagen" => "images/productosTienda/ACUPRIN.png",
+        "animal" => "vacas",
+        "tipo" => "salud"
     ]
 ];

@@ -2,7 +2,7 @@
 export function initFiltros() {
     //defino variables
     const filtrosAnimal = document.querySelectorAll("[data-filtro-animal]");
-    const filtrosTipo = document.querySelectorAll("[data-tipo]");
+    const filtrosTipo = document.querySelectorAll("button[data-tipo]");
     const productos = document.querySelectorAll(".card-producto");
     const mensajeVacio = document.getElementById("mensaje-vacio");
     let animalActivo = "todos";
@@ -71,7 +71,7 @@ export function initFiltros() {
         btn.addEventListener("click", () => {
             tipoActivo = btn.dataset.tipo;
 
-            document.querySelectorAll("[data-tipo]").forEach(b => {
+            document.querySelectorAll("button[data-tipo]").forEach(b => {
                 b.classList.remove("activo");
                 b.setAttribute("aria-pressed", "false");
             });
