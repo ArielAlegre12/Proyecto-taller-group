@@ -20,10 +20,10 @@ export function initFiltros() {
             const coincideTipo = tipoActivo === "todos" || tipo === tipoActivo;
 
             if (coincideAnimal && coincideTipo) {
-                prod.style.display = "block";
+                prod.classList.remove("oculto");
                 visibles++;
             } else {
-                prod.style.display = "none";
+                prod.classList.add("oculto");
             }
         });
         //control del msj
