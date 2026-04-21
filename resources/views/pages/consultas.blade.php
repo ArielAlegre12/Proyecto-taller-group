@@ -7,6 +7,7 @@
 @push('styles')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" href="{{ asset('css/consultas.css') }}">
+<script src="{{ asset('js/cosultas.js') }}"></script>
 @endpush
 
 @section('h1')
@@ -58,7 +59,7 @@
                             </div>
 
                             <div id="domesticoFields" class="row g-3">
-                                <div class="col-md-6">
+                                <div class="col-12">
                                     <label class="form-label">Especie *</label>
                                     <select class="form-select">
                                         <option selected disabled>Seleccionar...</option>
@@ -185,4 +186,6 @@
             <a href="#" class="btn btn-light">📞 +54 3791323421</a>
         </section>
     </div>
+
+    
 @endsection

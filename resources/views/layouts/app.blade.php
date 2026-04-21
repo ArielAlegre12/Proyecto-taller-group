@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     @stack('styles')
-
+    
 
 </head>
 
@@ -55,6 +55,7 @@
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script type="module" src="/js/global/cart.js"></script>
     @stack('scripts')
+    
 </body>
 
 </html>
