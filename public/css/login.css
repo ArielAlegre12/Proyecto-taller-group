@@ -42,10 +42,10 @@
 }
 
 .logo-img-grande{
-    width: 600px;
+    width: 50px;
     height: auto;
     object-fit: contain;
-    margin-bottom: 10px;
+    margin-top: 20px;
 }
 
 /* Transiciones generales */

@@ -4,7 +4,7 @@
         <!--logo-->
         <a href="/" class="navbar-brand d-flex align-items-center gap-2">
             <div class="logo-circle">
-                <i class="bi bi-clipboard-pulse"></i>
+                <img src="{{ asset('images/logoSF.png') }}" class="img-logo">
             </div>
             <span class="brand-text">Huellas Felices</span>
         </a>

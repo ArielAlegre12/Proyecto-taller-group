@@ -20,7 +20,7 @@
         <div class="container d-flex align-items-center justify-content-center min-vh-100">
             <div class="login-container">
                 <div class="text-center mb-4">
-                    <div class="text-center mb-4">
+                    <div class="text-center mb-0">
                         <img src="{{ asset('images/logoSF.png') }}" alt="logo" class="logo-img-grande">
                     </div>
                     <h2>Huellas Felices</h2>

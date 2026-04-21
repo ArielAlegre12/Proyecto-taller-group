@@ -1,17 +1,29 @@
 .logo-circle {
     width: 40px;
     height: 40px;
-    background: #00a650;
+    background: #f8f9fa;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    font-size: 18px;
+    border: 2px solid #00a650;
+    transition: all .25s ease;
+}
+
+.img-logo{
+    width: 75%;
+    height: 75%;
+    object-fit: contain;
+}
+
+.navbar-brand:hover .logo-circle{
+    transform: scale(1.08);
+    box-shadow: 0 4px 10px rgba(0, 166, 80, 0.25);
 }
 .brand-text {
     color: #00a650;
     font-weight: 600;
+    font-size: 1.1rem;
 }
 
 .nav-link {
