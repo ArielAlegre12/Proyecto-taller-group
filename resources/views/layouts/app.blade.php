@@ -34,7 +34,7 @@
 
     @include('partials.footer')
 
-    //menú de carrito
+    <!--menú del carrito-->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="carritoCanvas">
         <div class="offcanvas-header">
             <h5>Carrito</h5>
