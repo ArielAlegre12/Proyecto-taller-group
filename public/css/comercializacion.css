@@ -1,0 +1,95 @@
+/*titulos*/
+.section-title{
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.section-subtitle{
+    color: #6c757d;
+}
+
+/*cards*/
+.custom-card{
+    padding: 25px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: .3s;
+}
+
+.custom-card:hover{
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/*iconos*/
+.icon-box{
+    width: 55px;
+    height: 55px;
+    background: rgba(25, 135, 84, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #198754;
+}
+
+.icon-main{
+    font-size: 32px;
+    color: #198754;
+    margin-bottom: 10px;
+}
+
+/*listas*/
+.custom-list{
+    margin-top: 15px;
+    padding-left: 0;
+    list-style: none;
+}
+
+.custom-list li{
+    margin-bottom: 8px;
+    color: #6c757d;
+    position: relative;
+    padding-left: 15px;
+}
+
+.custom-list li::before{
+    content: "";
+    width: 6px;
+    height: 6px;
+    background: #198754;
+    border-radius: 50%;
+    position: absolute;
+    left: 0;
+    top: 8px;
+}
+
+/*destacado*/
+.highlight-box{
+    background: linear-gradient(90deg, #0d6efd, #0b5ed7);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.badge-box{
+    background: white;
+    color: #0d6efd;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+/*box light*/
+.box-light{
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+/*contacto*/
+.contact-section{
+    background: #198754;
+    padding: 60px 0;
+}

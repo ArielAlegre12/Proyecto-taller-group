@@ -10,6 +10,7 @@
 
 @section('h1')
     Tienda <i class="bi bi-shop-window"></i>
+    <p class="lead">Encontra el producto que buscas</p>
 @endsection
 
 @section('content')

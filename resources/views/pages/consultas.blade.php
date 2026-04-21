@@ -12,6 +12,7 @@
 
 @section('h1')
     Consultas
+    <p class="lead">Programa una cita con nuestros veterinarios expertos.</p>
 @endsection
 
 @section('content')

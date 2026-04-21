@@ -10,6 +10,7 @@
 
 @section('h1')
     Servicios de Turnos <i class="bi bi-calendar-check"></i>
+    <p class="lead">Atención integral para animales domésticos y de campo</p>
 @endsection
 
 @section('content')

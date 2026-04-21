@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     @stack('styles')
-    
+
 
 </head>
 
@@ -21,11 +21,15 @@
     <!--Cabezera-->
     <header>
         @include('partials.nav')
-        <div class="header-turno">
-            <div class="container">
-                <h1 class="text-center">@yield('h1', 'Bienvenido')</h1>
+        @if(View::hasSection('h1'))
+            <div class="header-turno">
+                <div class="container">
+                    <h1 class="text-center">
+                        @yield('h1')
+                    </h1>
+                </div>
             </div>
-        </div>
+        @endif
     </header>
 
     <main class="flex-grow-1">
@@ -55,7 +59,7 @@
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script type="module" src="/js/global/cart.js"></script>
     @stack('scripts')
-    
+
 </body>
 
 </html>

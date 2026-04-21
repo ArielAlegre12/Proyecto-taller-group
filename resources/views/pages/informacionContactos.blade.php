@@ -10,6 +10,7 @@
 
 @section('h1')
     Información de Contacto
+    <p class="lead">Estamos aquí para ayudarte. Contáctanos y te responderemos a la brevedad.</p>
 @endsection
 
 @section('content')

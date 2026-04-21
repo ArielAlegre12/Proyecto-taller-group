@@ -6,6 +6,7 @@
 
 @section('h1')
     Quiénes Somos
+    <p class="lead">Conocé nuestra historia y el compromiso que tenemos con el bienestar de los animales.</p>
 @endsection
 
 @push('styles')

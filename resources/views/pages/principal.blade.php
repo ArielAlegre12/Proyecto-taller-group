@@ -4,9 +4,6 @@
     <link rel="stylesheet" href="{{ asset('css/inicioStyle.css') }}">
 @endpush
 
-@section('h1')
-    Inicio <i class="bi bi-house"></i>
-@endsection
 
 @section('content')
     <!--sección carrusel---->

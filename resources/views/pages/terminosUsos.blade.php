@@ -10,6 +10,7 @@
 
 @section('h1')
     Términos y Usos
+    <p class="lead">Conocé los términos y condiciones que regulan el uso de nuestro sitio y servicios.</p>
 @endsection
 
 @section('content')
