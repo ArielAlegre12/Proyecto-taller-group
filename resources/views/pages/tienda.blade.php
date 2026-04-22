@@ -15,7 +15,7 @@
 
 @section('content')
 
-    <div class="tienda-container">
+    <div class="tienda-container animar">
 
         <!--SIDEBAR-->
         <aside class="sidebar">
@@ -43,13 +43,9 @@
             <main class="productos" id="contenedor-productos">
 
                 @forelse($productos as $producto)
-                    <div class="card-producto"
-                        data-id="{{ $producto['id'] }}"
-                        data-nombre="{{ $producto['nombre'] }}"
-                        data-precio="{{ $producto['precio'] }}"
-                        data-imagen="{{ $producto['imagen'] }}"
-                        data-animal="{{ $producto['animal'] }}"
-                        data-tipo="{{ $producto['tipo'] }}">
+                    <div class="card-producto" data-id="{{ $producto['id'] }}" data-nombre="{{ $producto['nombre'] }}"
+                        data-precio="{{ $producto['precio'] }}" data-imagen="{{ $producto['imagen'] }}"
+                        data-animal="{{ $producto['animal'] }}" data-tipo="{{ $producto['tipo'] }}">
 
                         <div class="info-producto">
                             <img src="{{ asset($producto['imagen']) }}">
@@ -86,6 +82,12 @@
         </div>
     </div>
 @endsection
+
+
+@push('scripts')
+    <script src="{{ asset('js/animaciones.js') }}"></script>
+@endpush
+
 @push('scripts')
     <script type="module" src="{{ asset('js/tiendaJS/mainTienda.js') }}"></script>
 @endpush
