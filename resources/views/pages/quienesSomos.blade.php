@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="{{ asset('css/quienesSomos.css') }}">
 
 @endpush
+
+@push('scripts')
+    <script src="{{ asset('js/animaciones.js') }}"></script>
+@endpush
 @section('content')
 
     <div class="container mt-5">
@@ -30,11 +34,11 @@
                 Sabemos que lo necesitas y lo quieres cuanto antes.</p>
 
             <div class="row mt-4">
-                <div class="col-md-6 order-md-1 text-center mb-3">
-                    <img src="{{ asset('images/persona_perro.jpg') }}" alt="img-sobre">
+                <div class="col-md-6 order-md-1 text-center mb-3 animar animar-left">
+                    <img src="{{ asset('images/persona_perro.jpg') }}" class="img-sobre" alt="">
                 </div>
 
-                <div class="col-md-6 order-md-2">
+                <div class="col-md-6 order-md-2 animar animar-right">
                     <h2 class="titulo-sobre">
                         Tu veterinaria y tienda de confianza
                     </h2>
@@ -45,13 +49,13 @@
             </div>
 
             <div class="row mt-4">
-                <div class="col-md-6 order-md-1 text-center">
-                    <img src="{{ asset('images/perro_chica.jpg') }}" alt="img-sobre">
+                <div class="col-md-6 order-md-1 text-center animar animar-left">
+                    <img src="{{ asset('images/perro_chica.jpg') }}" class="img-sobre" alt="">
                 </div>
 
 
-                <div class="col-md-6 ">
-                    <h2 class="titulo-sobre order-md-2">
+                <div class="col-md-6 animar animar-left">
+                    <h2 class="titulo-sobre order-md-2 animar animar-right">
                         Pasion por los animales
                     </h2>
                     <p>Contamos con atención veterinaria para animales domésticos y de producción, ofreciendo
@@ -61,11 +65,11 @@
             </div>
 
             <div class="row mt-4">
-                <div class="col-md-6 order-md-1 text-center mb-3">
-                    <img src="{{ asset('images/gatito.jpg') }}" alt="img-sobre">
+                <div class="col-md-6 order-md-1 text-center mb-3 animar animar-left">
+                    <img src="{{ asset('images/gatito.jpg') }}" class="img-sobre" alt="">
                 </div>
 
-                <div class="col-md-6 order-md-2">
+                <div class="col-md-6 order-md-2 animar animar-right">
                     <h2 class="titulo-sobre">
                         Compras y entregas adaptadas a ti
                     </h2>
@@ -77,11 +81,11 @@
                 </div>
             </div>
             <div class="row mt-4">
-                <div class="col-md-6 order-md-2 text-center">
-                    <img src="{{ asset('images/gatito2.jpg') }}" alt="img-sobre">
+                <div class="col-md-6 order-md-2 text-center animar animar-left">
+                    <img src="{{ asset('images/gatito2.jpg') }}" class="img-sobre" alt="">
                 </div>
 
-                <div class="col-md-6 order-md-1">
+                <div class="col-md-6 order-md-1 animar animar-right">
                     <h2 class="titulo-sobre">
                         Disponibles siempre para ayudarte
                     </h2>
@@ -96,7 +100,7 @@
             <div class="container mt-5">
                 <div class="row g-4">
                     
-                    <div class="col-md-6 d-flex">
+                    <div class="col-md-6 d-flex animar animar-card">
                         <div class="card h-100">
                             <div class="row g-0">
                                 <div class="img-vete col-md-4">
@@ -123,7 +127,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6 d-flex">
+                    <div class="col-md-6 d-flex animar">
                         <div class="card h-100">
                             <div class="row g-0">
                                 <div class="img-vete col-md-4">

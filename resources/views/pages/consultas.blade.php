@@ -7,7 +7,12 @@
 @push('styles')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <link rel="stylesheet" href="{{ asset('css/consultas.css') }}">
+@endpush
+
+@push('scripts')
 <script src="{{ asset('js/cosultas.js') }}"></script>
+<script src="{{ asset('js/animaciones.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 @endpush
 
 @section('h1')
@@ -18,9 +23,9 @@
 @section('content')
 
     <div class="container-fluid p-0">
-        <section class="py-5 bg-light">
+        <section class="py-5 bg-light animar">
             <div class="container">
-                <div class="card form-card p-4 shadow-sm">
+                <div class="card form-card p-4 shadow-sm animar">
                     <form>
                         <h4 class="mb-4">Informacion del Cliente</h4>
 
@@ -123,8 +128,6 @@
                                     placeholder="Seleccionar fecha y Hora">
                             </div>
 
-                            <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
                             <script>
                                 flatpickr("#fechaHora", {
                                     enableTime: true,
@@ -150,7 +153,7 @@
                 </div>
             </div>
         </section>
-        <section class="py-5 bg-white text-center">
+        <section class="py-5 bg-white text-center animar">
             <div class="container">
                 <h3 class="mb-5">¿Por qué agendar con nosotros?</h3>
 
@@ -181,7 +184,7 @@
                 </div>
             </div>
         </section>
-        <section class="bg-verde text-white text-center py-5">
+        <section class="bg-verde text-white text-center py-5 animar">
             <h3>¿Tienes una emergencia?</h3>
             <p>Llámanos ahora para atención inmediata</p>
             <a href="#" class="btn btn-light">📞 +54 3791323421</a>

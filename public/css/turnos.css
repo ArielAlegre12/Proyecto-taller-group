@@ -36,9 +36,9 @@
 }
 
 .custom-btn:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px) scale(1.03);
     transition: 0.3s;
-    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .header-turno {
@@ -57,4 +57,26 @@
 /* BODY */
 body {
     margin: 0;
+}
+
+/* efecto inicial */
+.animar-card {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+    transition: all 0.8s ease;
+}
+
+/* cuando aparece */
+.animar-card.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* delay en cascada */
+.col-md-6:nth-child(1) .animar-card {
+    transition-delay: 0.2s;
+}
+
+.col-md-6:nth-child(2) .animar-card {
+    transition-delay: 0.4s;
 }

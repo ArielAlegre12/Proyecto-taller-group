@@ -4,6 +4,9 @@
     <link rel="stylesheet" href="{{ asset('css/inicioStyle.css') }}">
 @endpush
 
+@push('scripts')
+<script src="{{ asset('js/animaciones.js') }}"></script>
+@endpush
 
 @section('content')
     <!--sección carrusel---->
@@ -67,7 +70,7 @@
     </section>
 
     <!--sección iconos--->
-    <section class="features">
+    <section class="features animar">
 
         <div class="feature">
             <i class="bi bi-heart"></i>
@@ -95,7 +98,7 @@
     </section>
 
     <!--cta-->
-    <section class="cta">
+    <section class="cta animar">
         <h2>¿Necesitas atención urgente?</h2>
         <p>Contáctanos ahora y te atendemos</p>
 

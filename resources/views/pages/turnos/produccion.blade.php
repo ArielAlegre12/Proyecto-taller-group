@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endpush
 
+@push('scripts')
+    <script src="{{ asset('js/animaciones.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+@endpush
+
 @section('h1')
     Animales de producción
 @endsection
@@ -16,7 +21,7 @@
 @section('content')
 
     <div class="container">
-        <div class="form-container">
+        <div class="form-container animar">
             <div class="container mt-5">
                 <div class="mb-3">
                     <label class="form-label">Nombre del productor</label>
@@ -62,8 +67,6 @@
                     <label class="form-label">Fecha y Hora</label>
                     <input type="text" id="fechaHora" class="form-control" placeholder="Seleccionar fecha y Hora">
                 </div>
-
-                <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
                 <script>
                     flatpickr("#fechaHora", {
