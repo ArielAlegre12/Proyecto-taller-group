@@ -13,6 +13,14 @@
 <script src="{{ asset('js/cosultas.js') }}"></script>
 <script src="{{ asset('js/animaciones.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+                                flatpickr("#fechaHora", {
+                                    enableTime: true,
+                                    dateFormat: "Y-m-d H:i",
+                                    minDate: "today",
+                                    time_24hr: true
+                                });
+                            </script>
 @endpush
 
 @section('h1')
@@ -37,7 +45,7 @@
 
                             <div class="col-md-6">
                                 <label class="form-label">Telefono *</label>
-                                <input type="text" class="form-control" placeholder="(123) 456789">
+                                <input type="number" class="form-control" placeholder="(123) 456789">
                             </div>
 
                             <div class="col-12">
@@ -127,15 +135,6 @@
                                 <input type="text" id="fechaHora" class="form-control"
                                     placeholder="Seleccionar fecha y Hora">
                             </div>
-
-                            <script>
-                                flatpickr("#fechaHora", {
-                                    enableTime: true,
-                                    dateFormat: "Y-m-d H:i",
-                                    minDate: "today",
-                                    time_24hr: true
-                                });
-                            </script>
 
                             <div class="col-12">
                                 <label class="form-label">Descripcion del Motivo de Consulta *</label>

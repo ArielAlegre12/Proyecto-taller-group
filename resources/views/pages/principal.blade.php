@@ -43,7 +43,7 @@
                     <p>Siempre listos para cuidar a tu mascota en cualquier momento.</p>
 
                     <div class="hero-buttons">
-                        <a href="/contacto" class="btn-primary">Contactar</a>
+                        <a href="/informacionContactos" class="btn-primary">Contactar</a>
                     </div>
                 </div>
             </div>
