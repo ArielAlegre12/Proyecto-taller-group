@@ -12,6 +12,14 @@
 @push('scripts')
     <script src="{{ asset('js/animaciones.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+                    flatpickr("#fechaHora", {
+                        enableTime: true,
+                        dateFormat: "Y-m-d H:i",
+                        minDate: "today",
+                        time_24hr: true
+                    });
+                </script>
 @endpush
 
 @section('h1')
@@ -67,15 +75,6 @@
                     <label class="form-label">Fecha y Hora</label>
                     <input type="text" id="fechaHora" class="form-control" placeholder="Seleccionar fecha y Hora">
                 </div>
-
-                <script>
-                    flatpickr("#fechaHora", {
-                        enableTime: true,
-                        dateFormat: "Y-m-d H:i",
-                        minDate: "today",
-                        time_24hr: true
-                    });
-                </script>
 
                 <button type="button" class="btn btn-success w-100">
                     Confirmar Turno
