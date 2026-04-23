@@ -5,30 +5,146 @@
     padding: 30px 0;
 }
 .footer-content{
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 60px;
+    align-items: start;
 }
+
+.footer-brand{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.footer-brand img{
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    transition: transform .3s ease;
+}
+
+.footer-brand img:hover{
+    transform: scale(1.1) translateY(-2px);
+}
+
+.brand-text{
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-tagline{
+    margin: 0;
+    font-size: 13px;
+    color: #9ca3af;
+}
+
 .footer-brand h5{
     margin: 0;
     color: #00a650;
 }
-.footer-brand small{
-    color: #998772;
-}
+
 .footer-links{
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
+
 .footer-links a{
     text-decoration: none;
-    color: #eaf5ff;
+    color: #9ea7af;
     font-size: 14px;
     transition: 0.2s;
 }
 .footer-links a:hover{
     color: #00a650;
+}
+
+.links-grid{
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 8px 20px;
+    justify-content: center;
+}
+
+
+/*estilos del footer(redes sociales)*/
+.footer-devs{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.footer h6{
+    color: #eaf5ff;
+    margin-bottom: 10px;
+}
+
+.dev{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.dev p{
+    margin: 0;
+    color: #9ea7af;
+    font-size: 14px;
+}
+
+.footer-brand p{
+    color: #eaf5ff;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.dev-social{
+    display: flex;
+    gap: 10px;
+}
+
+.dev-social a{
+    width: 35px;
+    height: 35px;
+    background: #374151;
+    color: #eaf5ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .3s ease;
+}
+
+.dev-social a:hover{
+     background: #00a650;
+     transform: scale(1.1) translateY(-2px);
+}
+
+/*estilos subfooter*/
+.subfooter{
+    border-top: 1px solid #374151;
+    margin-top: 30px;
+    padding-top: 15px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.subfooter p{
+    margin: 0;
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+@media(max-width: 768px){
+    .footer-links{
+        align-items: flex-start;
+    }
+    .links-grid {
+        justify-content: flex-start;
+        grid-template-columns: 1fr;
+    }
+    .footer-devs{
+        justify-self: start;
+    }
 }

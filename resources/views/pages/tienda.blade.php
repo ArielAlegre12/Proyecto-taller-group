@@ -26,6 +26,7 @@
                 <li data-filtro-animal="gatos">Gatos</li>
                 <li data-filtro-animal="caballos">Caballos</li>
                 <li data-filtro-animal="vacas">Vacas</li>
+                <li data-filtro-animal="otros">Otros</li>
             </ul>
         </aside>
 
