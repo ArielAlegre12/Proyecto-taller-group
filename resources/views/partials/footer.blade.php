@@ -32,16 +32,16 @@
                 <div class="dev">
                     <p>Alegre Ariel</p>
                     <div class="dev-social">
-                        <a href="#" target="_blank"><i class="bi bi-instagram"></i></a>
-                        <a href="#" target="_blank"><i class="bi bi-github"></i></a>
+                        <a href="https://www.instagram.com/alegreariel666?igsh=MWs1eGF0aWU1OWhjeA==" target="_blank"><i class="bi bi-instagram"></i></a>
+                        <a href="https://github.com/ArielAlegre12" target="_blank"><i class="bi bi-github"></i></a>
                     </div>
                 </div>
 
                 <div class="dev">
                     <p>Colman Lucas</p>
                     <div class="dev-social">
-                        <a href="#" target="_blank"><i class="bi bi-instagram"></i></a>
-                        <a href="#" target="_blank"><i class="bi bi-github"></i></a>
+                        <a href="https://www.instagram.com/lucascolmanj_?igsh=aXBhM3pnOHJ0Mnpv" target="_blank"><i class="bi bi-instagram"></i></a>
+                        <a href="https://github.com/lukitss55" target="_blank"><i class="bi bi-github"></i></a>
                     </div>
                 </div>
             </div>
