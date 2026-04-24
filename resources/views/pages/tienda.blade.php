@@ -17,8 +17,8 @@
 
     <div class="tienda-container animar">
 
-        <!--SIDEBAR-->
-        <aside class="sidebar">
+        <!--SIDEBAR(barra lateral)-->
+        <aside class="sidebar"> <!--aside para contenido secundario-->
             <h4>Animales</h4>
             <ul>
                 <li data-filtro-animal="todos" class="activo">Todos</li>
