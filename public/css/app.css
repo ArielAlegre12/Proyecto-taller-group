@@ -1,5 +1,8 @@
-/*estilos del header*/
+html{
+    scroll-behavior: smooth;
+}
 
+/*estilos del header*/
 .header-turno {
     width: 100%;
     background-color: #28a745;

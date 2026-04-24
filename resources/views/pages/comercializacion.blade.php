@@ -20,7 +20,7 @@
     <section class="py-5">
         <div class="container">
 
-            <div class="text-center mb-5">
+            <div class="text-center mb-5" id="metodos-pago">
                 <h2 class="section-title">Métodos de Pago</h2>
                 <p class="section-subtitle">
                     Ofrecemos múltiples opciones para que compres de forma segura
@@ -105,7 +105,7 @@
         <div class="container">
 
             <div class="text-center mb-5">
-                <h2 class="section-title">Opciones de Envío</h2>
+                <h2 class="section-title" id="envios">Opciones de Envío</h2>
             </div>
 
             <div class="row g-4">
@@ -169,7 +169,7 @@
                     </ul>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-6" id="devoluciones">
                     <h3 class="section-title">Devoluciones</h3>
 
                     <div class="box-light">

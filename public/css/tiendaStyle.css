@@ -5,6 +5,7 @@
     display: flex;
     gap: 20px;
     padding: 20px;
+    
 }
 
 /*sidebar*/
@@ -67,7 +68,13 @@
     transition: all 0.25s ease;
     cursor: default;
 }
-
+/*animación para tidio, eviar que desaparezca el chat bot en tienda*/
+iframe{
+    position: fixed !important;
+    z-index: 2147483647 !important;/*forzar a que el css muestre al chatBot por encima de las transiciones*/
+    opacity: 1 !important;
+    visibility: visible !important;
+}
 /*contenido*/
 .info-producto {
     display: flex;

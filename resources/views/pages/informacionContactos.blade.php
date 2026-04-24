@@ -5,7 +5,7 @@
 @endpush
 
 @section('title')
-    Comercialización
+    Información de Contacto
 @endsection
 
 @section('h1')

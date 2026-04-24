@@ -81,4 +81,44 @@ export function initFiltros() {
             filtrar();
         })
     });
+
+    //leer los parámetros de la URL al cargar
+    const params = new URLSearchParams(window.location.search);
+
+    const animalParam = params.get("animal");
+    const tipoParam = params.get("tipo");
+
+    
+
+    if(animalParam){
+        animalActivo = animalParam;
+
+        //activar visualmente el botón correcto
+        filtrosAnimal.forEach(btn=>{
+            if(btn.dataset.filtroAnimal === animalParam){
+                btn.classList.add("activo");
+                btn.setAttribute("aria-pressed", "true");
+            }else{
+                btn.classList.remove("activo");
+                btn.setAttribute("aria-pressed", "false");
+            }
+        });
+    }
+
+    if(tipoParam){
+        tipoActivo =  tipoParam;
+
+        filtrosTipo.forEach(btn=>{
+            if(btn.dataset.tipo === tipoParam){
+                btn.classList.add("activo");
+                btn.setAttribute("aria-pressed", "true");
+            }else{
+                btn.classList.remove("activo");
+                btn.setAttribute("aria-pressed", "false");
+            }
+        });
+    }
+
+    //ejecuta el filtrado inicial
+    filtrar();
 }

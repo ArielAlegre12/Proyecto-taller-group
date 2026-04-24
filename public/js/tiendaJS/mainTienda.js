@@ -4,5 +4,4 @@ import { initCantidad } from "./incrementoProductos.js";
 document.addEventListener("DOMContentLoaded", ()=>{
     initFiltros();
     initCantidad();
-    initCarrito();
 })
