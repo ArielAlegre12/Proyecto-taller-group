@@ -2,7 +2,7 @@ APP_NAME=Laravel
 APP_ENV=local
 APP_KEY=base64:5V8RzD4wSDxYYZKwkImTwCAMC/qCdb7bpqk0DguWexc=
 APP_DEBUG=true
-APP_URL=http://taller-group.test
+APP_URL=http://proyecto-taller-group.test/
 
 APP_LOCALE=en
 APP_FALLBACK_LOCALE=en
@@ -27,7 +27,7 @@ DB_CONNECTION=sqlite
 # DB_USERNAME=root
 # DB_PASSWORD=
 
-SESSION_DRIVER=database
+SESSION_DRIVER=file
 SESSION_LIFETIME=120
 SESSION_ENCRYPT=false
 SESSION_PATH=/
