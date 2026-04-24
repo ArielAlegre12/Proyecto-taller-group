@@ -12,7 +12,7 @@
     @endpush
 
     @section('h1')
-        Inicio de sesion
+        Inicio de sesión
     @endsection
 
     @section('content')
@@ -24,12 +24,12 @@
                         <img src="{{ asset('images/logoSF.png') }}" alt="logo" class="logo-img-grande">
                     </div>
                     <h2>Huellas Felices</h2>
-                    <p class="text-muted">Inicia sesion de tu cuenta</p>
+                    <p class="text-muted">Inicia sesión con tu cuenta</p>
                 </div>
 
                 <div class="card p-4 shadow">
                     <div class="d-flex bg-light rounded p-1 mb-4">
-                        <button type="button" id="btnLogin" class="btn btn-tab active w-50">Iniciar sesion</button>
+                        <button type="button" id="btnLogin" class="btn btn-tab active w-50">Iniciar sesión</button>
                         <button type="button" id="btnRegister" class="btn btn-tab w-50">Registrarse</button>
                     </div>
 
@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Correo Electronico</label>
+                            <label class="form-label">Correo Electrónico</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-envelope"></i></span>
                                 <input type="email" id="email" class="form-control" placeholder="correo@ejemplo.com">
@@ -78,7 +78,7 @@
                         </div>
 
                         <button type="submit" id="submitBtn" class="btn btn-success w-100 mb-3">
-                            Iniciar Sesion
+                            Iniciar Sesión
                         </button>
                     </form>
 
@@ -92,7 +92,7 @@
                 </div>
 
                 <p class="text-center mt-3 small">Al registrarte, aceptas nuestros
-                    <a href="/terminosUsos" class="text-success">Terminos y Condiciones</a>
+                    <a href="/terminosUsos" class="text-success">Términos y Condiciones</a>
                 </p>
             </div>
         </div>

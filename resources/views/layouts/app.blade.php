@@ -42,7 +42,9 @@
     <!--menú del carrito-->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="carritoCanvas">
         <div class="offcanvas-header">
-            <h5>Carrito</h5>
+            <h5>Carrito
+                <i class="bi bi-cart"></i>
+            </h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
 
