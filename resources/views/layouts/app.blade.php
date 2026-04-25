@@ -8,7 +8,11 @@
     <title>@yield('title', 'Huellas Felices')</title>
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/font/bootstrap-icons.min.css') }}">
-    @vite('resources/css/app.css')
+    @if (file_exists(public_path('build/manifest.json')))
+        @vite('resources/css/app.css')
+    @else
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @endif
     <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="icon" href="{{ asset('images/logoSF.png') }}" type="image/png">
@@ -60,7 +64,9 @@
     </div>
 
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    @vite('resources/js/app.js')
+    @if (file_exists(public_path('build/manifest.json')))
+        @vite('resources/js/app.js')
+    @endif
     <script type="module" src="/js/global/cart.js"></script>
     @stack('scripts')
     <script src="//code.tidio.co/gadbg2xxdfpixlgurzjm4uerf2bqvwlx.js" async></script>
