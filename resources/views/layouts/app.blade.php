@@ -8,7 +8,7 @@
     <title>@yield('title', 'Huellas Felices')</title>
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap/font/bootstrap-icons.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
     <link rel="icon" href="{{ asset('images/logoSF.png') }}" type="image/png">
@@ -60,6 +60,7 @@
     </div>
 
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script type="module" src="{{ asset('build/app.js') }}"></script>
     <script type="module" src="/js/global/cart.js"></script>
     @stack('scripts')
     <script src="//code.tidio.co/gadbg2xxdfpixlgurzjm4uerf2bqvwlx.js" async></script>
