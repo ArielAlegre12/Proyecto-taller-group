@@ -18,6 +18,13 @@ export default defineConfig({
     },
     build: {
         manifest: true,
-        outDir: 'public/build',
+        outDir: 'public',
+        rollupOptions: {
+            output: {
+                entryFileNames: 'js/[name].js',
+                chunkFileNames: 'js/[name].js',
+                assetFileNames: 'css/[name].[ext]'
+            }
+        }
     },
 });
