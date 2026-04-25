@@ -18,6 +18,8 @@ RUN npm install
 
 RUN npm run build
 
+RUN cp -r public/build/* public/ || true
+
 RUN cp .env.example .env
 
 RUN php artisan key:generate
