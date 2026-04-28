@@ -48,7 +48,7 @@
                 <div class="mb-3">
                     <label class="form-label">Motivo</label>
                     <select class="form-select">
-                        <option select disabled>Seleccionar</option>
+                        <option selected disabled>Seleccionar</option>
                         <option>Consulta General</option>
                         <option>Vacunacion</option>
                         <option>Urgencia</option>
