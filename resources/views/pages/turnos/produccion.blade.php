@@ -54,7 +54,7 @@
                 <div class="mb-3">
                     <label class="form-label">Motivo</label>
                     <select class="form-select">
-                        <option select disabled>Seleccionar</option>
+                        <option selected disabled>Seleccionar</option>
                         <option>Control sanitario</option>
                         <option>Vacunacion masiva</option>
                         <option>Reproduccion</option>
