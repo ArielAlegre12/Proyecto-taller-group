@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('pages.principal');
@@ -51,14 +53,10 @@ Route::get('/login', function(){
     return view('pages.login');
 });
 
-Route::get('/backend/admin', function(){
-    return view('backend.admin.admin');
-});
-
-Route::get('/backend/cliente', function(){
-    return view('backend.cliente.cliente');
+Route::middleware(['auth', 'rol:admin'])->group(function(){
+    Route::get('/backend/admin', [AdminController::class, 'dashboard']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'registrar']);
 Route::post('/logout', [AuthController::class, 'logout']);
