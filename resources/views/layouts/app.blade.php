@@ -63,6 +63,11 @@
     <script type="module" src="/js/global/cart.js"></script>
     @stack('scripts')
     <script src="//code.tidio.co/gadbg2xxdfpixlgurzjm4uerf2bqvwlx.js" async></script>
+
+    <!--modal para el agregado de productos al carrito-->
+    <div id="toast-carrito" class="toast-carrito">
+        Producto agregado al carrito <i class="bi bi-cart"></i>
+    </div>
 </body>
 
 </html>

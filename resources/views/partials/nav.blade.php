@@ -13,14 +13,14 @@
         <div class="d-flex align-items-center gap-3 ms-auto">
 
             <!--carrito-->
-            <div class="position-relative d-lg-none">
-                <a href="#" class="text-dark fs-5"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#carritoCanvas">
-                    <i class="bi bi-cart carrito"></i>
-                </a>
-                <span class="cart-badge contador-carrito">0</span>
-            </div>
+            @auth
+                <div class="position-relative d-lg-none">
+                    <a href="#" class="text-dark fs-5" data-bs-toggle="offcanvas" data-bs-target="#carritoCanvas">
+                        <i class="bi bi-cart carrito"></i>
+                    </a>
+                    <span class="cart-badge contador-carrito">0</span>
+                </div>
+            @endauth
 
             <!--toggler--->
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -47,7 +47,36 @@
                 </li>
                 <!--login mobile oculto en desktop-->
                 <div class="d-lg-none mt-3 px-3">
-                    <a href="/login" class="btn-login w-100 text-center d-block">Login</a>
+                    @guest
+                        <a href="/login" class="btn-login w-100 text-center d-block">Login</a>
+                    @endguest
+
+                    <div class="d-lg-none mt-3 px-3">
+                        @auth
+                            <div class="dropdown">
+                                <button class="btn btn-success dropdown-toggle w-100" type="button"
+                                    data-bs-toggle="dropdown">
+                                    {{ Auth::user()->nombre }}
+                                </button>
+                                <ul class="dropdown-menu w-100">
+                                    <li>
+                                        <a class="dropdown-item" href="#">Mi perfil</a>
+                                    </li>
+                                    <li>
+                                        <form action="/logout" method="POST">
+                                            @csrf
+                                            <button type="submit" class="dropdown-item text-danger">Cerrar sesión</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        @else
+                            <a href="/login" class="btn-login w-100 text-center d-block">
+                                Login
+                            </a>
+                        @endauth
+
+                    </div>
                 </div>
             </ul>
 
@@ -55,19 +84,40 @@
             <div class="d-none d-lg-flex align-items-center gap-3">
 
                 <!--carrito desktop--->
+                @auth
                 <div class="position-relative">
-                    <a href="#" class="text-dark fs-5"
-                        data-bs-toggle="offcanvas"
-                        data-bs-target="#carritoCanvas">
+                    <a href="#" class="text-dark fs-5" data-bs-toggle="offcanvas" data-bs-target="#carritoCanvas">
                         <i class="bi bi-cart3 carrito"></i>
                     </a>
                     <span class="cart-badge  contador-carrito">0</span>
                 </div>
+                @endauth
 
                 <!---login desktop--->
-                <a href="/login" class="btn btn-success px-4 rounded-3">
-                    Login
-                </a>
+                @guest
+                <a href="/login" class="btn btn-success px-4 rounded-3">Login</a>
+                @endguest
+
+                @auth
+                <div class="dropdown">
+                    <button class="btn btn-success dropdown-toggle px-4 rounded-3" data-bs-toggle="dropdown">
+                        {{ Auth::user()->nombre }}
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a href="#" class="dropdown-item">Mi perfil</a>
+                        </li>
+
+                        <li>
+                            <form action="/logout" method="POST">
+                                @csrf
+                                <button class="dropdown-item text-danger">Cerrar sesión</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                @endauth
             </div>
         </div>
     </div>

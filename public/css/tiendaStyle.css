@@ -210,6 +210,16 @@ iframe{
     font-weight: bold;
 }
 
+/*btn tienda desactivado*/
+.btn-disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-disabled:hover{
+    transform: none !important;
+}
+
 /*hacer que las categorías queden fijas y los productos sean scrolleables(en pantallas chicas)*/
 @media(max-width: 992px) {
 

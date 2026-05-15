@@ -114,6 +114,7 @@ export function initCarrito(){
 
             guardarCarrito(carrito);
             renderCarrito();
+            mostrarToast();
         }
     });
 
@@ -157,4 +158,16 @@ export function initCarrito(){
     //inicializar
     actualizarContador();
     renderCarrito();
+
+    function mostrarToast(){
+    const toast =  document.getElementById("toast-carrito");
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show")
+    }, 3000);
 }
+}
+
+

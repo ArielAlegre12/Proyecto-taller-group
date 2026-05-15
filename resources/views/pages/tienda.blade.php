@@ -64,8 +64,16 @@
                                 <button>+</button>
                             </div>
                         </div>
-
+                        
+                        @auth
                         <button class="btn-agregar">Agregar</button>
+                        @endauth
+
+                        @guest
+                        <button class="btn-agregar btn-disabled" disabled>
+                            Inicia sesión para comprar
+                        </button>
+                        @endguest
                     </div>
 
                 @empty

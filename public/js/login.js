@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     submitBtn.textContent = "Iniciar Sesion";
 
+    form.action = "/login";
+
     btnRegister.classList.remove("active");
     btnLogin.classList.add("active");
 };
@@ -32,6 +34,8 @@ btnRegister.onclick = () => {
     mostrarConAnimaciones(grupoConfirm);
 
     submitBtn.textContent = "Crear Cuenta";
+
+    form.action = "/register";
 
     btnRegister.classList.add("active");
     btnLogin.classList.remove("active");
@@ -46,10 +50,6 @@ btnRegister.onclick = () => {
             confirmPassword.type = tipo;
         }
     };
-
-    form.onsubmit = (e) => {
-        e.preventDefault();
-    }
 
     function mostrarConAnimaciones(el){
         el.classList.remove("d-none");
