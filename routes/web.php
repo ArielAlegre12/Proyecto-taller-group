@@ -51,6 +51,14 @@ Route::get('/login', function(){
     return view('pages.login');
 });
 
+Route::get('/backend/admin', function(){
+    return view('backend.admin.admin');
+});
+
+Route::get('/backend/cliente', function(){
+    return view('backend.cliente.cliente');
+});
+
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout']);
