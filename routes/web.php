@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\DomesticoController;
+use App\Http\Controllers\ProduccionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\AuthController;
+use Pest\Mutate\Options\RetryOption;
 
 Route::get('/', function () {
     return view('pages.principal');
@@ -54,3 +57,7 @@ Route::get('/login', function(){
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/produccion', [ProduccionController::class, 'store'])
+         ->name('produccion.store');
+Route::post('/domestico', [DomesticoController::class, 'store'])
+        ->name('domestico.store');

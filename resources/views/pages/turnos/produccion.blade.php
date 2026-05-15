@@ -31,29 +31,31 @@
     <div class="container">
         <div class="form-container animar">
             <div class="container mt-5">
+            <form action="{{ route('produccion.store') }}" method="POST">    
+            @csrf
                 <div class="mb-3">
                     <label class="form-label">Nombre del productor</label>
-                    <input type="text" class="form-control" placeholder="Ingrese su nombre">
+                    <input type="text" name="nombreProdu" class="form-control" placeholder="Ingrese su nombre">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Nombre del establecimiento</label>
-                    <input type="text" class="form-control" placeholder="Nombre del establecimiento">
+                    <input type="text" name="nombreEstablo" class="form-control" placeholder="Nombre del establecimiento">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Tipo del animal</label>
-                    <input type="text" class="form-control" placeholder="Tipo del animal">
+                    <input type="text" name="tipoAnimal" class="form-control" placeholder="Tipo del animal">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Cantidad de Animales</label>
-                    <input type="number" class="form-control" placeholder="0">
+                    <input type="number" name="cantidad" class="form-control" placeholder="0">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Motivo</label>
-                    <select class="form-select">
+                    <select name="motivo" class="form-select">
                         <option selected disabled>Seleccionar</option>
                         <option>Control sanitario</option>
                         <option>Vacunacion masiva</option>
@@ -64,7 +66,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">Tipo de servicio</label>
-                    <select class="form-select">
+                    <select name="tipoServicio" class="form-select">
                         <option selected disabled>Seleccionar</option>
                         <option>Visita en campo</option>
                         <option>Atencion en clinica</option>
@@ -73,13 +75,14 @@
 
                 <div class="mb-3">
                     <label class="form-label">Fecha y Hora</label>
-                    <input type="text" id="fechaHora" class="form-control" placeholder="Seleccionar fecha y Hora">
+                    <input type="text" name="fechaYHora" id="fechaHora" class="form-control" placeholder="Seleccionar fecha y Hora">
                 </div>
 
-                <button type="button" class="btn btn-success w-100">
+                <button type="submit" class="btn btn-success w-100">
                     Confirmar Turno
                 </button>
             </div>
+            </form>
         </div>
     </div>
 @endsection

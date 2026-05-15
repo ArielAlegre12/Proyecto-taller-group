@@ -30,24 +30,26 @@
         <div class="form-container animar">
 
             <div class="container mt-5">
+                <form action="{{ route('domestico.store') }}" method="POST">
+                    @csrf
                 <div class="mb-3">
                     <label class="form-label">Nombre del dueño</label>
-                    <input type="text" class="form-control" placeholder="Ingrese su nombre">
+                    <input type="text" name="nombreDueño" class="form-control" placeholder="Ingrese su nombre">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Nombre de la mascota</label>
-                    <input type="text" class="form-control" placeholder="Nombre de la mascota">
+                    <input type="text" name="nombreMascota" class="form-control" placeholder="Nombre de la mascota">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Tipo de mascota</label>
-                    <input type="text" class="form-control" placeholder="Tipo de la mascota">
+                    <input type="text" name="tipoMascota" class="form-control" placeholder="Tipo de la mascota">
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Motivo</label>
-                    <select class="form-select">
+                    <select class="form-select" name="motivo">
                         <option selected disabled>Seleccionar</option>
                         <option>Consulta General</option>
                         <option>Vacunacion</option>
@@ -57,13 +59,14 @@
 
                 <div class="mb-3">
                     <label class="form-label">Fecha y Hora</label>
-                    <input type="text" id="fechaHora" class="form-control" placeholder="Seleccionar fecha y Hora">
+                    <input type="text" name="fechaYHora" id="fechaHora" class="form-control" placeholder="Seleccionar fecha y Hora">
                 </div>
 
-                <button type="button" class="btn btn-success w-100">
+                <button type="submit" class="btn btn-success w-100">
                     Confirmar Turno
                 </button>
             </div>
+            </form>
         </div>
     </div>
 
