@@ -50,7 +50,8 @@
                           data-precio="{{ $producto->precio }}"
                           data-imagen="{{ $producto->imagen }}"
                           data-animal="{{ $producto->animal }}"
-                          data-tipo="{{ $producto->tipo }}">
+                          data-tipo="{{ $producto->tipo }}"
+                          data-stock="{{ $producto->stock }}">
 
                         <div class="info-producto">
                             <img src="{{ asset('storage/' .$producto->imagen) }}" alt="{{ $producto->nombre }}">

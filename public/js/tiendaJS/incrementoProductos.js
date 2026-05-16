@@ -14,11 +14,24 @@ export function initCantidad(){
 function cambiarCantidad(boton, cambio){
     const contenedor = boton.parentElement;
     const numero  = contenedor.querySelector('.numero');
+    const cardProducto = boton.closest('.card-producto');
+    const stock = parseInt(cardProducto.dataset.stock);
 
     let valor = parseInt(numero.textContent);
 
     valor += cambio;
-    if(valor < 1) valor = 1;
+    
+    //minimo
+    if(valor < 1){
+        valor = 1;
+    }
+
+    //máximo = stock
+    if(valor > stock){
+        valor = stock;
+
+        alert('No hay más stock disponibles');
+    }
 
     numero.textContent = valor;
 }
