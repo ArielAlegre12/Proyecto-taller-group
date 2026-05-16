@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DomesticoController;
+use App\Http\Controllers\ProduccionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\AuthController;
@@ -60,3 +62,7 @@ Route::middleware(['auth', 'rol:admin'])->group(function(){
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'registrar']);
 Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/produccion', [ProduccionController::class, 'store'])
+         ->name('produccion.store');
+Route::post('/domestico', [DomesticoController::class, 'store'])
+        ->name('domestico.store');
