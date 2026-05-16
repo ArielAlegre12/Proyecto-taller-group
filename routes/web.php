@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\DomesticoController;
-use App\Http\Controllers\ProduccionController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DomesticoController;
 use App\Http\Controllers\ProduccionController;
