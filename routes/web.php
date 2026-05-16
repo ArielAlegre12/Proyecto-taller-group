@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DomesticoController;
 use App\Http\Controllers\ProduccionController;
+use App\Http\Controllers\ProductosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\AuthController;
@@ -58,7 +59,10 @@ Route::get('/login', function(){
 
 Route::middleware(['auth', 'rol:admin'])->group(function(){
     Route::get('/backend/admin', [AdminController::class, 'dashboard']);
+    Route::get('/backend/admin/productos/create', [ProductosController::class, 'create']);
+    Route::post('/backend/admin/productos', [ProductosController::class, 'store']);
 });
+
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'registrar']);

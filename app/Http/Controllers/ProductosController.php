@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Productos;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class ProductosController extends Controller
@@ -20,7 +20,7 @@ class ProductosController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.admin.productos.create');
     }
 
     /**
@@ -28,13 +28,35 @@ class ProductosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string|max:255',
+            'precio' => 'required|numeric',
+            'stock' => 'required|integer|min:0',
+            'imagen' => 'required|image',
+            'animal' => 'required',
+            'tipo' => 'required'
+        ]);
+
+        $rutaImagen = $request->file('imagen')->store('productos', 'public');
+
+        Producto::create([
+            'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion,
+            'precio' => $request->precio,
+            'stock' => $request->stock,
+            'imagen' => $rutaImagen,
+            'animal' => $request->animal,
+            'tipo' => $request->tipo
+        ]);
+        return redirect('/backend/admin')
+            ->with('success', 'Producto agregado correctamente');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Productos $productos)
+    public function show(Producto $producto)
     {
         //
     }
@@ -42,7 +64,7 @@ class ProductosController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Productos $productos)
+    public function edit(Producto $producto)
     {
         //
     }
@@ -50,7 +72,7 @@ class ProductosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Productos $productos)
+    public function update(Request $request, Producto $producto)
     {
         //
     }
@@ -58,7 +80,7 @@ class ProductosController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Productos $productos)
+    public function destroy(Producto $producto)
     {
         //
     }

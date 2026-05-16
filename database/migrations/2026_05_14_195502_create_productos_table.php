@@ -17,6 +17,9 @@ return new class extends Migration
             $table->text('descripcion')->nullable();
             $table->decimal('precio', 8, 2);
             $table->unsignedInteger('stock')->default(0);
+            $table->string('imagen');
+            $table->string('animal');
+            $table->string('tipo');
             $table->timestamps();
             $table->softDeletes();
         });

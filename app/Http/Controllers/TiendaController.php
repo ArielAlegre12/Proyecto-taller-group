@@ -1,9 +1,12 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\Producto;
+
 class TiendaController extends Controller{
     public function index(){
-        $productos = require app_path('data/catalogoProductos.php');
-        return view ('pages.tienda', compact('productos'));
+        $productos = Producto::all();
+
+        return view('pages.tienda', compact('productos'));
     }
 }

@@ -44,18 +44,22 @@
             <main class="productos" id="contenedor-productos">
 
                 @forelse($productos as $producto)
-                    <div class="card-producto" data-id="{{ $producto['id'] }}" data-nombre="{{ $producto['nombre'] }}"
-                        data-precio="{{ $producto['precio'] }}" data-imagen="{{ $producto['imagen'] }}"
-                        data-animal="{{ $producto['animal'] }}" data-tipo="{{ $producto['tipo'] }}">
+                    <div class="card-producto"
+                          data-id="{{ $producto->id }}"
+                          data-nombre="{{ $producto->nombre }}"
+                          data-precio="{{ $producto->precio }}"
+                          data-imagen="{{ $producto->imagen }}"
+                          data-animal="{{ $producto->animal }}"
+                          data-tipo="{{ $producto->tipo }}">
 
                         <div class="info-producto">
-                            <img src="{{ asset($producto['imagen']) }}">
-                            <p>{{ $producto['nombre'] }}</p>
+                            <img src="{{ asset('storage/' .$producto->imagen) }}" alt="{{ $producto->nombre }}">
+                            <p>{{ $producto->nombre }}</p>
                         </div>
 
                         <div class="bottom-producto">
                             <p class="precio">
-                                <strong>${{ number_format($producto['precio'], 0, ',', '.') }}</strong>
+                                <strong>${{ number_format($producto->precio, 0, ',', '.') }}</strong>
                             </p>
 
                             <div class="cantidad">
