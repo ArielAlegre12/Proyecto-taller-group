@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('motivo');
             $table->string('tipoServicio');
             $table->dateTime('fechaYHora');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

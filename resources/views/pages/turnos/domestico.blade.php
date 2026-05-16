@@ -32,6 +32,20 @@
             <div class="container mt-5">
                 <form action="{{ route('domestico.store') }}" method="POST">
                     @csrf
+
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                                {{ session('error') }}
+                        </div>
+                    
+                    @endif
+
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    
                 <div class="mb-3">
                     <label class="form-label">Nombre del dueño</label>
                     <input type="text" name="nombreDueño" class="form-control" placeholder="Ingrese su nombre">

@@ -7,9 +7,15 @@ use Illuminate\Http\Request;
 
 class DomesticoController extends Controller
 {
-    
     public function store(Request $request)
     {
+        $existeTurno = Domestico::where('fechaYHora', $request->fechaYHora)
+                        ->exists();
+
+                if($existeTurno){
+                    return redirect()->back()->with('error', 'Esa fecha y hora no estan disponible');
+                }   
+
         Domestico::create([
             'nombreDueño' => $request->nombreDueño,
             'nombreMascota' => $request->nombreMascota,
@@ -18,7 +24,7 @@ class DomesticoController extends Controller
             'fechaYHora' => $request->fechaYHora
         ]);
 
-        return redirect()->back()->with('success', 'Turno Asignado');
+        return redirect()->back()->with('success', 'Turno Asignado Correctamente');
     }
 
     

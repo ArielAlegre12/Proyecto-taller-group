@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('tipoMascota');
             $table->string('motivo');
             $table->dateTime('fechaYHora');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

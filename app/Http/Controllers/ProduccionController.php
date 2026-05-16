@@ -9,6 +9,14 @@ class ProduccionController extends Controller
 {
     public function store(Request $request)
     {
+        $existeTurno= Produccion::where('fechaYHora', $request->fechaYHora)
+                        ->exists();
+                        
+                        
+                    if($existeTurno){
+                        return redirect()->back()->with('error', 'Esta fecha y hora no esta disponible');
+                    }
+
         Produccion::create([
             'nombreProdu' => $request->nombreProdu,
             'nombreEstablo' => $request->nombreEstablo,
@@ -19,6 +27,6 @@ class ProduccionController extends Controller
             'fechaYHora' => $request->fechaYHora,
         ]);
 
-        return redirect()->back()->with('success', 'Turno guardado correctamente');
+        return redirect()->back()->with('success', 'Turno Asignado Correctamente');
     }
 }
