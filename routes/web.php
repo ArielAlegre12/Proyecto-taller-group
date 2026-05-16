@@ -2,10 +2,14 @@
 
 use App\Http\Controllers\DomesticoController;
 use App\Http\Controllers\ProduccionController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DomesticoController;
+use App\Http\Controllers\ProduccionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\AuthController;
 use Pest\Mutate\Options\RetryOption;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('pages.principal');
@@ -54,8 +58,12 @@ Route::get('/login', function(){
     return view('pages.login');
 });
 
+Route::middleware(['auth', 'rol:admin'])->group(function(){
+    Route::get('/backend/admin', [AdminController::class, 'dashboard']);
+});
+
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'registrar']);
 Route::post('/logout', [AuthController::class, 'logout']);
 Route::post('/produccion', [ProduccionController::class, 'store'])
          ->name('produccion.store');
