@@ -1,0 +1,217 @@
+.perfil-container{
+    background: #f5f7fb;
+    min-height: 100vh;
+}
+
+.perfil.header{
+    background: linear-gradient(135deg, #198754, #157347);
+    padding: 120px 0 80px;
+    color: white;
+}
+
+.perfil-info{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 60px;
+}
+
+.perfil-avatar{
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    color: #198754;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .2);
+    
+}
+
+.perfil-info h2{
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.perfil-info p{
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.perfil-rol{
+    background: rgba(255, 255, 255, .2);
+    padding: 8px 18px;
+    border-radius: 30px;
+    display: inline-block;
+    backdrop-filter: blur(10px);
+}
+
+.card-perfil{
+    background: white;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, .08);
+}
+
+.card-header-custom{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.btn-custom{
+    background: #198754;
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 10px;
+    transition: .3s;
+}
+
+.btn-custom:hover{
+    background: #157347;
+}
+
+.btn-guardar{
+    background: #198754;
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 10px;
+    transition: .3s;
+}
+
+.btn-guardar:hover{
+    background: #157347;
+}
+
+.btn-cancelar{
+    background: #dc3545;
+    border: none;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 10px;
+    transition: .3s;
+}
+
+.btn-cancelar:hover{
+    background: #bb2d3b;
+}
+
+.btn-edicion{
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.form-control{
+    border-radius: 10px;
+    padding: 12px;
+    border: 1px solid #dcdcdc;
+}
+
+.form-control:focus{
+    border-color: #198754;
+    box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, .25);
+}
+
+.turno-card{
+    border: 1px solid #e5e7eb;
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 20px;
+    transition: .3s;
+    background: #fff;
+}
+
+.turno-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .08);
+}
+
+.turno-card h4{
+    color: #198754;
+    margin-bottom: 15px;
+}
+
+.turno-card p{
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.productos-card{
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    border: 1px solid #eee;
+    height: 100%;
+    transition: .3s;
+}
+
+.productos-card:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .08);
+}
+
+.productos-card h4{
+    color: #198754;
+    margin-bottom: 15px;
+}
+
+.productos-card p{
+    color: #666;
+    min-height: 50px;
+}
+
+.precio{
+    color: #198754;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.stock{
+    margin-top: 10px;
+    color: #666;
+}
+
+.sin-turnos{
+    background: #f1f3f5;
+    padding: 20px;
+    border-radius: 10px;
+    color: #666;
+}
+
+.animar{
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.8s ease;
+}
+
+.animar.visible{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media(max-width:768px){
+    .perfil.header{
+        text-align: center;
+    }
+
+    .perfil-info{
+        justify-content: center;
+    }
+
+    .perfil-info h2{
+        font-size: 30px;
+    }
+
+    .card-perfil{
+        padding: 25px;
+    }
+}

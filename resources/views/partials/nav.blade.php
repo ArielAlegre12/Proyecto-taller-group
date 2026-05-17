@@ -60,7 +60,7 @@
                                 </button>
                                 <ul class="dropdown-menu w-100">
                                     <li>
-                                        <a class="dropdown-item" href="#">Mi perfil</a>
+                                        <a class="dropdown-item" href="/perfil">Mi perfil</a>
                                     </li>
                                     <li>
                                         <form action="/logout" method="POST">
@@ -106,7 +106,7 @@
 
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a href="#" class="dropdown-item">Mi perfil</a>
+                            <a href="/perfil" class="dropdown-item">Mi perfil</a>
                         </li>
 
                         <li>

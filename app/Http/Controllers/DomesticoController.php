@@ -17,6 +17,7 @@ class DomesticoController extends Controller
                 }   
 
         Domestico::create([
+            'usuario_id' => auth()->id(),
             'nombreDueño' => $request->nombreDueño,
             'nombreMascota' => $request->nombreMascota,
             'tipoMascota' => $request->tipoMascota,

@@ -18,6 +18,7 @@ class ProduccionController extends Controller
                     }
 
         Produccion::create([
+            'usuario_id' => auth()->id(),
             'nombreProdu' => $request->nombreProdu,
             'nombreEstablo' => $request->nombreEstablo,
             'tipoAnimal' => $request->tipoAnimal,

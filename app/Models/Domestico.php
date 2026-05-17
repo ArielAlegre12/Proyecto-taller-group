@@ -12,5 +12,5 @@ class Domestico extends Model
 
     protected $table = 'domesticos';
 
-    protected $fillable = ['nombreDueño', 'nombreMascota','tipoMascota', 'motivo', 'fechaYHora'];
+    protected $fillable = ['usuario_id','nombreDueño', 'nombreMascota','tipoMascota', 'motivo', 'fechaYHora'];
 }
