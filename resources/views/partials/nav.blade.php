@@ -59,9 +59,16 @@
                                     {{ Auth::user()->nombre }}
                                 </button>
                                 <ul class="dropdown-menu w-100">
-                                    <li>
-                                        <a class="dropdown-item" href="#">Mi perfil</a>
-                                    </li>
+                                    @if (Auth::user()->rol_id == 1)
+                                        <li>
+                                            <a href="#" class="dropdown-item">Panel de administración</a>
+                                        </li>
+
+                                    @else
+                                        <li>
+                                            <a class="dropdown-item" href="#">Mi perfil</a>
+                                        </li>
+                                    @endif
                                     <li>
                                         <form action="/logout" method="POST">
                                             @csrf
@@ -105,10 +112,15 @@
                     </button>
 
                     <ul class="dropdown-menu dropdown-menu-end">
+                        @if (Auth::user()->rol_id == 1)
+                        <li>
+                            <a href="#" class="dropdown-item">Panel de administración</a>
+                        </li>
+                        @else
                         <li>
                             <a href="#" class="dropdown-item">Mi perfil</a>
                         </li>
-
+                        @endif
                         <li>
                             <form action="/logout" method="POST">
                                 @csrf
