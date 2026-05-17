@@ -1,3 +1,5 @@
+import { mostrarToast } from "../global/toast.js";
+
 //exportar pal main
 export function initCantidad(){
     const btnCantidad = document.querySelectorAll('.cantidad button');
@@ -30,7 +32,7 @@ function cambiarCantidad(boton, cambio){
     if(valor > stock){
         valor = stock;
 
-        alert('No hay más stock disponibles');
+        mostrarToast('No hay más stock disponibles', "error");
     }
 
     numero.textContent = valor;

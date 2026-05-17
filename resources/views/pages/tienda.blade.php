@@ -44,17 +44,13 @@
             <main class="productos" id="contenedor-productos">
 
                 @forelse($productos as $producto)
-                    <div class="card-producto"
-                          data-id="{{ $producto->id }}"
-                          data-nombre="{{ $producto->nombre }}"
-                          data-precio="{{ $producto->precio }}"
-                          data-imagen="{{ $producto->imagen }}"
-                          data-animal="{{ $producto->animal }}"
-                          data-tipo="{{ $producto->tipo }}"
-                          data-stock="{{ $producto->stock }}">
+                    <div class="card-producto" data-id="{{ $producto->id }}" data-nombre="{{ $producto->nombre }}"
+                        data-precio="{{ $producto->precio }}" data-imagen="{{ $producto->imagen }}"
+                        data-animal="{{ $producto->animal }}" data-tipo="{{ $producto->tipo }}"
+                        data-stock="{{ $producto->stock }}">
 
                         <div class="info-producto">
-                            <img src="{{ asset('storage/' .$producto->imagen) }}" alt="{{ $producto->nombre }}">
+                            <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}">
                             <p>{{ $producto->nombre }}</p>
                         </div>
 
@@ -62,22 +58,28 @@
                             <p class="precio">
                                 <strong>${{ number_format($producto->precio, 0, ',', '.') }}</strong>
                             </p>
+                            <p class="stock">Stock: {{ $producto->stock }}</p>
 
-                            <div class="cantidad">
-                                <button>-</button>
-                                <span class="numero">1</span>
-                                <button>+</button>
-                            </div>
+                            @if ($producto->stock > 0)
+                                <div class="cantidad">
+                                    <button>-</button>
+                                    <span class="numero">1</span>
+                                    <button>+</button>
+                                </div>
+                            @endif
                         </div>
-                        
                         @auth
-                        <button class="btn-agregar">Agregar</button>
+                            @if ($producto->stock > 0)
+                                <button class="btn-agregar">Agregar</button>
+                            @else
+                                <button class="btn-agregar btn-disabled" disabled>Sin stock</button>
+                            @endif
                         @endauth
 
                         @guest
-                        <button class="btn-agregar btn-disabled" disabled>
-                            Inicia sesión para comprar
-                        </button>
+                            <button class="btn-agregar btn-disabled" disabled>
+                                Inicia sesión para comprar
+                            </button>
                         @endguest
                     </div>
 

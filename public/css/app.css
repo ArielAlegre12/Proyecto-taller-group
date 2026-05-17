@@ -16,15 +16,16 @@ html{
     margin: 0;
 }
 
-/*estilos modal de agregado de prod al carrito*/
-.toast-carrito{
+/*estilos toast*/
+.toast-global{
     position: fixed;
     bottom: 30px;
     right: 70px;
-    background: #198754;
+
     color: white;
     padding: 15px 20px;
     border-radius: 12px;
+
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 
     opacity: 0;
@@ -35,7 +36,16 @@ html{
     z-index: 9999;
 }
 
-.toast-carrito.show{
+.toast-global.show{
     opacity: 1;
     transform: translateY(0);
 }
+
+.toast-success{
+    background: #198754;
+}
+
+.toast-error{
+    background: #dc3545;
+}
+

@@ -1,49 +1,50 @@
-export function initCarrito(){
+import { mostrarToast } from "../global/toast.js";
+export function initCarrito() {
 
-    function obtenerCarrito(){
+    function obtenerCarrito() {
         return JSON.parse(localStorage.getItem("carrito")) || [];
     }
 
-    function guardarCarrito(carrito){
+    function guardarCarrito(carrito) {
         localStorage.setItem("carrito", JSON.stringify(carrito));
         actualizarContador();
     }
 
-    function actualizarContador(){
+    function actualizarContador() {
         const carrito = obtenerCarrito();
         const total = carrito.reduce((acc, p) => acc + p.cantidad, 0);
 
-        document.querySelectorAll(".contador-carrito").forEach(el=>{
+        document.querySelectorAll(".contador-carrito").forEach(el => {
             el.textContent = total;
         });
     }
 
-    function renderCarrito(){
+    function renderCarrito() {
         const contenedor = document.getElementById("carrito-contenido");
         const totalContainer = document.getElementById("carrito-total");
 
-        if(!contenedor) return;
+        if (!contenedor) return;
 
         const carrito = obtenerCarrito();
 
-        if(carrito.length === 0){
+        if (carrito.length === 0) {
             contenedor.innerHTML = ` <p class="text-muted">Tu carrito está vacío</p>`;
-            if(totalContainer) totalContainer.innerHTML = "";
+            if (totalContainer) totalContainer.innerHTML = "";
             return;
         }
 
-        contenedor.innerHTML="";
+        contenedor.innerHTML = "";
 
         let total = 0;
 
-        carrito.forEach(prod=>{
+        carrito.forEach(prod => {
             const subtotal = prod.precio * prod.cantidad;
             total += subtotal;
 
             contenedor.innerHTML += `
                 <div class="d-flex align-items-center justify-content-between mb-3">
                     <div class="d-flex align-items-center">
-                        <img src="${prod.imagen}" width="50" class="me-2">
+                        <img src="/storage/${prod.imagen}" width="50" class="me-2">
                         <div>
                         
                             <p class="mb-0">${prod.nombre}</p>
@@ -63,7 +64,7 @@ export function initCarrito(){
             `;
         });
         //total general
-        if(totalContainer){
+        if (totalContainer) {
             totalContainer.innerHTML = `
                 <hr>
                 <h5>Total: $${total.toLocaleString()}</h5>
@@ -71,17 +72,22 @@ export function initCarrito(){
         }
     }
 
-    function cambiarCantidad(id, delta){
+    function cambiarCantidad(id, delta) {
         let carrito = obtenerCarrito();
 
-        const producto = carrito.find(p=>p.id == id);
+        const producto = carrito.find(p => p.id == id);
 
-        if(!producto) return;
+        if (!producto) return;
+
+        if (delta > 0 && producto.cantidad >= producto.stock) {
+            mostrarToast("No hay más stock disponible", "error");
+            return;
+        }
 
         producto.cantidad += delta;
 
-        if(producto.cantidad <= 0){
-            carrito = carrito.filter(p=>p.id != id);
+        if (producto.cantidad <= 0) {
+            carrito = carrito.filter(p => p.id != id);
         }
 
         guardarCarrito(carrito);
@@ -89,8 +95,8 @@ export function initCarrito(){
     }
 
     //agregar producto
-    document.addEventListener("click", e=>{
-        if(e.target.classList.contains("btn-agregar")){
+    document.addEventListener("click", e => {
+        if (e.target.classList.contains("btn-agregar")) {
 
             const card = e.target.closest(".card-producto");
 
@@ -99,32 +105,49 @@ export function initCarrito(){
                 nombre: card.dataset.nombre,
                 precio: parseFloat(card.dataset.precio),
                 imagen: card.dataset.imagen,
+                stock: parseInt(card.dataset.stock),
                 cantidad: parseInt(card.querySelector(".numero").textContent)
             };
 
-            let carrito =  obtenerCarrito();
+            let carrito = obtenerCarrito();
 
-            const existe = carrito.find(p=> p.id == producto.id);
+            const existe = carrito.find(p => p.id == producto.id);
 
-            if(existe){
-                existe.cantidad += producto.cantidad;
-            }else{
+            if (existe) {
+                //cantidad total que quedaría
+                const nuevaCantidad = existe.cantidad + producto.cantidad;
+
+                //si supera el stock
+                if (nuevaCantidad > producto.stock) {
+                    mostrarToast("No hay suficiente stock disponible", "error");
+                    return;
+                }
+
+                existe.cantidad = nuevaCantidad;
+
+            } else {
+                //si intenta agregar más del stock
+                if (producto.cantidad > producto.stock) {
+                    mostrarToast("No hay suficiente stock disponible", "error");
+                    return;
+                }
+
                 carrito.push(producto);
             }
 
             guardarCarrito(carrito);
             renderCarrito();
-            mostrarToast();
+            mostrarToast("Producto agregado al carrito");
         }
     });
 
     //eliminar producto(delegador o admin)
-    document.addEventListener("click", e=>{
-        if(e.target.matches(".btn-danger[data-id]")){
+    document.addEventListener("click", e => {
+        if (e.target.matches(".btn-danger[data-id]")) {
             const id = e.target.dataset.id;
 
             let carrito = obtenerCarrito();
-            carrito = carrito.filter(p=>p.id != id);
+            carrito = carrito.filter(p => p.id != id);
 
             guardarCarrito(carrito);
             renderCarrito();
@@ -132,25 +155,25 @@ export function initCarrito(){
     });
 
     //cambiar cantidad de productos en el menú del carrito.
-    document.addEventListener("click", e=>{
-        if(e.target.matches(".btn-sumar")){
+    document.addEventListener("click", e => {
+        if (e.target.matches(".btn-sumar")) {
             cambiarCantidad(e.target.dataset.id, 1);
         }
 
-        if(e.target.matches(".btn-restar")){
+        if (e.target.matches(".btn-restar")) {
             cambiarCantidad(e.target.dataset.id, -1);
         }
     })
 
     //vaciar carrito(para todos)
-    window.vaciarCarrito = function(){
+    window.vaciarCarrito = function () {
         localStorage.removeItem("carrito");
         renderCarrito();
         actualizarContador();
     };
 
     //sincronizar entre pestañas
-    window.addEventListener("storage", ()=>{
+    window.addEventListener("storage", () => {
         actualizarContador();
         renderCarrito();
     })
@@ -159,15 +182,7 @@ export function initCarrito(){
     actualizarContador();
     renderCarrito();
 
-    function mostrarToast(){
-    const toast =  document.getElementById("toast-carrito");
 
-    toast.classList.add("show");
-
-    setTimeout(() => {
-        toast.classList.remove("show")
-    }, 3000);
-}
 }
 
 
