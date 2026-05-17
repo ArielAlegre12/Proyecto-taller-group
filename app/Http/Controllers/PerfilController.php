@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Productos;
+use App\Models\Producto;
 use Illuminate\Http\Request;
 
 class PerfilController extends Controller
@@ -15,7 +15,7 @@ class PerfilController extends Controller
 
         $turnosProduccion = $usuario->producciones;
 
-        $productos = Productos::all();
+        $productos = Producto::all();
 
         return view('pages.perfil', compact('usuario', 'turnosDomesticos', 'turnosProduccion', 'productos'));
     }
