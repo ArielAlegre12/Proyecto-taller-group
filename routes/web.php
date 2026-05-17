@@ -3,11 +3,8 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DomesticoController;
 use App\Http\Controllers\ProduccionController;
-<<<<<<< HEAD
 use App\Http\Controllers\ProductosController;
-=======
 use App\Http\Controllers\PerfilController;
->>>>>>> origin/rama-luca
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\AuthController;
