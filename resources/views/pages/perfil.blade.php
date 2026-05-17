@@ -181,7 +181,7 @@
                                 </p>
 
                                 <div class="precio">
-                                    {{ $producto->precio }}
+                                    ${{ number_format($producto->precio,2,',','.') }}
                                 </div>
 
                                 <div class="stock">
