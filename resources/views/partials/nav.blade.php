@@ -63,12 +63,11 @@
                                         <li>
                                             <a href="#" class="dropdown-item">Panel de administración</a>
                                         </li>
-
-                                    @else
-                                        <li>
-                                            <a class="dropdown-item" href="#">Mi perfil</a>
-                                        </li>
                                     @endif
+                                    <li>
+                                        <a class="dropdown-item" href="#">Mi perfil</a>
+                                    </li>
+
                                     <li>
                                         <form action="/logout" method="POST">
                                             @csrf
@@ -116,11 +115,12 @@
                         <li>
                             <a href="#" class="dropdown-item">Panel de administración</a>
                         </li>
-                        @else
+                        @endif
+
                         <li>
                             <a href="/perfil" class="dropdown-item">Mi perfil</a>
                         </li>
-                        @endif
+
                         <li>
                             <form action="/logout" method="POST">
                                 @csrf
