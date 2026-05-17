@@ -13,5 +13,5 @@ class Produccion extends Model
 
     protected $table = 'producciones';
 
-    protected $fillable = ['nombreProdu', 'nombreEstablo', 'tipoAnimal', 'cantidad', 'motivo', 'tipoServicio', 'fechaYHora'];
+    protected $fillable = ['usuario_id', 'nombreProdu', 'nombreEstablo', 'tipoAnimal', 'cantidad', 'motivo', 'tipoServicio', 'fechaYHora'];
 }

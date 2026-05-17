@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('producciones', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('usuario_id')->constrained('usuarios')->onDelete('cascade');
             $table->string('nombreProdu');
             $table->string('nombreEstablo');
             $table->string('tipoAnimal');

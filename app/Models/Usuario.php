@@ -25,4 +25,12 @@ class Usuario extends Authenticatable{
     public function rol(){
         return $this->belongsTo(Rol::class, 'rol_id');
     }
+
+    public function domesticos(){
+        return $this->hasMany(Domestico::class, 'usuario_id');
+    }
+
+    public function producciones(){
+        return $this->hasMany(Produccion::class, 'usuario_id');
+    }
 }

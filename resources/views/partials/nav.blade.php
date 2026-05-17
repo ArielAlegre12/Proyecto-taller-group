@@ -118,7 +118,7 @@
                         </li>
                         @else
                         <li>
-                            <a href="#" class="dropdown-item">Mi perfil</a>
+                            <a href="/perfil" class="dropdown-item">Mi perfil</a>
                         </li>
                         @endif
                         <li>
