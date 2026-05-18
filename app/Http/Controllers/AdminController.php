@@ -6,6 +6,7 @@ use App\Models\Domestico;
 use App\Models\Produccion;
 use App\Models\Producto;
 use App\Models\Usuario;
+use App\Models\Venta;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -145,6 +146,9 @@ class AdminController extends Controller
     }
 
     public function ventas(){
-        return view('backend.admin.ventas.index');
+        $ventas = Venta::with('usuario')
+            ->latest()
+            ->get();
+        return view('backend.admin.ventas.index', compact('ventas'));
     }
 }
