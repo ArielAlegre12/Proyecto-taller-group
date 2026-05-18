@@ -10,7 +10,8 @@
     <!--turnos domésticos-->
     <div class="admin-panel mb-5">
         <h3 class="mb-4">
-            <i class="bi bi-house-heart">Turnos domésticos</i>
+            <i class="bi bi-house-heart"></i>
+            Turnos domésticos
         </h3>
 
         <div class="table-responsive">
@@ -28,7 +29,7 @@
                     @forelse($turnosDomesticos as $turno)
                         <tr>
                             <td>{{ $turno->nombreDueño }}</td>
-                            <td>{{ \Carbon\Carbon::parse($turno->fecha)->format('d/m/y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($turno->fechaYHora)->format('d/m/y | H:i') }}</td>
 
                             <td>
                                 @if($turno->estado == 'pendiente')
@@ -54,9 +55,41 @@
                                     </form>
 
                                     <!--reprogramar-->
-                                    <button class="btn btn-warning btn-sm">
+                                    <button class="btn btn-warning btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalReprogramarDomestico{{ $turno->id }}"
+                                        {{ $turno->estado == 'cancelado' ? 'disabled' : '' }}>
                                         <i class="bi bi-calendar-event"></i>
                                     </button>
+
+                                    <!--modal-->
+                                    <div class="modal fade" id="modalReprogramarDomestico{{ $turno->id }}" tabindex="-1">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Reprogramar turno</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+
+                                                <form action="/backend/admin/turnos/domesticos/{{ $turno->id }}/reprogramar" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+
+                                                    <div class="modal-body">
+                                                        <label class="form-label">Nueva fecha y hora</label>
+                                                        <input type="datetime-local" name="fechaYHora" class="form-control" 
+                                                                value="{{ \Carbon\Carbon::parse($turno->fechaYHora)->format('Y-m-d\TH:i') }}"
+                                                                min="{{ now()->format('Y-m-d\TH:i') }}" required>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                        <button type="submit" class="btn btn-warning">Reprogramar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <!--cancelar-->
                                     <form action="/backend/admin/turnos/domesticos/{{ $turno->id }}/cancelar" method="POST">
@@ -106,7 +139,7 @@
                     @forelse($turnosProduccion as $turno)
                         <tr>
                             <td>{{ $turno->nombreEstablo }}</td>
-                            <td>{{ \Carbon\Carbon::parse($turno->fecha)->format('d/m/y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($turno->fechaYHora)->format('d/m/y | H:i') }}</td>
 
                             <td>
                                 @if ($turno->estado == 'pendiente')
@@ -131,9 +164,41 @@
                                     </form>
 
                                     <!--reprogramar-->
-                                    <button class="btn btn-warning btn-sm">
+                                    <button class="btn btn-warning btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalReprogramarProduccion{{ $turno->id }}"
+                                        {{ $turno->estado == 'cancelado' ? 'disabled' : '' }}>
                                         <i class="bi bi-calendar-event"></i>
                                     </button>
+
+                                    <!--modal-->
+                                    <div class="modal fade" id="modalReprogramarProduccion{{ $turno->id }}" tabindex="-1">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Reprogramar turno</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+
+                                                <form action="/backend/admin/turnos/produccion/{{ $turno->id }}/reprogramar" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+
+                                                    <div class="modal-body">
+                                                        <label class="form-label">Nueva fecha y hora</label>
+                                                        <input type="datetime-local" name="fechaYHora" class="form-control" 
+                                                                value="{{ \Carbon\Carbon::parse($turno->fechaYHora)->format('Y-m-d\TH:i') }}"
+                                                                min="{{ now()->format('Y-m-d\TH:i') }}" required>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                        <button type="submit" class="btn btn-warning">Reprogramar</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                     <!--cancelar-->
                                     <form action="/backend/admin/turnos/produccion/{{ $turno->id }}/cancelar" method="POST">

@@ -83,8 +83,10 @@ Route::middleware(['auth', 'rol:admin'])->prefix('backend/admin')->group(functio
     Route::get('/turnos', [AdminController::class, 'turnos']);
     Route::put('/turnos/domesticos/{domestico}/confirmar', [AdminController::class, 'confirmarDomestico']);
     Route::put('/turnos/domesticos/{domestico}/cancelar', [AdminController::class, 'cancelarDomestico']);
+    Route::put('/turnos/domesticos/{domestico}/reprogramar', [AdminController::class, 'reprogramarDomestico']);
     Route::put('/turnos/produccion/{produccion}/confirmar', [AdminController::class, 'confirmarProduccion']);
     Route::put('/turnos/produccion/{produccion}/cancelar', [AdminController::class, 'cancelarProduccion']);
+    Route::put('/turnos/produccion/{produccion}/reprogramar', [AdminController::class, 'reprogramarProduccion']);
 
     //ventas
     Route::get('/ventas', [AdminController::class, 'ventas']);

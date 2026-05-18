@@ -101,6 +101,21 @@ class AdminController extends Controller
         return back()->with('success', 'Turno cancelado');
     }
 
+    public function reprogramarDomestico(Request $request, Domestico $domestico){
+        $request->validate([
+            'fechaYHora' => 'required|date'
+        ]);
+
+        $domestico->fechaYHora = $request->fechaYHora;
+
+        //vuelve a pendiente
+        $domestico->estado = 'pendiente';
+
+        $domestico->save();
+
+        return back()->with('success', 'Turno repogramado');
+    }
+
     public function confirmarProduccion(Produccion $produccion){
         $produccion->estado = 'confirmado';
         $produccion->save();
@@ -113,6 +128,20 @@ class AdminController extends Controller
         $produccion->save();
 
         return back()->with('success', 'Turno cancelado');
+    }
+
+    public function reprogramarProduccion(Request $request, Produccion $produccion){
+        $request->validate([
+            'fechaYHora' => 'required|date'
+        ]);
+
+        $produccion->fechaYHora = $request->fechaYHora;
+
+        $produccion->estado = 'pendiente';
+
+        $produccion->save();
+
+        return back()->with('success', 'Turno reprogramado');
     }
 
     public function ventas(){

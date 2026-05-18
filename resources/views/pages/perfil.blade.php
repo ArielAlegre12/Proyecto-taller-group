@@ -136,7 +136,7 @@
 
                                 <p>
                                     <strong>Fecha:</strong>
-                                    {{ $turno->fechaYHora }}
+                                    {{ \Carbon\Carbon::parse($turno->fechaYHora)->format('d/m/y | H:i') }}
                                 </p>
                             </div>
                         @empty
@@ -179,7 +179,7 @@
 
                                 <p>
                                     <strong>Fecha:</strong>
-                                    {{ $turno->fechaYHora }}
+                                    {{ \Carbon\Carbon::parse($turno->fechaYHora)->format('d/m/y | H:i') }}
                                 </p>
                             </div>
                         @empty
