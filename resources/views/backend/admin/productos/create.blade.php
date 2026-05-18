@@ -1,8 +1,5 @@
-@extends('layouts.app')
-@section('title')
-    Agregar Producto
-@endsection
-@section('content')
+@extends('layouts.admin')
+@section('admin-content')
     <div class="container mt-5">
         <h2 class="mb-4">Agregar producto</h2>
 

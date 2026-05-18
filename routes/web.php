@@ -59,11 +59,24 @@ Route::get('/login', function () {
     
 })->name('login');
 
+//prefix. se usa para agrupar las rutas y asignarles una URL en común. basicamente limpiar las urls
+Route::middleware(['auth', 'rol:admin'])->prefix('backend/admin')->group(function (){
+    //dashboard principal
+    Route::get('/', [AdminController::class, 'dashboard']);
+    
+    //productos
+    Route::get('/productos', [ProductosController::class, 'index']);
+    Route::get('/productos/create', [ProductosController::class, 'create']);
+    Route::post('/productos', [ProductosController::class, 'store']);
+    
+    //usuarios
+    Route::get('/usuarios', [AdminController::class, 'usuarios']);
 
-Route::middleware(['auth', 'rol:admin'])->group(function () {
-    Route::get('/backend/admin', [AdminController::class, 'dashboard']);
-    Route::get('/backend/admin/productos/create', [ProductosController::class, 'create']);
-    Route::post('/backend/admin/productos', [ProductosController::class, 'store']);
+    //turnos
+    Route::get('/turnos', [AdminController::class, 'turnos']);
+
+    //ventas
+    Route::get('/ventas', [AdminController::class, 'ventas']);
 });
 
 

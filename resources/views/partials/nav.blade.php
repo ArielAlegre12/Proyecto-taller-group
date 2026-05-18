@@ -113,7 +113,7 @@
                     <ul class="dropdown-menu dropdown-menu-end">
                         @if (Auth::user()->rol_id == 1)
                         <li>
-                            <a href="#" class="dropdown-item">Panel de administración</a>
+                            <a href="/backend/admin" class="dropdown-item">Panel de administración</a>
                         </li>
                         @endif
 
