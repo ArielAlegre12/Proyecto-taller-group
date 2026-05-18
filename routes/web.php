@@ -10,6 +10,7 @@ use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\AuthController;
 use Pest\Mutate\Options\RetryOption;
 use Illuminate\Support\Facades\Auth;
+use function Pest\Laravel\put;
 
 Route::get('/', function () {
     return view('pages.principal');
@@ -74,9 +75,16 @@ Route::middleware(['auth', 'rol:admin'])->prefix('backend/admin')->group(functio
     
     //usuarios
     Route::get('/usuarios', [AdminController::class, 'usuarios']);
+    Route::get('/usuarios/{usuario}', [AdminController::class, 'showUsuario']);
+    Route::delete('/usuarios/{usuario}', [AdminController::class, 'destroyUsuario']);
+    Route::put('/usuarios/{usuario}/rol', [AdminController::class, 'cambiarRol']);
 
     //turnos
     Route::get('/turnos', [AdminController::class, 'turnos']);
+    Route::put('/turnos/domesticos/{domestico}/confirmar', [AdminController::class, 'confirmarDomestico']);
+    Route::put('/turnos/domesticos/{domestico}/cancelar', [AdminController::class, 'cancelarDomestico']);
+    Route::put('/turnos/produccion/{produccion}/confirmar', [AdminController::class, 'confirmarProduccion']);
+    Route::put('/turnos/produccion/{produccion}/cancelar', [AdminController::class, 'cancelarProduccion']);
 
     //ventas
     Route::get('/ventas', [AdminController::class, 'ventas']);

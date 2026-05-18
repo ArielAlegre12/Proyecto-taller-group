@@ -26,6 +26,7 @@ class ProduccionController extends Controller
             'motivo' => $request->motivo,
             'tipoServicio' => $request->tipoServicio,
             'fechaYHora' => $request->fechaYHora,
+            'estado' => 'pendiente'
         ]);
 
         return redirect()->back()->with('success', 'Turno Asignado Correctamente');

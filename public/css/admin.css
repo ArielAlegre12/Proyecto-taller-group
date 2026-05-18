@@ -208,6 +208,99 @@
     overflow: hidden;
 }
 
+/*estilos para gestion usuarios index*/
+.badge-admin{
+    background: #dc3545;
+    color: white;
+
+    padding: 8px 12px;
+    border-radius: 20px;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.badge-usuario{
+    background: #0d6efd;
+    color: white;
+
+    padding: 8px 12px;
+    border-radius: 20px;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/*estilos para avatar de usuario en usuarios/index*/
+.avatar-usuario{
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+    
+    background: linear-gradient(135deg, #198754, #157347);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+
+    box-shadow: 0 4px 10px rgba(25, 135, 84, .25);
+}
+
+/*estilos para vista usuarios/show*/
+
+/*show usuario*/
+.usuario-detalle{
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.usuario-avatar-grande{
+    width: 90px;
+    height: 90px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(135deg, #198754, #157347);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+
+    box-shadow: 0 6px 15px rgba(25, 135, 84, .25);
+}
+
+.usuario-info h3{
+    margin: 0;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.info-card{
+    background: #f8f9fa;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.info-card span{
+    color: #6c757d;
+    font-size: 14px;
+}
+.info-card h5{
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+
 /*responsive*/
 @media(max-width: 992px){
     .admin-container{

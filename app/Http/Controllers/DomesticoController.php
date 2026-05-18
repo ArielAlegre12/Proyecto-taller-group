@@ -22,7 +22,8 @@ class DomesticoController extends Controller
             'nombreMascota' => $request->nombreMascota,
             'tipoMascota' => $request->tipoMascota,
             'motivo' => $request->motivo,
-            'fechaYHora' => $request->fechaYHora
+            'fechaYHora' => $request->fechaYHora,
+            'estado' => 'pendiente'
         ]);
 
         return redirect()->back()->with('success', 'Turno Asignado Correctamente');

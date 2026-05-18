@@ -1,4 +1,163 @@
 @extends('layouts.admin')
 @section('admin-content')
-    <h2>Turnos</h2>
+    <div class="admin-header mb-4">
+        <div>
+            <h2>Turnos</h2>
+            <p>Gestiona los turnos domésticos y de producción</p>
+        </div>
+    </div>
+
+    <!--turnos domésticos-->
+    <div class="admin-panel mb-5">
+        <h3 class="mb-4">
+            <i class="bi bi-house-heart">Turnos domésticos</i>
+        </h3>
+
+        <div class="table-responsive">
+            <table class="table table-align-middle">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @forelse($turnosDomesticos as $turno)
+                        <tr>
+                            <td>{{ $turno->nombreDueño }}</td>
+                            <td>{{ \Carbon\Carbon::parse($turno->fecha)->format('d/m/y') }}</td>
+
+                            <td>
+                                @if($turno->estado == 'pendiente')
+                                    <span class="badge bg-warning text-dark">Pendiente</span>
+                                @elseif($turno->estado == 'confirmado')
+                                    <span class="badge bg-success">Confirmado</span>
+
+                                @elseif($turno->estado == 'cancelado')
+                                    <span class="badge bg-danger">Cancelado</span>
+                                @endif
+                            </td>
+
+                            <td>
+                                <div class="acciones-producto">
+                                    <!--confirmar-->
+                                    <form action="/backend/admin/turnos/domesticos/{{ $turno->id }}/confirmar" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button class="btn btn-success btn-sm"
+                                            {{ $turno->estado == 'confirmado' ? 'disabled' : '' }}>
+                                            <i class="bi bi-check-lg"></i>
+                                        </button>
+                                    </form>
+
+                                    <!--reprogramar-->
+                                    <button class="btn btn-warning btn-sm">
+                                        <i class="bi bi-calendar-event"></i>
+                                    </button>
+
+                                    <!--cancelar-->
+                                    <form action="/backend/admin/turnos/domesticos/{{ $turno->id }}/cancelar" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button class="btn btn-danger btn-sm"
+                                            {{ $turno->estado == 'cancelado' ? 'disabled' : '' }}>
+                                            <i class="bi bi-x-lg"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        <!--empty se usa como directiva para comprobar si la var esta vacia o nula-->
+                        <!--en este caso muestra si no hay turnos registrados-->
+                    @empty
+                        <tr>
+                            <td colspan="4" class="text-center text-muted py-4">
+                                No hay turnos domésticos registrados
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--turnos producción-->
+    <div class="admin-panel">
+        <h3 class="mb-4">
+            <i class="bi bi-building"></i>
+            Turnos de producción
+        </h3>
+
+        <div class="table-responsive">
+            <table class="table table-align-middle">
+                <thead>
+                    <tr>
+                        <th>Establo</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @forelse($turnosProduccion as $turno)
+                        <tr>
+                            <td>{{ $turno->nombreEstablo }}</td>
+                            <td>{{ \Carbon\Carbon::parse($turno->fecha)->format('d/m/y') }}</td>
+
+                            <td>
+                                @if ($turno->estado == 'pendiente')
+                                    <span class="badge bg-warning text-dark">Pendiente</span>
+                                @elseif($turno->estado == 'confirmado')
+                                    <span class="badge bg-success">Confirmado</span>
+                                @elseif($turno->estado == 'cancelado')
+                                    <span class="badge bg-danger">Cancelado</span>
+                                @endif
+                            </td>
+
+                            <td>
+                                <div class="acciones-producto">
+                                    <!--confirmar-->
+                                    <form action="/backend/admin/turnos/produccion/{{ $turno->id }}/confirmar" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button class="btn btn-success btn-sm"
+                                            {{ $turno->estado == 'confirmado' ? 'disabled' : '' }}>
+                                            <i class="bi bi-check-lg"></i>
+                                        </button>
+                                    </form>
+
+                                    <!--reprogramar-->
+                                    <button class="btn btn-warning btn-sm">
+                                        <i class="bi bi-calendar-event"></i>
+                                    </button>
+
+                                    <!--cancelar-->
+                                    <form action="/backend/admin/turnos/produccion/{{ $turno->id }}/cancelar" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button class="btn btn-danger btn-sm"
+                                            {{ $turno->estado == 'cancelado' ? 'disabled' : '' }}>
+                                            <i class="bi bi-x-lg"></i>
+                                        </button>
+                                    </form>
+
+                                </div>
+                            </td>
+                        </tr>
+
+                    @empty
+                        <tr>
+                            <td colspan="4" class="text-center text-muted py-4">
+                                No hay turnos de producción registrados
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection
