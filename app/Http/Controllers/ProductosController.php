@@ -12,7 +12,8 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        return view('backend.admin.productos.index');
+        $productos = Producto::latest()->get();
+        return view('backend.admin.productos.index', compact('productos'));
     }
 
     /**
@@ -66,7 +67,7 @@ class ProductosController extends Controller
      */
     public function edit(Producto $producto)
     {
-        //
+        return view('backend.admin.productos.edit', compact('producto'));
     }
 
     /**
@@ -74,7 +75,33 @@ class ProductosController extends Controller
      */
     public function update(Request $request, Producto $producto)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string|max:255',
+            'precio' => 'required|numeric',
+            'stock' => 'required|integer|min:0',
+            'animal' => 'required',
+            'tipo' => 'required'
+        ]);
+
+        //si actualiza una nueva img
+        if($request->hasFile('imagen')){
+            $rutaImagen = $request->file('imagen')->store('productos', 'public');
+
+            $producto->imagen = $rutaImagen;
+        }
+
+        $producto->nombre = $request->nombre;
+        $producto->descripcion = $request->descripcion;
+        $producto->precio = $request->precio;
+        $producto->stock = $request->stock;
+        $producto->animal = $request->animal;
+        $producto->tipo = $request->tipo;
+
+        $producto->save();
+
+        return redirect('/backend/admin/productos')
+            ->with('success', 'Producto actualizado');
     }
 
     /**
@@ -82,6 +109,9 @@ class ProductosController extends Controller
      */
     public function destroy(Producto $producto)
     {
-        //
+        $producto->delete();
+
+        return redirect('/backend/admin/productos')
+            ->with('success', 'Producto eliminado');
     }
 }
