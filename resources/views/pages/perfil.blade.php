@@ -58,6 +58,7 @@
                         </span>
                     </div>
                 </div>
+                <hr class="perfil-linea">
             </div>
         </section>
         <section class="container py-5">
