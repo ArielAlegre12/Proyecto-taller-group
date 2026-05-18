@@ -40,11 +40,79 @@ class AdminController extends Controller
     }
 
     public function usuarios(){
-        return view('backend.admin.usuarios.index');
+        $usuarios = Usuario::with('rol')->get();
+        return view('backend.admin.usuarios.index', compact('usuarios'));
+    }
+
+    public function showUsuario(Usuario $usuario){
+        return view('backend.admin.usuarios.show', compact('usuario'));
+    }
+
+    public function destroyUsuario(Usuario $usuario){
+        if($usuario->id == auth()->id()){
+            return back()->with('error', 'No puedes eliminar tu propio usuario');
+        }
+        $usuario->delete();
+        return redirect('/backend/admin/usuarios')
+            ->with('success', 'Usuario eliminado correctamente');
+    }
+
+    public function cambiarRol(Usuario $usuario){
+        //evitar cambiar mi propio rol
+        if($usuario->id == auth()->id()){
+            return back()->with('error', 'No puedes cambiar tu propio rol');
+        }
+
+        //si es admin pasa a cliente
+        if($usuario->rol_id == 1){
+            $usuario->rol_id = 2;
+        }else{
+            //si es cliente pasa a admin
+            $usuario->rol_id = 1;
+        }
+
+        $usuario->save();
+
+        return back()->with('success', 'Rol actualizado correctamente');
     }
 
     public function turnos(){
-        return view('backend.admin.turnos.index');
+
+        $turnosDomesticos = Domestico::latest()->get();
+        $turnosProduccion = Produccion::latest()->get();
+
+        return view('backend.admin.turnos.index', compact(
+            'turnosDomesticos',
+            'turnosProduccion'
+        ));
+    }
+
+    public function confirmarDomestico(Domestico $domestico){
+        $domestico->estado = 'confirmado';
+        $domestico->save();
+
+        return back()->with('success', 'Turno confirmado');
+    }
+    
+    public function cancelarDomestico(Domestico $domestico){
+        $domestico->estado = 'cancelado';
+        $domestico->save();
+
+        return back()->with('success', 'Turno cancelado');
+    }
+
+    public function confirmarProduccion(Produccion $produccion){
+        $produccion->estado = 'confirmado';
+        $produccion->save();
+
+        return back()->with('success', 'Turno confirmado');
+    }
+
+    public function cancelarProduccion(Produccion $produccion){
+        $produccion->estado = 'cancelado';
+        $produccion->save();
+
+        return back()->with('success', 'Turno cancelado');
     }
 
     public function ventas(){
