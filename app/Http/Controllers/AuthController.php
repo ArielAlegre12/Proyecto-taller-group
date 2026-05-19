@@ -6,6 +6,7 @@ use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -61,5 +62,63 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/principal');
+    }
+
+    public function mostrarRecuperar(){
+        return view('auth.recuperar-password');
+    }
+
+    public function enviarCodigo(Request $request){
+        $request->validate(['email' =>'required|email']);
+
+        $usuario = Usuario::where('email', $request->email)->first();
+
+        if(!$usuario){
+            return back()->with('error', 'No existe una cuenta con ese email');
+        }
+
+        $codigo = rand(100000, 999999);
+
+        DB::table('recuperar__contrasenas')->updateOrInsert(['usuario_id' => $usuario->id],['codigo'=>$codigo, 'updated_at' => now()]);
+
+        return back()
+            ->with('success', 'Codigo generado:' . $codigo)
+            ->with('email', $request->email)
+            ->with('step', 'codigo');
+        
+    }
+
+    public function verificarCodigo(Request $request){
+        $usuario = Usuario::where('email', $request->email)->first();
+
+        $registro = DB::table('recuperar__contrasenas')
+        ->where('usuario_id', $usuario->id)
+        ->where('codigo', $request->codigo)
+        ->first();
+
+        if(!$registro){
+            return back()->with('error', 'Codigo Incorrecto');
+        }
+
+        return back()
+        ->with('email', $request->email)
+        ->with('step', 'password');
+    }
+
+    public function cambiarPassword(Request $request){
+        $request->validate(['email' => 'required|email', 'password' => 'required|min:8|confirmed']);
+
+        $usuario = Usuario::where('email', $request->email)->first();
+
+        $usuario->password = Hash::make($request->password);
+
+        $usuario->save();
+
+        DB::table('recuperar__contrasenas')
+            ->where('usuario_id', $usuario->id)
+            ->delete();
+
+        return redirect('/login')
+            ->with('success', 'Contraseña actualizada correctamente');
     }
 }

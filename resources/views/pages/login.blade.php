@@ -78,7 +78,7 @@
                             <input type="checkbox" name="remember"> Recordame
                         </div>
 
-                        <a href="#" class="link-success">¿Olvidaste tu contraseña?</a>
+                        <a href="/recuperar-password" class="link-success">¿Olvidaste tu contraseña?</a>
                     </div>
 
                     <button type="submit" id="submitBtn" class="btn btn-success w-100 mb-3">
