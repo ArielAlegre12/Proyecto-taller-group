@@ -40,7 +40,8 @@
                             <td>
                                 <div class="acciones-producto">
                                     <!--ver-->
-                                    <a href="/backend/admin/usuarios/{{ $usuario->id }}" class="btn btn-info btn-sm">
+                                    <a href="/backend/admin/usuarios/{{ $usuario->id }}" class="btn btn-info btn-sm"
+                                        data-bs-toggle="toolip" data-bs-placement="top" title="Ver datos de usuario">
                                         <i class="bi bi-eye"></i>
                                     </a>
 
@@ -51,18 +52,21 @@
                                         @method('PUT')
 
                                         @if ($usuario->rol->nombre == 'admin')
-                                            <button class="btn btn-danger btn-sm">
+                                            <button class="btn btn-danger btn-sm" data-bs-toggle="toolip" data-bs-placement="top"
+                                                title="Cambiar rol">
                                                 <i class="bi bi-shield-lock"></i>
                                             </button>
                                         @else
-                                            <button class="btn btn-primary btn-sm">
+                                            <button class="btn btn-primary btn-sm" data-bs-toggle="toolip" data-bs-placement="top"
+                                                title="Cambiar rol">
                                                 <i class="bi bi-shield"></i>
                                             </button>
                                         @endif
                                     </form>
 
                                     <!--eliminar-->
-                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-toggle="toolip"
+                                        data-bs-placement="top" title="Eliminar usuario"
                                         data-bs-target="#modalEliminar{{ $usuario->id }}">
                                         <i class="bi bi-trash"></i>
                                     </button>

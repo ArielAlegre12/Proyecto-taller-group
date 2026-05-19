@@ -55,11 +55,17 @@
 
                             <td>
                                 <div class="acciones-producto">
-                                    <a href="/backend/admin/productos/{{ $producto->id }}/edit" class="btn btn-warning btn-sm">
+                                    <a href="/backend/admin/productos/{{ $producto->id }}/edit" class="btn btn-warning btn-sm"
+                                        data-bs-toggle="toolip"
+                                        data-bs-placement="top"
+                                        title="Editar producto">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <!--btn modal-->
+                                    <!--btn eliminar-->
                                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                        data-bs-toggle="toolip"
+                                        data-bs-placement="top"
+                                        title="Eliminar producto"
                                         data-bs-target="#modalEliminar{{ $producto->id }}">
                                         <i class="bi bi-trash"></i>
                                     </button>
@@ -82,6 +88,9 @@
 
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
+                                                        data-bs-toggle="toolip"
+                                                        data-bs-placement="top"
+                                                        title="Cancelar eliminación de producto"
                                                         data-bs-dismiss="modal">Cancelar</button>
                                                     <form action="/backend/admin/productos/{{ $producto->id }}" method="POST">
                                                         @csrf

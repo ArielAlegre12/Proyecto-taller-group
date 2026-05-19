@@ -49,6 +49,9 @@
                                         @csrf
                                         @method('PUT')
                                         <button class="btn btn-success btn-sm"
+                                            data-bs-toggle="toolip"
+                                            data-bs-placement="top"
+                                            title="Confirmar turno"
                                             {{ $turno->estado == 'confirmado' ? 'disabled' : '' }}>
                                             <i class="bi bi-check-lg"></i>
                                         </button>
@@ -56,6 +59,9 @@
 
                                     <!--reprogramar-->
                                     <button class="btn btn-warning btn-sm"
+                                        data-bs-toggle="toolip"
+                                        data-bs-placement="top"
+                                        title="Reprogramar turno"
                                         data-bs-toggle="modal"
                                         data-bs-target="#modalReprogramarDomestico{{ $turno->id }}"
                                         {{ $turno->estado == 'cancelado' ? 'disabled' : '' }}>
@@ -96,6 +102,9 @@
                                         @csrf
                                         @method('PUT')
                                         <button class="btn btn-danger btn-sm"
+                                            data-bs-toggle="toolip"
+                                            data-bs-placement="top"
+                                            title="Cancelar turno"
                                             {{ $turno->estado == 'cancelado' ? 'disabled' : '' }}>
                                             <i class="bi bi-x-lg"></i>
                                         </button>
@@ -158,6 +167,9 @@
                                         @csrf
                                         @method('PUT')
                                         <button class="btn btn-success btn-sm"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-placement="top"
+                                                title="Confirmar turno"
                                             {{ $turno->estado == 'confirmado' ? 'disabled' : '' }}>
                                             <i class="bi bi-check-lg"></i>
                                         </button>
@@ -165,6 +177,9 @@
 
                                     <!--reprogramar-->
                                     <button class="btn btn-warning btn-sm"
+                                        data-bs-toggle="tooltip"
+                                        data-bs-placement="top"
+                                        title="Reprogramar turno"
                                         data-bs-toggle="modal"
                                         data-bs-target="#modalReprogramarProduccion{{ $turno->id }}"
                                         {{ $turno->estado == 'cancelado' ? 'disabled' : '' }}>
@@ -205,6 +220,9 @@
                                         @csrf
                                         @method('PUT')
                                         <button class="btn btn-danger btn-sm"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="Cancelar turno"
                                             {{ $turno->estado == 'cancelado' ? 'disabled' : '' }}>
                                             <i class="bi bi-x-lg"></i>
                                         </button>

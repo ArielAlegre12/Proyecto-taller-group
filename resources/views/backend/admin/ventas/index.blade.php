@@ -67,18 +67,27 @@
                             <td>
                                 <div class="acciones-producto">
                                     <!--ver-->
-                                    <button class="btn btn-info btn-sm">
+                                    <button class="btn btn-info btn-sm"
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="Eliminar pedido">
                                         <i class="bi bi-eye"></i>
                                     </button>
 
                                     <!--marcar enviado-->
                                     <button class="btn btn-success btn-sm"
+                                        data-bs-toggle="toolip"
+                                        data-bs-placement="top"
+                                        title="Estado de pedido"
                                         {{ $venta->estado == 'envidado' || $venta->estado == 'entregado' ? 'disabled' : '' }}>
                                         <i class="bi bi-truck"></i>
                                     </button>
 
                                     <!--cancelar-->
                                     <button class="btn btn-danger btn-sm"
+                                        data-bs-toggle="toolip"
+                                        data-bs-placement="top"
+                                        title="Cancelar pedido"
                                         {{ $venta->estado == 'cancelado' ? 'disabled' : '' }}>
                                         <i class="bi bi-x-lg"></i>
                                     </button>
