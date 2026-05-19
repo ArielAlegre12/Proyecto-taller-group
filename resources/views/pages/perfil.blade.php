@@ -18,7 +18,7 @@
 
 @section('content')
     <div class="perfil-container">
-          <div class="container">
+        <div class="container">
             <ul class="nav nav-pills mb-4 justify-content-center perfil-tabs animar" id="perfilTabs" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="perfil-tab" data-bs-toggle="pill" data-bs-target="#perfil"
@@ -108,10 +108,13 @@
 
                 <div class="tab-pane fade" id="turnos">
                     <div class="card-perfil mt-5 animar">
-                        <h3 class="mb-4">
-                            Turnos Domesticos
-                        </h3>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3>
+                                Turnos Domesticos
+                            </h3>
 
+                            <a class="btn-custom" href="{{ route('pages.turnos.domestico') }}">Agregar</a>
+                        </div>
                         @forelse($turnosDomesticos as $turno)
 
                             <div class="turno-card">
@@ -146,10 +149,13 @@
                         @endforelse
                     </div>
                     <div class="card-perfil mt-5 animar">
-                        <h3 class="mb-4">
-                            Turno Produccion
-                        </h3>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3>
+                                Turno Produccion
+                            </h3>
 
+                            <a class="btn-custom" href="{{ route('pages.turnos.produccion') }}">Agregar</a>
+                        </div>
                         @forelse($turnosProduccion as $turno)
 
                             <div class="turno-card">
@@ -193,10 +199,14 @@
                 <!--Por ahora es un modelado, pero más adelante recibira datos de la compra-->
                 <div class="tab-pane fade" id="compras">
                     <div class="card-perfil mt-3 animar">
-                        <h3 class="mb-4">
-                            Historial de Compras
-                        </h3>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3>
+                                Historial de Compras
+                            </h3>
 
+                            <a class="btn-custom" href="/tienda">Agregar</a>
+
+                        </div>
                         <div class="row">
                             @foreach($productos as $producto)
 

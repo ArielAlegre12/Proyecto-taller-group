@@ -106,3 +106,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/domestico', [DomesticoController::class, 'store'])
         ->name('domestico.store');
 });
+
+Route::get('/recuperar-password', [AuthController::class, 'mostrarRecuperar'])
+        ->name('password.request');
+Route::post('/recuperar-password/email', [AuthController::class, 'enviarCodigo'])
+        ->name('password.email');
+Route::post('/recuperar-password/codigo', [AuthController::class, 'verificarCodigo'])
+        ->name('password.codigo');
+Route::post('/recuperar-password/cambiar', [AuthController::class, 'cambiarPassword'])
+        ->name('password.cambiar');
