@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DomesticoController;
 use App\Http\Controllers\ProduccionController;
 use App\Http\Controllers\ProductosController;
@@ -90,6 +91,9 @@ Route::middleware(['auth', 'rol:admin'])->prefix('backend/admin')->group(functio
 
     //ventas
     Route::get('/ventas', [AdminController::class, 'ventas']);
+    Route::put('/ventas/{venta}/pagado', [AdminController::class, 'marcarPagado']);
+    Route::put('/ventas/{venta}/enviado', [AdminController::class, 'marcarEnviado']);
+    Route::put('/ventas/{venta}/entregado', [AdminController::class, 'marcarEntregado']);
 });
 
 
@@ -105,6 +109,11 @@ Route::middleware('auth')->group(function () {
         ->name('produccion.store');
     Route::post('/domestico', [DomesticoController::class, 'store'])
         ->name('domestico.store');
+    Route::get('/compra', [ClienteController::class, 'checkout'])
+        ->name('cliente.checkout');
+    Route::post('/guardar-carrito', [ClienteController::class, 'guardarCarrito']);
+    Route::post('/compra/finalizar', [ClienteController::class, 'finalizarCompra'])
+        ->name('cliente.finalizarCompra');
 });
 
 Route::get('/recuperar-password', [AuthController::class, 'mostrarRecuperar'])

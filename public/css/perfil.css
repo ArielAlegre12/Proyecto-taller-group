@@ -91,6 +91,7 @@
     padding: 12px 24px;
     border-radius: 10px;
     transition: .3s;
+    text-decoration: none;
 }
 
 .btn-custom:hover {

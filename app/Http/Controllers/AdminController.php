@@ -151,4 +151,25 @@ class AdminController extends Controller
             ->get();
         return view('backend.admin.ventas.index', compact('ventas'));
     }
+
+    public function marcarPagado(Venta $venta){
+        $venta->estado = 'pagado';
+        $venta->save();
+
+        return back();
+    }
+
+    public function marcarEnviado(Venta $venta){
+        $venta->estado = 'enviado';
+        $venta->save();
+
+        return back();
+    }
+
+    public function marcarEntregado(Venta $venta){
+        $venta->estado = 'entregado';
+        $venta->save();
+
+        return back();
+    }
 }

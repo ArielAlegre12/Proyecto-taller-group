@@ -11,7 +11,7 @@
     <div class="resumen-grid mb-5">
         <div class="resumen-card">
             <i class="bi bi-cash-stack"></i>
-            <h3>${{ number_format($ventas->sum('total'),2,',','.') }}</h3>
+            <h3>${{ number_format($ventas->sum('total'), 2, ',', '.') }}</h3>
             <p>Total vendido</p>
         </div>
 
@@ -48,7 +48,7 @@
                         <tr>
                             <td>#{{ $venta->id }}</td>
                             <td>{{ $venta->usuario->nombre }}</td>
-                            <td>${{ number_format($venta->total,2,',','.') }}</td>
+                            <td>${{ number_format($venta->total, 2, ',', '.') }}</td>
                             <td>{{ $venta->created_at->format('d/m/Y') }}</td>
 
                             <td>
@@ -65,45 +65,51 @@
                                 @endif
                             </td>
                             <td>
-                                <div class="acciones-producto">
-                                    <!--ver-->
-                                    <button class="btn btn-info btn-sm"
-                                            data-bs-toggle="tooltip"
-                                            data-bs-placement="top"
-                                            title="Eliminar pedido">
-                                        <i class="bi bi-eye"></i>
-                                    </button>
+                                <div class="acciones-producto d-flex gap-2">
+                                    <!--pagado-->
+                                    <form action="/backend/admin/ventas/{{ $venta->id }}/pagado" method="POST">
+                                        @csrf
+                                        @method('PUT')
 
-                                    <!--marcar enviado-->
-                                    <button class="btn btn-success btn-sm"
-                                        data-bs-toggle="toolip"
-                                        data-bs-placement="top"
-                                        title="Estado de pedido"
-                                        {{ $venta->estado == 'envidado' || $venta->estado == 'entregado' ? 'disabled' : '' }}>
-                                        <i class="bi bi-truck"></i>
-                                    </button>
+                                        <button class="btn btn-success btn-sm" data-bs-toggle="tooltip"
+                                            title="Marcar como pagado" {{ $venta->estado != 'pendiente' ? 'disabled' : '' }}>
 
-                                    <!--cancelar-->
-                                    <button class="btn btn-danger btn-sm"
-                                        data-bs-toggle="toolip"
-                                        data-bs-placement="top"
-                                        title="Cancelar pedido"
-                                        {{ $venta->estado == 'cancelado' ? 'disabled' : '' }}>
-                                        <i class="bi bi-x-lg"></i>
-                                    </button>
+                                            <i class="bi bi-cash"></i>
+                                        </button>
+                                    </form>
 
+                                    <!--envidado-->
+                                    <form action="/backend/admin/ventas/{{ $venta->id }}/enviado" method="POST">
+                                        @csrf
+                                        @method('PUT')
+
+                                        <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip"
+                                            title="Marcar como enviado" {{ $venta->estado != 'pagado' ? 'disabled' : '' }}>
+                                            <i class="bi bi-truck"></i>
+                                        </button>
+                                    </form>
+
+                                    <!--entregado-->
+                                    <form action="/backend/admin/ventas/{{ $venta->id }}/entregado" method="POST">
+                                        @csrf
+                                        @method('PUT')
+
+                                        <button class="btn btn-dark btn-sm" data-bs-toggle="tooltip"
+                                            title="Marcar como entregado" {{ $venta->estado != 'enviado' ? 'disabled' : '' }}>
+                                            <i class="bi bi-check2-circle"></i>
+                                        </button>
+                                    </form>
                                 </div>
-
                             </td>
 
                         </tr>
-                        @empty
-                            <tr>
-                                <td colspan="6" class="text-center text-muted py-4">
-                                    <i class="bi bi-bag-x fs-2 d-block mb-2"></i>
-                                    No hay ventas registradas
-                                </td>
-                            </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                <i class="bi bi-bag-x fs-2 d-block mb-2"></i>
+                                No hay ventas registradas
+                            </td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>

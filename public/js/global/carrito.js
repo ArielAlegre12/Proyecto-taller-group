@@ -178,6 +178,32 @@ export function initCarrito() {
         renderCarrito();
     })
 
+    window.irCheckout = async function () {
+        const carrito = obtenerCarrito();
+        console.log('Carrito enviado:', carrito);
+
+        try {
+            const response = await fetch('/guardar-carrito', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                },
+                body: JSON.stringify({ carrito: carrito })
+            });
+
+            const data = await response.json();
+
+            console.log('Respuesta servidor:', data);
+
+            if (data.success) {
+                window.location.href = '/compra';
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     //inicializar
     actualizarContador();
     renderCarrito();

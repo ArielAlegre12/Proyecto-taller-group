@@ -20,4 +20,8 @@ class Producto extends Model
         'animal',
         'tipo'
     ];
+
+    public function detallesVenta(){
+        return $this->hasMany(DetalleVenta::class);
+    }
 }

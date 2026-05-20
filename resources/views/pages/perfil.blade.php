@@ -208,45 +208,67 @@
 
                         </div>
                         <div class="row">
-                            @foreach($productos as $producto)
+                            @forelse ($ventas as $venta)
+                                <div class="compra-card mb-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div>
+                                            <h4 class="mb-1">
+                                                Pedido #{{ $venta->id }}
+                                            </h4>
 
-                                <div class="col-md-4 mb-4">
-                                    <div class="producto-card">
-                                        <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}"
-                                            class="img-compra">
-                                        <h4>
-                                            {{ $producto->nombre }}
-                                        </h4>
-
-                                        <p class="producto-descripcion">
-                                            {{ $producto->descripcion }}
-                                        </p>
-
-                                        <div class="precio">
-                                            ${{ number_format($producto->precio, 2, ',', '.') }}
+                                            <small class="text-muted">
+                                                {{ $venta->created_at->format('d/m/Y H:i') }}
+                                            </small>
                                         </div>
 
-                                        <hr>
-                                        <div class="detalle-compra">
-                                            <!--acá recibira la fecha de compra, de momento sólo la fecha de la creación del prod-->
-                                            <p>
-                                                <strong>Fecha:</strong>
-                                                {{ $producto->created_at->format('d/m/y') }}
-                                            </p>
-                                            <!--Luego obtendremos la info de la compra-->
-                                            <p>
-                                                <strong>Método de pago:</strong>
-                                                Tarjeta
-                                            </p>
-                                            <!--Habrá que verificar el estado-->
-                                            <p>
-                                                <strong>Estado:</strong>
-                                                <span class="badge bg-success">Entregado</span>
-                                            </p>
+                                        <div>
+                                            @if ($venta->estado == 'pendiente')
+                                                <span class="badge bg-warning text-dark">
+                                                    Pendiente
+                                                </span>
+                                            @elseif($venta->estado == 'entregado')
+                                                @if ($venta->metodo_entrega == 'retiro')
+                                                    <span class="badge bg-dark">
+                                                        Retirado
+                                                    </span>
+                                                    @else
+                                                        <span class="badge bg-dark">
+                                                            Entregado
+                                                        </span>
+                                                @endif
+                                            @else
+                                                <span class="badge bg-warning text-dark">
+                                                    En camino
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
+
+                                    @foreach ($venta->detalles as $detalle)
+                                        <div class="d-flex align-items-center gap-3 mb-3">
+                                            <img src="{{ asset('storage/' . $detalle->producto->imagen) }}"
+                                                width="80" class="rounded-3">
+
+                                            <div class="flex-grow-1">
+                                                <h5 class="mb-1">{{ $detalle->producto->nombre }}</h5>
+                                                <p class="mb-1 text-muted">Cantidad: {{ $detalle->cantidad }}</p>
+                                                <strong>${{ number_format($detalle->subtotal,2,',','.') }}</strong>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                    <hr>
+
+                                    <div class="d-flex justify-content-between">
+                                        <strong>Total</strong>
+                                        <strong>${{ number_format($venta->total,2,',','.') }}</strong>
+                                    </div>
                                 </div>
-                            @endforeach
+
+                                @empty
+                                <div class="sin-turnos">
+                                    No tienes compras registradas.
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -254,3 +276,10 @@
         </section>
     </div>
 @endsection
+
+@if (session('success'))
+    <script>
+        localStorage.removeItem('carrito');
+        mostrarToast("Compra realizada correctamente");
+    </script>
+@endif
