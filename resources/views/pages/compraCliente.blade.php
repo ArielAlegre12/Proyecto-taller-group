@@ -56,8 +56,8 @@
                         <div class="mb-4">
                             <label class="form-label fw-bold">Método de entrega</label>
                             <select class="form-select" name="metodo_entrega">
-                                <option>Retiro en sucursal</option>
-                                <option>Envío a domicilio</option>
+                                <option value="retiro">Retiro en sucursal</option>
+                                <option value="domicilio">Envío a domicilio</option>
                             </select>
                         </div>
 

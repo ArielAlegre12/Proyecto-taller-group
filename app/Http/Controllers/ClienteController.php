@@ -41,7 +41,9 @@ class ClienteController extends Controller
             $venta = Venta::create([
                 'usuario_id' => auth()->id(),
                 'total' => 0,
-                'estado' => 'pendiente'
+                'estado' => 'pendiente',
+                'metodo_pago' => $request->metodo_pago,
+                'metodo_entrega' => $request->metodo_entrega
             ]);
 
             $total = 0;
@@ -53,6 +55,8 @@ class ClienteController extends Controller
                 DetalleVenta::create([
                     'venta_id' => $venta->id,
                     'producto_id' => $item['id'],
+                    'nombre_producto' =>$item['nombre'],
+                    'imagen_producto' => $item['imagen'],
                     'cantidad' => $item['cantidad'],
                     'precio' => $item['precio'],
                     'subtotal' => $subtotal

@@ -66,6 +66,11 @@
                             </td>
                             <td>
                                 <div class="acciones-producto d-flex gap-2">
+                                    <button class="btn btn-info btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#ventaModal{{ $venta->id }}" title="Ver detalles">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+
                                     <!--pagado-->
                                     <form action="/backend/admin/ventas/{{ $venta->id }}/pagado" method="POST">
                                         @csrf
@@ -84,7 +89,9 @@
                                         @method('PUT')
 
                                         <button class="btn btn-primary btn-sm" data-bs-toggle="tooltip"
-                                            title="Marcar como enviado" {{ $venta->estado != 'pagado' ? 'disabled' : '' }}>
+                                            title="Marcar como enviado"
+                                            {{ $venta->estado != 'pagado' ||
+                                                $venta->metodo_entrega == 'retiro' ? 'disabled' : '' }}>
                                             <i class="bi bi-truck"></i>
                                         </button>
                                     </form>
@@ -95,7 +102,17 @@
                                         @method('PUT')
 
                                         <button class="btn btn-dark btn-sm" data-bs-toggle="tooltip"
-                                            title="Marcar como entregado" {{ $venta->estado != 'enviado' ? 'disabled' : '' }}>
+                                            title="Marcar como entregado"
+                                            {{ (
+                                                    $venta->metodo_entrega == 'domicilio' &&
+                                                    $venta->estado != 'enviado'
+                                                    ) || 
+                                                (
+                                                    $venta->metodo_entrega == 'retiro' &&
+                                                    $venta->estado != 'pagado'
+                                                )
+                                                    ? 'disabled' : ''
+                                                }}>
                                             <i class="bi bi-check2-circle"></i>
                                         </button>
                                     </form>
@@ -103,6 +120,83 @@
                             </td>
 
                         </tr>
+
+                        <!--modal ventas-->
+                        <div class="modal fade" id="ventaModal{{ $venta->id }}" tabindex="-1">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Detalle del pedido #{{ $venta->id }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <!--info-->
+                                        <div class="row mb-4">
+                                            <div class="col-md-6">
+                                                <p>
+                                                    <strong>Cliente:</strong>
+                                                    {{ $venta->usuario->nombre }}
+                                                </p>
+
+                                                <p>
+                                                    <strong>Email:</strong>
+                                                    {{ $venta->usuario->email }}
+                                                </p>
+
+                                                <p> <!--ucfirst: Convierte el primer carácter en una mayúscula-->
+                                                    <strong>Estado:</strong>
+                                                    {{ ucfirst($venta->estado) }}
+                                                </p>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <p>
+                                                    <strong>Fecha:</strong>
+                                                    {{ $venta->created_at->format('d/m/Y H:i:s') }}
+                                                </p>
+
+                                                <p>
+                                                    <strong>Método de pago:</strong>
+                                                    {{ ucfirst($venta->metodo_pago ?? 'Tarjeta') }}
+                                                </p>
+
+                                                <p>
+                                                    <strong>Entrega:</strong>
+                                                    {{ ucfirst($venta->metodo_entrega ?? 'Retiro') }}
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                        <hr>
+                                        <!--productos-->
+                                        <h6 class="mb-3">Productos comprados</h6>
+                                        @foreach ($venta->detalles as $detalle)
+                                            <div class="d-flex align-items-center gap-3 mb-3">
+                                                <img src="{{ asset('storage/' . $detalle->producto->imagen) }}" width="70"
+                                                    class="rounded-3">
+
+                                                <div class="flex-grow-1">
+                                                    <h6 class="mb-1">{{ $detalle->producto->nombre }}</h6>
+                                                    <small class="text-muted">Cantidad: {{ $detalle->cantidad }}</small>
+                                                </div>
+
+                                                <strong>${{ number_format($detalle->subtotal, 2, ',', '.') }}</strong>
+                                            </div>
+                                        @endforeach
+
+                                        <hr>
+
+                                        <div class="d-flex justify-content-between">
+                                            <strong>Total</strong>
+                                            <strong>${{ number_format($venta->total, 2, ',', '.') }}</strong>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     @empty
                         <tr>
                             <td colspan="6" class="text-center text-muted py-4">

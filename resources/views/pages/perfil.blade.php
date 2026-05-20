@@ -224,47 +224,59 @@
                                         <div>
                                             @if ($venta->estado == 'pendiente')
                                                 <span class="badge bg-warning text-dark">
-                                                    Pendiente
+                                                    Pendiente de aprobación
+                                                </span>
+                                            @elseif($venta->estado == 'pagado')
+                                                @if ($venta->metodo_entrega == 'retiro')
+                                                    <span class="badge bg-dark">
+                                                        Listo para retirar
+                                                    </span>
+                                                @else
+                                                    <span class="badge bg-dark">
+                                                        Preparando envío
+                                                    </span>
+                                                @endif
+                                            @elseif($venta->estado == 'enviado')
+                                                <span class="badge bg-primary">
+                                                    En camino
                                                 </span>
                                             @elseif($venta->estado == 'entregado')
-                                                @if ($venta->metodo_entrega == 'retiro')
+                                                @if($venta->metodo_entrega == 'retiro')
                                                     <span class="badge bg-dark">
                                                         Retirado
                                                     </span>
-                                                    @else
-                                                        <span class="badge bg-dark">
-                                                            Entregado
-                                                        </span>
+                                                @else
+                                                    <span class="badge bg-success">
+                                                        Entregado
+                                                    </span>
                                                 @endif
-                                            @else
-                                                <span class="badge bg-warning text-dark">
-                                                    En camino
-                                                </span>
+
                                             @endif
                                         </div>
                                     </div>
 
                                     @foreach ($venta->detalles as $detalle)
                                         <div class="d-flex align-items-center gap-3 mb-3">
-                                            <img src="{{ asset('storage/' . $detalle->producto->imagen) }}"
-                                                width="80" class="rounded-3">
+                                            <img src="{{ asset('storage/' . $detalle->imagen_producto) }}" width="80"
+                                                class="rounded-3">
 
                                             <div class="flex-grow-1">
-                                                <h5 class="mb-1">{{ $detalle->producto->nombre }}</h5>
+                                                <h5 class="mb-1">{{ $detalle->nombre_producto }}</h5>
                                                 <p class="mb-1 text-muted">Cantidad: {{ $detalle->cantidad }}</p>
-                                                <strong>${{ number_format($detalle->subtotal,2,',','.') }}</strong>
+                                                <strong>${{ number_format($detalle->subtotal, 2, ',', '.') }}</strong>
                                             </div>
                                         </div>
                                     @endforeach
-                                    <hr>
+
 
                                     <div class="d-flex justify-content-between">
                                         <strong>Total</strong>
-                                        <strong>${{ number_format($venta->total,2,',','.') }}</strong>
+                                        <strong>${{ number_format($venta->total, 2, ',', '.') }}</strong>
                                     </div>
                                 </div>
+                                <hr>
 
-                                @empty
+                            @empty
                                 <div class="sin-turnos">
                                     No tienes compras registradas.
                                 </div>

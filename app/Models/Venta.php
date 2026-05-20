@@ -9,7 +9,9 @@ class Venta extends Model
     protected $fillable = [
         'usuario_id',
         'total',
-        'estado'
+        'estado',
+        'metodo_pago',
+        'metodo_entrega'
     ];
 
     public function usuario(){
