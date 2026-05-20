@@ -102,6 +102,6 @@
         <h2>¿Necesitas atención urgente?</h2>
         <p>Contáctanos ahora y te atendemos</p>
 
-        <a href="tel:+543791323421" class="cta-btn">Llamar ahora</a>
+        <a href="https://wa.me/543704344115" class="cta-btn" target="_blank">Llamar ahora</a>
     </section>
 @endsection

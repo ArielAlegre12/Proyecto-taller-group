@@ -25,7 +25,7 @@
                     <p><i class="bi bi-geo-alt-fill text-success me-2"></i>Juan Bautista Cabral 2139, W3402BKG Corrientes.
                     </p>
                     <p><i class="bi bi-telephone-fill text-success me-2"></i>+54 3791323421</p>
-                    <p><i class="bi bi-envelope-fill text-success me-2"></i>huellasFelicesShop@gmail.com</p>
+                    <p><i class="bi bi-envelope-fill text-success me-2"></i>huellasfelices030@gmail.com</p>
                     <p><i class="bi bi-clock-fill text-success me-2"></i>Lunes a Sábado de 09:00 a 18:00</p>
                      <p><i class="bi bi-exclamation-circle-fill text-success me-2"></i>Emergencias siempre disponibles</p>
 

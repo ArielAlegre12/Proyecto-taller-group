@@ -186,7 +186,7 @@
         <section class="bg-verde text-white text-center py-5 animar">
             <h3>¿Tienes una emergencia?</h3>
             <p>Llámanos ahora para atención inmediata</p>
-            <a href="#" class="btn btn-light">📞 +54 3791323421</a>
+            <a href="https://wa.me/543704344115" class="btn btn-light" target="_blank">📞 +54 3704344115</a>
         </section>
     </div>
 
