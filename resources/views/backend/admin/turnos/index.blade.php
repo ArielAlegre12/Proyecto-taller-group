@@ -49,7 +49,7 @@
                                         @csrf
                                         @method('PUT')
                                         <button class="btn btn-success btn-sm"
-                                            data-bs-toggle="toolip"
+                                            data-bs-toggle="tooltip"
                                             data-bs-placement="top"
                                             title="Confirmar turno"
                                             {{ $turno->estado == 'confirmado' ? 'disabled' : '' }}>
@@ -59,7 +59,7 @@
 
                                     <!--reprogramar-->
                                     <button class="btn btn-warning btn-sm"
-                                        data-bs-toggle="toolip"
+                                        data-bs-toggle="tooltip"
                                         data-bs-placement="top"
                                         title="Reprogramar turno"
                                         data-bs-toggle="modal"
@@ -102,7 +102,7 @@
                                         @csrf
                                         @method('PUT')
                                         <button class="btn btn-danger btn-sm"
-                                            data-bs-toggle="toolip"
+                                            data-bs-toggle="tooltip"
                                             data-bs-placement="top"
                                             title="Cancelar turno"
                                             {{ $turno->estado == 'cancelado' ? 'disabled' : '' }}>
