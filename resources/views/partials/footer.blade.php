@@ -17,11 +17,11 @@
                 <h6>Enlaces</h6>
 
                 <div class="links-grid">
-                    <a href="informacionContactos">Informacición de contactos</a>
-                    <a href="consultas">Consultas</a>
-                    <a href="comercializacion">Comercialización</a>
-                    <a href="quienesSomos">Quiénes somos</a>
-                    <a href="terminosUsos">Términos y uso</a>
+                    <a href="/informacionContactos">Informacición de contactos</a>
+                    <a href="/consultas">Consultas</a>
+                    <a href="/comercializacion">Comercialización</a>
+                    <a href="/quienesSomos">Quiénes somos</a>
+                    <a href="/terminosUsos">Términos y uso</a>
                 </div>
             </div>
 
