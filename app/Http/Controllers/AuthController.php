@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RecuperarPasswordMail;
 
 class AuthController extends Controller
 {
@@ -80,9 +82,11 @@ class AuthController extends Controller
         $codigo = rand(100000, 999999);
 
         DB::table('recuperar__contrasenas')->updateOrInsert(['usuario_id' => $usuario->id],['codigo'=>$codigo, 'updated_at' => now()]);
+        
+        Mail::to($usuario->email)->send(new RecuperarPasswordMail($codigo));
 
         return back()
-            ->with('success', 'Codigo generado:' . $codigo)
+            ->with('success', 'Se envio el codigo al correo electronico')
             ->with('email', $request->email)
             ->with('step', 'codigo');
         
