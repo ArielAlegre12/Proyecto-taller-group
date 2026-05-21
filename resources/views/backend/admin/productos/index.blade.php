@@ -28,7 +28,7 @@
 
                 <tbody>
                     @foreach ($productos as $producto)
-                        <tr>
+                        <tr class="{{ !$producto->activo ? 'producto-inactivo' : '' }}">
                             <td>
                                 <img src="{{ asset('storage/' . $producto->imagen) }}" class="tabla-img">
                             </td>
@@ -50,25 +50,107 @@
                             </td>
 
                             <td>
-                                {{ $producto->tipo }}
+                                {{ $producto->categoriaProducto?->nombre ?? 'Sin tipo' }}
                             </td>
 
                             <td>
                                 <div class="acciones-producto">
+                                    <!--ver detalles-->
+                                    <button class="btn btn-info btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modalVer{{ $producto->id }}"
+                                        title="Ver detalles">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+
+                                    <!--modal ver detalles-->
+                                    <div class="modal fade" id="modalVer{{ $producto->id }}" tabindex="-1">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Detalles del producto</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-5 text-center mb-3">
+                                                            <img src="{{ asset('storage/' . $producto->imagen) }}"
+                                                                class="img-fluid rounded shadow-sm">
+                                                        </div>
+
+                                                        <div class="col-md-7">
+                                                            <h4>{{ $producto->nombre }}</h4>
+                                                            <hr>
+                                                            <p>
+                                                                <strong>Precio:</strong>
+                                                                ${{ number_format($producto->precio,2,',','.') }}
+                                                            </p>
+                                                            <p>
+                                                                <strong>Stock:</strong>
+                                                                {{ $producto->stock }}
+                                                            </p>
+                                                            <p>
+                                                                <strong>Categoría:</strong>
+                                                                {{ $producto->categoriaProducto?->nombre ?? 'Sin categoría' }}
+                                                            </p>
+                                                            <p>
+                                                                <strong>Animal:</strong>
+                                                                {{ $producto->categoriaAnimal?->nombre ?? 'Sin categoría' }}
+                                                            </p>
+                                                            <p>
+                                                                <strong>Descripción:</strong>
+                                                                {{ $producto->descripcion ?? 'Sin descripción' }}
+                                                            </p>
+                                                            <p class="text-muted small">
+                                                                Creado:
+                                                                {{ $producto->created_at->format('d/m/Y H:i') }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <a href="/backend/admin/productos/{{ $producto->id }}/edit" class="btn btn-warning">
+                                                        <i class="bi bi-pencil"></i>
+                                                        Editar producto
+                                                    </a>
+
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                        Cerrar
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                
                                     <a href="/backend/admin/productos/{{ $producto->id }}/edit" class="btn btn-warning btn-sm"
-                                        data-bs-toggle="toolip"
+                                        data-bs-toggle="tooltip"
                                         data-bs-placement="top"
                                         title="Editar producto">
                                         <i class="bi bi-pencil"></i>
                                     </a>
                                     <!--btn eliminar-->
                                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                        data-bs-toggle="toolip"
+                                        data-bs-toggle="tooltip"
                                         data-bs-placement="top"
                                         title="Eliminar producto"
                                         data-bs-target="#modalEliminar{{ $producto->id }}">
                                         <i class="bi bi-trash"></i>
                                     </button>
+
+                                    <form action="/backend/admin/productos/{{ $producto->id }}/toggle" method="POST">
+                                        @csrf
+                                        @method('PUT')
+
+                                        <button type="submit" class="btn btn-secondary btn-sm">
+                                            @if ($producto->activo)
+                                                <i class="bi bi-eye-slash"></i>
+                                            @else
+                                                <i class="bi bi-eye"></i>
+                                            @endif
+                                        </button>
+                                    </form>
 
                                     <!--modal eliminar-->
                                     <div class="modal fade" id="modalEliminar{{ $producto->id }}" tabindex="-1">
@@ -88,7 +170,7 @@
 
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
-                                                        data-bs-toggle="toolip"
+                                                        data-bs-toggle="tooltip"
                                                         data-bs-placement="top"
                                                         title="Cancelar eliminación de producto"
                                                         data-bs-dismiss="modal">Cancelar</button>

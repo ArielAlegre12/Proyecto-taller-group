@@ -57,26 +57,29 @@
                 <input type="file" name="imagen" class="form-control">
             </div>
 
-            <!--animal-->
+            <!--categoria animal-->
             <div class="mb-3">
                 <label class="form-label">Animal</label>
-                <select name="animal" class="form-select">
-                    <option value="perros" {{ $producto->animal == 'perros' ? 'selected' : '' }}>Perros</option>
-                    <option value="gatos" {{ $producto->animal == 'gatos' ? 'selected' : '' }}>Gatos</option>
-                    <option value="caballos" {{ $producto->animal == 'caballos' ? 'selected' : '' }}>Caballos</option>
-                    <option value="vacas" {{ $producto->animal == 'vacas' ? 'selected' : '' }}>Vacas</option>
-                    <option value="otros" {{ $producto->animal == 'otros' ? 'selected' : '' }}>Otros</option>
+                <select name="categoria_animal_id" class="form-select">
+                    <option value="">Seleccionar</option>
+                    @foreach ($categoriasAnimales as $categoria)
+                        <option value="{{ $categoria->id }}" {{ old('categoria_animal_id', $producto->categoria_animal_id) == $categoria->id ? 'selected' : '' }}>
+                            {{ $categoria->nombre }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 
-            <!--tipo-->
+            <!--categoria producto-->
             <div class="mb-3">
                 <label class="form-label">Tipo</label>
-                <select name="tipo" class="form-select">
-                    <option value="alimentos" {{ $producto->tipo == 'alimentos' ? 'selected' : '' }}>Alimentos</option>
-                    <option value="higiene" {{ $producto->tipo == 'higiene' ? 'selected' : '' }}>Higiene</option>
-                    <option value="accesorios" {{ $producto->tipo == 'accesorios' ? 'selected' : '' }}>Acessorios</option>
-                    <option value="salud" {{ $producto->tipo == 'salud' ? 'selected' : '' }}>Salud</option>
+                <select name="categoria_producto_id" class="form-select">
+                    <option value="">Seleccionar</option>
+                    @foreach ($categoriasProductos as $categoria)
+                        <option value="{{ $categoria->id }}" {{ old('categoria_producto_id', $producto->categoria_producto_id) == $categoria->id ? 'selected' : '' }}>
+                            {{ $categoria->nombre }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 

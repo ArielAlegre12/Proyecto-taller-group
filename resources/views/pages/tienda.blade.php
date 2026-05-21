@@ -22,11 +22,11 @@
             <h4>Animales</h4>
             <ul>
                 <li data-filtro-animal="todos" class="activo">Todos</li>
-                <li data-filtro-animal="perros">Perros</li>
-                <li data-filtro-animal="gatos">Gatos</li>
-                <li data-filtro-animal="caballos">Caballos</li>
-                <li data-filtro-animal="vacas">Vacas</li>
-                <li data-filtro-animal="otros">Otros</li>
+                @foreach ($categoriasAnimales as $categoria)
+                    <li data-filtro-animal="{{ strtolower($categoria->nombre) }}">
+                        {{ $categoria->nombre }}
+                    </li>
+                @endforeach
             </ul>
         </aside>
 
@@ -34,10 +34,11 @@
             <!--BARRA DE TIPOS-->
             <div class="filtro-tipo">
                 <button data-tipo="todos" class="activo" aria-pressed="true">Todos</button>
-                <button data-tipo="alimentos" aria-pressed="false">Alimentos</button>
-                <button data-tipo="higiene" aria-pressed="false">Higiene</button>
-                <button data-tipo="accesorios" aria-pressed="false">Accesorios</button>
-                <button data-tipo="salud" aria-pressed="false">Salud</button>
+                @foreach ($categoriasProductos as $categoria)
+                    <button data-tipo="{{ strtolower($categoria->nombre) }}">
+                        {{ $categoria->nombre }}
+                    </button>
+                @endforeach
             </div>
 
             <!--PRODUCTOS-->
@@ -46,7 +47,8 @@
                 @forelse($productos as $producto)
                     <div class="card-producto" data-id="{{ $producto->id }}" data-nombre="{{ $producto->nombre }}"
                         data-precio="{{ $producto->precio }}" data-imagen="{{ $producto->imagen }}"
-                        data-animal="{{ $producto->animal }}" data-tipo="{{ $producto->tipo }}"
+                        data-animal="{{ strtolower(optional($producto->categoriaAnimal)->nombre ?? 'desconocido') }}"
+                        data-tipo="{{ strtolower(optional($producto->categoriaProducto)->nombre ?? 'desconocido') }}"
                         data-stock="{{ $producto->stock }}">
 
                         <div class="info-producto">
@@ -106,4 +108,4 @@
 
 @push('scripts')
     <script type="module" src="{{ asset('js/tiendaJS/mainTienda.js') }}"></script>
-@endpush
+@endpushi

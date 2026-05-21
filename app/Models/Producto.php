@@ -17,11 +17,19 @@ class Producto extends Model
         'precio',
         'stock',
         'imagen',
-        'animal',
-        'tipo'
+        'categoria_animal_id',
+        'categoria_producto_id'
     ];
 
     public function detallesVenta(){
         return $this->hasMany(DetalleVenta::class);
+    }
+
+    public function categoriaProducto(){
+        return $this->belongsTo(CategoriaProducto::class);
+    }
+
+    public function categoriaAnimal(){
+        return $this->belongsTo(CategoriaAnimal::class);
     }
 }

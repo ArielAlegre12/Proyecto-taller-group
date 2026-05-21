@@ -73,6 +73,7 @@ Route::middleware(['auth', 'rol:admin'])->prefix('backend/admin')->group(functio
     Route::get('/productos/{producto}/edit', [ProductosController::class, 'edit']);//editar
     Route::put('/productos/{producto}', [ProductosController::class, 'update']);
     Route::delete('/productos/{producto}', [ProductosController::class, 'destroy']);
+    Route::put('/productos/{producto}/toggle', [ProductosController::class, 'toggleActivo']);
     
     //usuarios
     Route::get('/usuarios', [AdminController::class, 'usuarios']);

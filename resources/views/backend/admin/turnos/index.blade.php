@@ -59,10 +59,9 @@
 
                                     <!--reprogramar-->
                                     <button class="btn btn-warning btn-sm"
-                                        data-bs-toggle="tooltip"
+                                        data-bs-toggle="modal"
                                         data-bs-placement="top"
                                         title="Reprogramar turno"
-                                        data-bs-toggle="modal"
                                         data-bs-target="#modalReprogramarDomestico{{ $turno->id }}"
                                         {{ $turno->estado == 'cancelado' ? 'disabled' : '' }}>
                                         <i class="bi bi-calendar-event"></i>
@@ -177,7 +176,6 @@
 
                                     <!--reprogramar-->
                                     <button class="btn btn-warning btn-sm"
-                                        data-bs-toggle="tooltip"
                                         data-bs-placement="top"
                                         title="Reprogramar turno"
                                         data-bs-toggle="modal"

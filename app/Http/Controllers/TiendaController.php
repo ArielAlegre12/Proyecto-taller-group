@@ -1,12 +1,26 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\CategoriaAnimal;
+use App\Models\CategoriaProducto;
 use App\Models\Producto;
 
 class TiendaController extends Controller{
     public function index(){
-        $productos = Producto::all();
+        $productos = Producto::with([
+            'categoriaAnimal',
+            'categoriaProducto'
+        ])
+        ->where('activo', true)
+        ->get();
 
-        return view('pages.tienda', compact('productos'));
+        $categoriasAnimales = CategoriaAnimal::all();
+        $categoriasProductos = CategoriaProducto::all();
+
+        return view('pages.tienda', compact([
+            'productos',
+            'categoriasAnimales',
+            'categoriasProductos'
+        ]));
     }
 }

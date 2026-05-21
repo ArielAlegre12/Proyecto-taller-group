@@ -46,30 +46,33 @@
                 <input type="file" name="imagen" class="form-control">
             </div>
 
-            <!--animal-->
+            <!--cateogria animal-->
             <div class="mb-3">
                 <label class="form-label">Animal</label>
 
-                <select name="animal" class="form-select">
+                <select name="categoria_animal_id" class="form-select">
                     <option value="">Seleccionar</option>
-                    <option value="perros">Perros</option>
-                    <option value="gatos">Gatos</option>
-                    <option value="caballos">Caballos</option>
-                    <option value="vacas">Vacas</option>
-                    <option value="otros">Otros</option>
+
+                    @foreach ($categoriasAnimales as $categoria)
+                        <option value="{{ $categoria->id }}" {{ old('categoria_animal_id') == $categoria->id ? 'selected' : '' }}>
+                            {{ $categoria->nombre }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 
-            <!--tipo-->
+            <!--categoria producto-->
             <div class="mb-3">
                 <label class="form-label">Tipo</label>
 
-                <select name="tipo" class="form-select">
+                <select name="categoria_producto_id" class="form-select">
                     <option value="">Seleccionar</option>
-                    <option value="alimentos">Alimentos</option>
-                    <option value="higiene">Higiene</option>
-                    <option value="accesorios">Acessorios</option>
-                    <option value="salud">Salud</option>
+                    
+                    @foreach ($categoriasProductos as $categoria)
+                        <option value="{{ $categoria->id }}" {{ old('categoria_producto_id') == $categoria->id ? 'selected' : '' }}>
+                            {{ $categoria->nombre }}
+                        </option>
+                    @endforeach
                 </select>
             </div>
 
