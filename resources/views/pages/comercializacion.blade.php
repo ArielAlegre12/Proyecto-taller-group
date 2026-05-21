@@ -162,11 +162,13 @@
                         Todos nuestros productos tienen garantía.
                     </p>
 
-                    <ul class="custom-list">
-                        <li>Productos certificados</li>
-                        <li>30 días de garantía</li>
-                        <li>Asesoramiento veterinario</li>
-                    </ul>
+                    <div class="box-light">
+                        <ul class="custom-list">
+                            <li>Productos certificados</li>
+                            <li>30 días de garantía</li>
+                            <li>Asesoramiento veterinario</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="col-md-6" id="devoluciones">
