@@ -108,4 +108,4 @@
 
 @push('scripts')
     <script type="module" src="{{ asset('js/tiendaJS/mainTienda.js') }}"></script>
-@endpushi
+@endpush
