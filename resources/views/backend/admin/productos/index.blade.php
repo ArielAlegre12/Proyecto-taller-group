@@ -143,7 +143,7 @@
                                         @csrf
                                         @method('PUT')
 
-                                        <button type="submit" class="btn btn-secondary btn-sm">
+                                        <button type="submit" class="btn btn-secondary btn-sm" title="Desactivar producto">
                                             @if ($producto->activo)
                                                 <i class="bi bi-eye-slash"></i>
                                             @else
