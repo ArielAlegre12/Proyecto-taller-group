@@ -290,7 +290,7 @@
 @endsection
 
 @if (session('success'))
-    <script>
+    <script type="module">
         localStorage.removeItem('carrito');
         mostrarToast("Compra realizada correctamente");
     </script>

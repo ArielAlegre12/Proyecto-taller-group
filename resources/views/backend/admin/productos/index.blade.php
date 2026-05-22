@@ -1,4 +1,13 @@
 @extends('layouts.admin')
+
+@push('scripts')
+@if (session('success'))
+    <script type="module">
+        mostrarToast("{{ session('success') }}", 3000);
+    </script>
+@endif
+@endpush
+
 @section('admin-content')
     <div class="admin-header mb-4">
         <div>

@@ -1,4 +1,13 @@
 @extends('layouts.admin')
+
+@push('scripts')
+@if (session('success'))
+    <script type="module">
+        mostrarToast("{{ session('success') }}", 3000);
+    </script>
+@endif
+@endpush
+
 @section('admin-content')
     <div class="container mt-5">
         <h2 class="mb-4">Agregar producto</h2>

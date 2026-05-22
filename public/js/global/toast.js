@@ -20,3 +20,5 @@ export function mostrarToast(mensaje, tipo = "success"){
         toast.classList.remove("show");
     }, 3000);
 }
+
+window.mostrarToast = mostrarToast;
