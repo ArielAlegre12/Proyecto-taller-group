@@ -27,6 +27,20 @@ class ClienteController extends Controller
     }
 
     public function finalizarCompra(Request $request){
+        $request->validate([
+            'metodo_pago' => 'required',
+            'metodo_entrega' => 'required'
+        ]);
+
+        if($request->metodo_pago === 'tarjeta'){
+            $request->validate([
+                'numero_tarjeta' => 'required|min:16|max:16',
+                'titular' => 'required|string|max:255',
+                'vencimiento' => 'required',
+                'cvv' => 'required|min:3|max:3'
+            ]);
+        }
+
         $carrito = session()->get('carrito', []);
 
         //si el carrito está vacío

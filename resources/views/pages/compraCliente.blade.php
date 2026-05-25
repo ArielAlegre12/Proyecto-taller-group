@@ -83,7 +83,7 @@
 
                             <div class="row">
                                 <div class="col">
-                                    <input type="text" class="form-control" name="vencimiento" placeholder="MM/AA">
+                                    <input type="text" class="form-control" name="vencimiento" placeholder="MM/AA" maxlength="5">
                                 </div>
 
                                 <div class="col">
