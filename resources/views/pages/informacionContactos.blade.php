@@ -27,22 +27,25 @@
                     <p><i class="bi bi-telephone-fill text-success me-2"></i>+54 3791323421</p>
                     <p><i class="bi bi-envelope-fill text-success me-2"></i>huellasfelices030@gmail.com</p>
                     <p><i class="bi bi-clock-fill text-success me-2"></i>Lunes a Sábado de 09:00 a 18:00</p>
-                     <p><i class="bi bi-exclamation-circle-fill text-success me-2"></i>Emergencias siempre disponibles</p>
+                    <p><i class="bi bi-exclamation-circle-fill text-success me-2"></i>Emergencias siempre disponibles</p>
 
-                    <h4 class="mt-3">Envíanos un mensaje</h4>
+                    <div class="mt-4">
+                        <h4>Seguinos en redes</h4>
 
-                    <form>
-                        <label class="form-label">Nombre</label>
-                        <input type="text" placeholder="Ingrese su nombre" class="form-control mb-2">
+                        <div class="d-flex gap-3 mt-3">
+                            <a href="#" class="btn btn-instagram">
+                                <i class="bi bi-instagram"></i> Instagram
+                            </a>
 
-                        <label class="form-label">Email</label>
-                        <input type="email" placeholder="Ingrese su correo" class="form-control mb-2">
+                            <a href="#" class="btn btn-outline-primary">
+                                <i class="bi bi-facebook"></i> Facebook
+                            </a>
 
-                        <label class="form-label">Mensaje</label>
-                        <textarea placeholder="Escriba su mensaje" class="form-control mb-2"></textarea>
-
-                        <button class="btn btn-success w-100">Enviar</button>
-                    </form>
+                            <a href="#" class="btn btn-tiktok">
+                                <i class="bi bi-tiktok"></i> TikTok
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
 

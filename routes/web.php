@@ -6,6 +6,7 @@ use App\Http\Controllers\DomesticoController;
 use App\Http\Controllers\ProduccionController;
 use App\Http\Controllers\ProductosController;
 use App\Http\Controllers\PerfilController;
+use App\Models\CategoriaAnimal;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TiendaController;
 use App\Http\Controllers\AuthController;
@@ -74,7 +75,13 @@ Route::middleware(['auth', 'rol:admin'])->prefix('backend/admin')->group(functio
     Route::put('/productos/{producto}', [ProductosController::class, 'update']);
     Route::delete('/productos/{producto}', [ProductosController::class, 'destroy']);
     Route::put('/productos/{producto}/toggle', [ProductosController::class, 'toggleActivo']);
-    
+    Route::post('/categorias-animales',
+        [ProductosController::class, 'storeCategoriaAnimal'])
+        ->name('categorias.animales.store');
+    Route::post('/categorias-productos',
+        [ProductosController::class, 'storeCategoriaProducto'])
+        ->name('categorias.productos.store');
+
     //usuarios
     Route::get('/usuarios', [AdminController::class, 'usuarios']);
     Route::get('/usuarios/{usuario}', [AdminController::class, 'showUsuario']);

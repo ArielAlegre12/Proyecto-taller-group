@@ -13,7 +13,7 @@ if(inputVencimiento){
 
         //limitar a 4 núm
         valor = valor.slice(0,4);
-        //validar mes
+        //validar me
         if(valor.length >= 2){
             let mes = parseInt(valor.slice(0,2));
             if(mes > 12){

@@ -56,13 +56,21 @@
 
         <div class="p-3 border-top">
             <button class="btn btn-danger w-100 mb-2" onclick="vaciarCarrito()">Vaciar carrito</button>
-            <a href="/compra" class="btn btn-success w-100" onclick="event.preventDefault(); irCheckout()">Seguir Compra</a>
+            <a href="/compra" class="btn btn-success w-100" onclick="event.preventDefault(); irCheckout()">Seguir
+                Compra</a>
         </div>
     </div>
 
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script type="module" src="/js/global/cart.js"></script>
     <script type="module" src="{{ asset('js/global/toast.js') }}"></script>
+    @push('scripts')
+        @if (session('success'))
+            <script type="module">
+                mostrarToast("{{ session('success') }}", 3000);
+            </script>
+        @endif
+    @endpush
     @stack('scripts')
     <script src="//code.tidio.co/gadbg2xxdfpixlgurzjm4uerf2bqvwlx.js" async></script>
 

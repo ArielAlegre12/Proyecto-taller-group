@@ -13,3 +13,25 @@ iframe{
         height: 300px;
     }
 }
+/*estilos btn de ig*/
+.btn-instagram{
+    border: 1px solid #E1306C;
+    color: #E1306C;
+    transition: 0.3s;
+}
+
+.btn-instagram:hover{
+    background-color: #E1306C;
+    color: white;
+}
+
+/*estilos btn de tik tok*/
+.btn-tiktok{
+    border: 1px solid #000;
+    color: #000;
+}
+
+.btn-tiktok:hover{
+    background-color: #000;
+    color: #fff;
+}

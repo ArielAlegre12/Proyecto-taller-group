@@ -134,4 +134,28 @@ class ProductosController extends Controller
         return redirect('/backend/admin/productos')
             ->with('success', 'Producto eliminado');
     }
+
+    public function storeCategoriaAnimal(Request $request){
+        $request->validate([
+            'nombre' => 'required|string|max:255|unique:categoria_animales,nombre'
+        ]);
+
+        CategoriaAnimal::create([
+            'nombre' => $request->nombre
+        ]);
+
+        return back()->with('success', 'Categoría creada');
+    }
+
+    public function storeCategoriaProducto(Request $request){
+        $request->validate([
+            'nombre' => 'required|string|max:255|unique:categoria_productos,nombre'
+        ]);
+
+        CategoriaProducto::create([
+            'nombre' => $request->nombre
+        ]);
+
+        return back()->with('success', 'Categoría creada');
+    }
 }

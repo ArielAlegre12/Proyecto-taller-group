@@ -1,13 +1,5 @@
 @extends('layouts.admin')
 
-@push('scripts')
-@if (session('success'))
-    <script type="module">
-        mostrarToast("{{ session('success') }}", 3000);
-    </script>
-@endif
-@endpush
-
 @section('admin-content')
     <div class="container mt-5">
         <h2 class="mb-4">Agregar producto</h2>
@@ -59,36 +51,95 @@
             <div class="mb-3">
                 <label class="form-label">Animal</label>
 
-                <select name="categoria_animal_id" class="form-select">
-                    <option value="">Seleccionar</option>
+                <div class="d-flex gap-2">
+                    <select name="categoria_animal_id" class="form-select">
+                        <option value="">Seleccionar</option>
 
-                    @foreach ($categoriasAnimales as $categoria)
-                        <option value="{{ $categoria->id }}" {{ old('categoria_animal_id') == $categoria->id ? 'selected' : '' }}>
-                            {{ $categoria->nombre }}
-                        </option>
-                    @endforeach
-                </select>
+                        @foreach ($categoriasAnimales as $categoria)
+                            <option value="{{ $categoria->id }}" {{ old('categoria_animal_id') == $categoria->id ? 'selected' : '' }}>
+                                {{ $categoria->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                        data-bs-target="#modalCategoriaAnimal" title="Agregar">
+                        <i class="bi bi-plus-lg"></i>
+                    </button>
+                </div>
             </div>
 
             <!--categoria producto-->
             <div class="mb-3">
                 <label class="form-label">Tipo</label>
 
-                <select name="categoria_producto_id" class="form-select">
-                    <option value="">Seleccionar</option>
-                    
-                    @foreach ($categoriasProductos as $categoria)
-                        <option value="{{ $categoria->id }}" {{ old('categoria_producto_id') == $categoria->id ? 'selected' : '' }}>
-                            {{ $categoria->nombre }}
-                        </option>
-                    @endforeach
-                </select>
+                <div class="d-flex gap-2">
+                    <select name="categoria_producto_id" class="form-select">
+                        <option value="">Seleccionar</option>
+
+                        @foreach ($categoriasProductos as $categoria)
+                            <option value="{{ $categoria->id }}" {{ old('categoria_producto_id') == $categoria->id ? 'selected' : '' }}>
+                                {{ $categoria->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalCategoriaProducto" title="Agregar">
+                        <i class="bi bi-plus-lg"></i>
+                    </button>
+                </div>
             </div>
 
             <!--botón-->
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" title="Guardar producto">
                 Guardar producto
             </button>
         </form>
+
+        <!--modal para agregar categoría animal-->
+            <div class="modal fade" id="modalCategoriaAnimal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="{{ route('categorias.animales.store') }}" method="POST">
+                            @csrf
+                            <div class="modal-header">
+                                <h5 class="modal-title">Nueva categoría animal</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <input type="text" name="nombre" class="form-control" placeholder="Nombre de la categoría">
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!--modal para agreagar categoría producto-->
+            <div class="modal fade" id="modalCategoriaProducto" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <form action="{{ route('categorias.productos.store') }}" method="POST">
+                            @csrf
+                            <div class="modal-header">
+                                <h5 class="modal-title">Nueva categoría producto</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <input type="text" name="nombre" class="form-control" placeholder="Nombre de la categoría">
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
     </div>
 @endsection
