@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\DomesticoController;
 use App\Http\Controllers\ProduccionController;
@@ -122,6 +123,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/guardar-carrito', [ClienteController::class, 'guardarCarrito']);
     Route::post('/compra/finalizar', [ClienteController::class, 'finalizarCompra'])
         ->name('cliente.finalizarCompra');
+    Route::post('/consultas', [ConsultaController::class, 'store'])
+        ->name('consulta.store');
 });
 
 Route::get('/recuperar-password', [AuthController::class, 'mostrarRecuperar'])
@@ -132,3 +135,4 @@ Route::post('/recuperar-password/codigo', [AuthController::class, 'verificarCodi
         ->name('password.codigo');
 Route::post('/recuperar-password/cambiar', [AuthController::class, 'cambiarPassword'])
         ->name('password.cambiar');
+
