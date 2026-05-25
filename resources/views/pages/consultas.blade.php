@@ -34,23 +34,24 @@
         <section class="py-5 bg-light animar">
             <div class="container">
                 <div class="card form-card p-4 shadow-sm animar">
-                    <form>
+                    <form action="{{ route('consulta.store') }}" method="POST">
+                        @csrf
                         <h4 class="mb-4">Informacion del Cliente</h4>
 
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label">Nombre Completo *</label>
-                                <input type="text" class="form-control" placeholder="Juan Perez">
+                                <input type="text" class="form-control" name="nombre" placeholder="Juan Perez">
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Telefono *</label>
-                                <input type="number" class="form-control" placeholder="(123) 456789">
+                                <input type="number" class="form-control" name="telefono" placeholder="(123) 456789">
                             </div>
 
                             <div class="col-12">
                                 <label class="form-label">Correo *</label>
-                                <input type="text" class="form-control" placeholder="correo@ejemplo.com">
+                                <input type="text" class="form-control" name="email" placeholder="correo@ejemplo.com">
                             </div>
                         </div>
                         <hr class="my-4">
@@ -60,7 +61,7 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label class="form-label">Tipo de animal *</label>
-                                <select id="tipoAnimal" class="form-select">
+                                <select id="tipoAnimal" class="form-select" name="tipo_animal">
                                     <option selected disabled>Seleccionar...</option>
                                     <option value="domestico">Domestico</option>
                                     <option value="campo">Campo</option>
@@ -69,13 +70,13 @@
 
                             <div class="col-md-6">
                                 <label class="form-label">Nombre del animal *</label>
-                                <input type="text" class="form-control" placeholder="Firu">
+                                <input type="text" class="form-control" placeholder="Firu" name="nombre_animal">
                             </div>
 
                             <div id="domesticoFields" class="row g-3">
                                 <div class="col-12">
                                     <label class="form-label">Especie *</label>
-                                    <select class="form-select">
+                                    <select class="form-select" name="especie">
                                         <option selected disabled>Seleccionar...</option>
                                         <option>Perro</option>
                                         <option>Gato</option>
@@ -87,7 +88,7 @@
 
                             <div id="campoFields" class="d-none">
                                 <label class="form-label">Tipo de animal de campo</label>
-                                <select class="form-select">
+                                <select class="form-select" name="tipo_campo">
                                     <option selected disabled>Seleccionar...</option>
                                     <option>Bovino</option>
                                     <option>Equino</option>
@@ -101,17 +102,17 @@
                             <div id="domesticoFields" class="row g-3"></div>
                             <div class="col-md-6">
                                 <label class="form-label">Raza</label>
-                                <input type="text" class="form-control" placeholder="Labrador, Persa, etc.">
+                                <input type="text" class="form-control" placeholder="Labrador, Persa, etc." name="raza">
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Edad</label>
-                                <input type="text" class="form-control" placeholder="2 años, 6 meses, etc">
+                                <input type="text" class="form-control" placeholder="2 años, 6 meses, etc" name="edad">
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Peso(kg)</label>
-                                <input type="text" class="form-control" placeholder="25">
+                                <input type="text" class="form-control" placeholder="25" name="peso">
                             </div>
                         </div>
 
@@ -122,7 +123,7 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <label class="form-label">Tipo de Consulta *</label>
-                                <select class="form-select">
+                                <select class="form-select" name="tipo_consulta">
                                     <option>Consulta General</option>
                                     <option>Vacunacion</option>
                                     <option>Cirugia</option>
@@ -133,16 +134,16 @@
                             <div class="col-12">
                                 <label class="form-label">Fecha y Hora *</label>
                                 <input type="text" id="fechaHora" class="form-control"
-                                    placeholder="Seleccionar fecha y Hora">
+                                    placeholder="Seleccionar fecha y Hora" name="fecha_hora">
                             </div>
 
                             <div class="col-12">
                                 <label class="form-label">Descripcion del Motivo de Consulta *</label>
-                                <textarea class="form-control" rows="4" placeholder="Describe los sintomas o motivo de la consulta..."></textarea>
+                                <textarea class="form-control" name="descripcion" rows="4" placeholder="Describe los sintomas o motivo de la consulta..."></textarea>
                             </div>
                         </div>
 
-                        <button type="button" class="btn btn-success w-100 mt-4">
+                        <button type="submit" class="btn btn-success w-100 mt-4">
                             Agendar Consulta
                         </button>
 
