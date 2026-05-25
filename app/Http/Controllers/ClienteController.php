@@ -88,8 +88,21 @@ class ClienteController extends Controller
                 $total += $subtotal;
             }
 
-            //actualizar total final
-            $venta->total = $total;
+            //calcular costo de envío
+            $costoEnvio = 0;
+
+            if($request->metodo_entrega == 'domicilio'){
+                $costoEnvio = 2500;
+            }
+            if($request->metodo_entrega == 'express'){
+                $costoEnvio = 5000;
+            }
+
+            //total final
+            $totalFinal = $total + $costoEnvio;
+
+            //actualizar venta
+            $venta->total = $totalFinal;
             $venta->save();
 
             DB::commit();

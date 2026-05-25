@@ -1,6 +1,14 @@
 const metodoPago = document.getElementById('metodoPago');
 const datosTarjeta = document.getElementById('datosTarjeta');
 
+const metodoEntrega = document.getElementById("metodoEntrega");
+const direccionContainer = document.getElementById("direccionContainer");
+
+const costoEnvio = document.getElementById("costoEnvio");
+const totalFinal = document.getElementById("totalFinal");
+const checkoutData = document.getElementById("checkoutData");
+const subtotal = parseFloat(checkoutData.dataset.total);
+
 const numeroTarjeta =  document.querySelector('[name="numero_tarjeta"]');
 const titular = document.querySelector('[name="titular"]');
 const vencimiento = document.querySelector('[name="vencimiento"]');
@@ -58,3 +66,31 @@ if(metodoPago){
     //ejecutar al cargar
     toggleTarjeta();
 }
+
+metodoEntrega.addEventListener("change", ()=>{
+    let envio = 0;
+
+    //mostrar dirección
+    if(
+        metodoEntrega.value === "domicilio" ||
+        metodoEntrega.value === "express"
+    ){
+        direccionContainer.classList.remove("d-none");
+    }else{
+        direccionContainer.classList.add("d-none");
+    }
+
+    //costos
+    if(metodoEntrega.value === "domicilio"){
+        envio = 2500;
+    }
+
+    if(metodoEntrega.value === "express"){
+        envio = 5000;
+    }
+
+    costoEnvio.textContent = `$${envio.toLocaleString()}`;
+
+    totalFinal.textContent = 
+        `$${(subtotal + envio).toLocaleString()}`;
+});

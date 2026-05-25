@@ -68,10 +68,18 @@
                                 <!--entrega-->
                                 <div class="mb-4">
                                     <label class="form-label fw-bold">Método de entrega</label>
-                                    <select class="form-select" name="metodo_entrega">
+                                    <select class="form-select" name="metodo_entrega" id="metodoEntrega">
                                         <option value="retiro">Retiro en sucursal</option>
                                         <option value="domicilio">Envío a domicilio</option>
+                                        <option value="express">Envío express</option>
                                     </select>
+                                    <!--direeción-->
+                                    <div id="direccionContainer" class="mt-3 d-none">
+                                        <label class="form-label fw-bold">Dirección de envío</label>
+                                        <input type="text" class="form-control mb-2" name="direccion" placeholder="Calle y número">
+                                        <input type="text" class="form-control mb-2" name="ciudad" placeholder="Ciudad">
+                                        <input type="text" class="form-control mb-2" name="codigo_postal" placeholder="Código postal">
+                                    </div>
                                 </div>
 
                                 <!--pago-->
@@ -109,10 +117,26 @@
 
                                 <hr>
 
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Subtotal</span>
+                                    <span id="subtotal">
+                                        ${{ number_format($total,2,',','.') }}
+                                    </span>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Envío</span>
+                                    <span id="costoEnvio">$0</span>
+                                </div>
+
+                                <hr>
+
                                 <div class="d-flex justify-content-between mb-4 resumen-total">
                                     <strong>Total</strong>
-                                    <strong>${{ number_format($total, 2, ',', '.') }}</strong>
+                                    <strong id="totalFinal">${{ number_format($total, 2, ',', '.') }}</strong>
                                 </div>
+
+                                <div id="checkoutData" data-total="{{ $total }}"></div>
 
                                 <button type="submit" class="btn btn-success w-100 py-3 btn-confirmar">Confirmar
                                     compra</button>
