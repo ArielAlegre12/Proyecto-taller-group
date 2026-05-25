@@ -22,6 +22,8 @@ export function initCarrito() {
     function renderCarrito() {
         const contenedor = document.getElementById("carrito-contenido");
         const totalContainer = document.getElementById("carrito-total");
+        const btnCheckout = document.getElementById("btn-checkout");
+        const btnVaciar =  document.getElementById("btn-vaciar-carrito");
 
         if (!contenedor) return;
 
@@ -30,13 +32,21 @@ export function initCarrito() {
         if (carrito.length === 0) {
             contenedor.innerHTML = ` <p class="text-muted">Tu carrito está vacío</p>`;
             if (totalContainer) totalContainer.innerHTML = "";
+            btnCheckout.classList.add("disabled");
+            btnCheckout.style.pointerEvents = "none";
+            btnVaciar.classList.add("disabled");
+            btnVaciar.style.pointerEvents = "none";
             return;
         }
 
         contenedor.innerHTML = "";
 
         let total = 0;
-
+        
+        btnCheckout.classList.remove("disabled");
+        btnCheckout.style.pointerEvents = "auto";
+        btnVaciar.classList.remove("disabled");
+        btnVaciar.style.pointerEvents = "auto";
         carrito.forEach(prod => {
             const subtotal = prod.precio * prod.cantidad;
             total += subtotal;

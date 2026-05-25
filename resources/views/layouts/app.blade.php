@@ -55,9 +55,10 @@
         <div id="carrito-total"></div>
 
         <div class="p-3 border-top">
-            <button class="btn btn-danger w-100 mb-2" onclick="vaciarCarrito()">Vaciar carrito</button>
-            <a href="/compra" class="btn btn-success w-100" onclick="event.preventDefault(); irCheckout()">Seguir
-                Compra</a>
+            <button id="btn-vaciar-carrito" class="btn btn-danger w-100 mb-2" onclick="vaciarCarrito()">Vaciar carrito</button>
+            <a id="btn-checkout" href="/compra" class="btn btn-success w-100" onclick="event.preventDefault(); irCheckout()">
+                Seguir Compra
+            </a>
         </div>
     </div>
 
