@@ -7,6 +7,9 @@ use App\Models\Produccion;
 use App\Models\Producto;
 use App\Models\Usuario;
 use App\Models\Venta;
+use App\Models\Consulta;
+use App\Mail\ConsultaEliminadaMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -14,6 +17,7 @@ class AdminController extends Controller
     public function dashboard(){
         $totalProductos = Producto::count();
         $totalUsuarios = Usuario::count();
+        $totalConsultas = Consulta::count();
 
         //sumamos los turnos domesticos/producción
         $totalTurnos = Domestico::count() + Produccion::count();
@@ -26,6 +30,7 @@ class AdminController extends Controller
         $ultimosUsuarios = Usuario::latest()->take(3)->get();
         $ultimosTurnosDomesticos = Domestico::latest()->take(3)->get();
         $ultimosTurnosProduccion = Produccion::latest()->take(3)->get();
+        $ultimasConsultas = Consulta::latest()->take(3)->get();
 
 
         return view('backend.admin.dashboard', compact(
@@ -33,10 +38,12 @@ class AdminController extends Controller
             'totalUsuarios',
             'totalTurnos',
             'stockBajo',
+            'totalConsultas',
             'ultimosProductos',
             'ultimosUsuarios',
             'ultimosTurnosDomesticos',
-            'ultimosTurnosProduccion'
+            'ultimosTurnosProduccion',
+            'ultimasConsultas'
         ));
     }
 
@@ -172,4 +179,30 @@ class AdminController extends Controller
 
         return back();
     }
+
+    public function consultas(){
+        $consultas = Consulta::latest()->get();
+
+        return view('backend.admin.consultas.index', compact('consultas'));
+    }
+
+    public function showConsulta(Consulta $consulta){
+        return view('backend.admin.consultas.show', compact('consulta'));
+    }
+
+    public function confirmarConsulta(Consulta $consulta){
+        $consulta->estado = 'confirmada';
+        $consulta->save();
+
+        return back()->with('success', 'Consulta confirmada');
+    }
+
+    public function destroyConsulta(Request $request, Consulta $consulta){
+        Mail::to($consulta->email)->send(new ConsultaEliminadaMail($consulta, $request->motivo));
+    
+    $consulta->delete();
+
+    return redirect('/backend/admin/consultas')
+        ->with('success', 'Consulta eliminada');
+}
 }

@@ -27,6 +27,7 @@ return new class extends Migration {
             $table->string('fecha_hora');
             $table->string('descripcion');
             $table->timestamps();
+            $table->string('estado')->default('Pendiente');
         });
     }
 

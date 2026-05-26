@@ -42,6 +42,9 @@
                 <li>
                     <a href="/backend/admin/ventas"><i class="bi bi-cash-stack"></i>Ventas</a>
                 </li>
+                <li>
+                    <a href="/backend/admin/consultas"><i class="bi bi-clipboard2-pulse"></i>Consultas</a>
+                </li>
             </ul>
         </aside>
 

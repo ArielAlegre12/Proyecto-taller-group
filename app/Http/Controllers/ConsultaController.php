@@ -17,8 +17,6 @@ class ConsultaController extends Controller
        'email' => 'required|email', 
        'tipo_animal' => 'required',
        'nombre_animal' => 'required',
-       'especie' => 'required',
-       'tipo_campo' => 'required',
        'tipo_consulta' => 'required', 
        'fecha_hora' => 'required', 
        'descripcion' => 'required']);

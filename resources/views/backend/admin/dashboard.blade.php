@@ -31,6 +31,12 @@
             <h3>{{ $stockBajo }}</h3>
             <p>Stock bajo</p>
         </div>
+
+        <div class="resumen-card">
+            <i class="bi bi-clipboard2-pulse"></i>
+            <h3>{{ $totalConsultas }}</h3>
+            <p>Consultas</p>
+        </div>
     </div>
 
     <!--actividad-->
@@ -69,6 +75,14 @@
                 Nuevo turno de producción:
                 <strong>{{ $turnoProduccion->nombreEstablo }}</strong>
             </div>
+        @endforeach
+
+        @foreach ($ultimasConsultas as $consulta)
+            <div class="actividad-item">
+                <i class="bi bi-clipboard2-pulse"></i>
+                Nueva consulta registrada:
+                <strong>{{ $consulta->nombre }}</strong>
+            </div>        
         @endforeach
     </div>
 @endsection

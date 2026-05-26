@@ -103,6 +103,12 @@ Route::middleware(['auth', 'rol:admin'])->prefix('backend/admin')->group(functio
     Route::put('/ventas/{venta}/pagado', [AdminController::class, 'marcarPagado']);
     Route::put('/ventas/{venta}/enviado', [AdminController::class, 'marcarEnviado']);
     Route::put('/ventas/{venta}/entregado', [AdminController::class, 'marcarEntregado']);
+
+    //consultas
+    Route::get('/consultas', [AdminController::class, 'consultas']);
+    Route::get('/consultas/{consulta}', [AdminController::class, 'showConsulta']);
+    Route::put('/consultas/{consulta}/confirmar', [AdminController::class, 'confirmarConsulta']);
+    Route::delete('/consultas/{consulta}', [AdminController::class, 'destroyConsulta']);
 });
 
 
