@@ -13,14 +13,12 @@
         <div class="d-flex align-items-center gap-3 ms-auto">
 
             <!--carrito-->
-            @auth
-                <div class="position-relative d-lg-none">
-                    <a href="#" class="text-dark fs-5" data-bs-toggle="offcanvas" data-bs-target="#carritoCanvas">
-                        <i class="bi bi-cart carrito"></i>
-                    </a>
-                    <span class="cart-badge contador-carrito">0</span>
-                </div>
-            @endauth
+            <div class="position-relative d-lg-none">
+                <a href="#" class="text-dark fs-5" data-bs-toggle="offcanvas" data-bs-target="#carritoCanvas">
+                    <i class="bi bi-cart carrito"></i>
+                </a>
+                <span class="cart-badge contador-carrito">0</span>
+            </div>
 
             <!--toggler--->
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -51,38 +49,32 @@
                         <a href="/login" class="btn-login w-100 text-center d-block">Login</a>
                     @endguest
 
-                    <div class="d-lg-none mt-3 px-3">
-                        @auth
-                            <div class="dropdown">
-                                <button class="btn btn-success dropdown-toggle w-100" type="button"
-                                    data-bs-toggle="dropdown">
-                                    {{ Auth::user()->nombre }}
-                                </button>
-                                <ul class="dropdown-menu w-100">
-                                    @if (Auth::user()->rol_id == 1)
-                                        <li>
-                                            <a href="/backend/admin" class="dropdown-item">Panel de administración</a>
-                                        </li>
-                                    @endif
-                                    <li>
-                                        <a class="dropdown-item" href="/perfil">Mi perfil</a>
-                                    </li>
+                    @auth
+                        <div class="dropdown">
+                            <button class="btn btn-success dropdown-toggle w-100" type="button" data-bs-toggle="dropdown">
+                                {{ Auth::user()->nombre }}
+                            </button>
 
+                            <ul class="dropdown-menu w-100">
+                                @if (Auth::user()->rol_id == 1)
                                     <li>
-                                        <form action="/logout" method="POST">
-                                            @csrf
-                                            <button type="submit" class="dropdown-item text-danger">Cerrar sesión</button>
-                                        </form>
+                                        <a href="/backend/admin" class="dropdown-item">Panel de administración</a>
                                     </li>
-                                </ul>
-                            </div>
-                        @else
-                            <a href="/login" class="btn-login w-100 text-center d-block">
-                                Login
-                            </a>
-                        @endauth
+                                @endif
 
-                    </div>
+                                <li>
+                                    <a href="/perfil" class="dropdown-item">Mi perfil</a>
+                                </li>
+
+                                <li>
+                                    <form action="/logout" method="POST" class="form-logout">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item text-danger">Cerrar sesión</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    @endauth
                 </div>
             </ul>
 
@@ -90,14 +82,12 @@
             <div class="d-none d-lg-flex align-items-center gap-3">
 
                 <!--carrito desktop--->
-                @auth
                 <div class="position-relative">
                     <a href="#" class="text-dark fs-5" data-bs-toggle="offcanvas" data-bs-target="#carritoCanvas">
                         <i class="bi bi-cart3 carrito"></i>
                     </a>
                     <span class="cart-badge  contador-carrito">0</span>
                 </div>
-                @endauth
 
                 <!---login desktop--->
                 @guest
@@ -122,7 +112,7 @@
                         </li>
 
                         <li>
-                            <form action="/logout" method="POST">
+                            <form action="/logout" method="POST" class="form-logout">
                                 @csrf
                                 <button class="dropdown-item text-danger">Cerrar sesión</button>
                             </form>

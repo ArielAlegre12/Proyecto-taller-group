@@ -70,19 +70,11 @@
                                 </div>
                             @endif
                         </div>
-                        @auth
-                            @if ($producto->stock > 0)
-                                <button class="btn-agregar">Agregar</button>
-                            @else
-                                <button class="btn-agregar btn-disabled" disabled>Sin stock</button>
-                            @endif
-                        @endauth
-
-                        @guest
-                            <button class="btn-agregar btn-disabled" disabled>
-                                Inicia sesión para comprar
-                            </button>
-                        @endguest
+                        @if ($producto->stock > 0)
+                            <button class="btn-agregar">Agregar</button>
+                        @else
+                            <button class="btn-agregar btn-disabled" disabled>Sin stock</button>
+                        @endif
                     </div>
 
                 @empty

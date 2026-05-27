@@ -60,6 +60,8 @@ class AuthController extends Controller
 
     //logout
     public function logout(Request $request){
+        //eliminar carrito de la sesión
+        $request->session()->forget('carrito');
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

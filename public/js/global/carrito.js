@@ -23,7 +23,7 @@ export function initCarrito() {
         const contenedor = document.getElementById("carrito-contenido");
         const totalContainer = document.getElementById("carrito-total");
         const btnCheckout = document.getElementById("btn-checkout");
-        const btnVaciar =  document.getElementById("btn-vaciar-carrito");
+        const btnVaciar = document.getElementById("btn-vaciar-carrito");
 
         if (!contenedor) return;
 
@@ -42,7 +42,7 @@ export function initCarrito() {
         contenedor.innerHTML = "";
 
         let total = 0;
-        
+
         btnCheckout.classList.remove("disabled");
         btnCheckout.style.pointerEvents = "auto";
         btnVaciar.classList.remove("disabled");
@@ -177,9 +177,13 @@ export function initCarrito() {
 
     //vaciar carrito(para todos)
     window.vaciarCarrito = function () {
-        localStorage.removeItem("carrito");
+        localStorage.setItem("carrito", JSON.stringify([]));
+
+        document.querySelectorAll(".contador-carrito").forEach(el => {
+            el.textContent = "0";
+        });
+
         renderCarrito();
-        actualizarContador();
     };
 
     //sincronizar entre pestañas
@@ -219,6 +223,10 @@ export function initCarrito() {
     renderCarrito();
 
 
+}
+
+export function limpiarCarrito() {
+    window.vaciarCarrito();
 }
 
 
