@@ -127,6 +127,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/compra', [ClienteController::class, 'checkout'])
         ->name('cliente.checkout');
     Route::post('/guardar-carrito', [ClienteController::class, 'guardarCarrito']);
+    Route::post('/guardar-carrito-usuario', [ClienteController::class, 'guardarCarritoUsuario']);
     Route::post('/compra/finalizar', [ClienteController::class, 'finalizarCompra'])
         ->name('cliente.finalizarCompra');
     Route::post('/consultas', [ConsultaController::class, 'store'])

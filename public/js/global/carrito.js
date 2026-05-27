@@ -8,6 +8,24 @@ export function initCarrito() {
     function guardarCarrito(carrito) {
         localStorage.setItem("carrito", JSON.stringify(carrito));
         actualizarContador();
+        sincronizarCarrito(carrito);
+    }
+
+    async function sincronizarCarrito(carrito){
+        try{
+            await fetch('/guardar-carrito-usuario', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'apliacition/json',
+                    'X-CSRF-TOKEN': document
+                        .querySelector('meta[name="csrf-token"]')
+                        .content
+                },
+                body: JSON.stringify({carrito})
+            });
+        }catch(error){
+            console.error(error);
+        }
     }
 
     function actualizarContador() {
@@ -219,6 +237,12 @@ export function initCarrito() {
     }
 
     //inicializar
+    if(window.carritoUsuario){
+        localStorage.setItem(
+            "carrito",
+            JSON.stringify(window.carritoUsuario)
+        );
+    }
     actualizarContador();
     renderCarrito();
 

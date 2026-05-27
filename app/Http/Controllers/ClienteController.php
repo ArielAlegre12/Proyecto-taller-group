@@ -26,6 +26,15 @@ class ClienteController extends Controller
         ]);
     }
 
+    public function guardarCarritoUsuario(Request $request){
+        $usuario = auth()->user();
+        $usuario->carrito = json_encode($request->carrito);
+        $usuario->save();
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
     public function finalizarCompra(Request $request){
         $request->validate([
             'metodo_pago' => 'required',
