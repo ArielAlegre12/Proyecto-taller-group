@@ -26,6 +26,15 @@ class ClienteController extends Controller
         ]);
     }
 
+    public function guardarCarritoUsuario(Request $request){
+        $usuario = auth()->user();
+        $usuario->carrito = json_encode($request->carrito);
+        $usuario->save();
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
     public function finalizarCompra(Request $request){
         $request->validate([
             'metodo_pago' => 'required',
@@ -83,6 +92,10 @@ class ClienteController extends Controller
                     throw new \Exception("Stock insuficiente para {$producto->nombre}");
                 }
                 $producto->stock -= $item['cantidad'];
+                if($producto->stock <=0){
+                    $producto->stock = 0;
+                    $producto->activo = false;
+                }
                 $producto->save();
 
                 $total += $subtotal;

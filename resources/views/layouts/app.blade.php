@@ -72,6 +72,7 @@
             </script>
         @endif
     @endpush
+    <script>window.carritoUsuario = @json(session('carrito', []));</script>
     @stack('scripts')
     <script src="//code.tidio.co/gadbg2xxdfpixlgurzjm4uerf2bqvwlx.js" async></script>
 

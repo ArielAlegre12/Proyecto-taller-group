@@ -28,8 +28,12 @@
                 </thead>
 
                 <tbody>
-                    @foreach ($productos as $producto)
-                        <tr class="{{ !$producto->activo ? 'producto-inactivo' : '' }}">
+                    @php
+                        $productosActivos = $productos->where('activo', true);
+                        $productosInactivos = $productos->where('activo', false);
+                    @endphp
+                    @foreach ($productosActivos as $producto)
+                        <tr>
                             <td>
                                 <img src="{{ asset('storage/' . $producto->imagen) }}" class="tabla-img">
                             </td>
@@ -43,10 +47,12 @@
                             </td>
 
                             <td>
-                                @if ($producto->stock <= 5)
+                                @if ($producto->stock <= 0)
+                                    <span class="badge bg-dark">Sin stock</span>
+                                @elseif($producto->stock <= 5)
                                     <span class="badge bg-danger">{{ $producto->stock }}</span>
                                 @else
-                                    <span class="badge bg-success">{{ $producto->stock }}</span>
+                                    <span class="badge bg-secondary">{{ $producto->stock }}</span>
                                 @endif
                             </td>
 
@@ -57,10 +63,8 @@
                             <td>
                                 <div class="acciones-producto">
                                     <!--ver detalles-->
-                                    <button class="btn btn-info btn-sm"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#modalVer{{ $producto->id }}"
-                                        title="Ver detalles">
+                                    <button class="btn btn-info btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#modalVer{{ $producto->id }}" title="Ver detalles">
                                         <i class="bi bi-eye"></i>
                                     </button>
 
@@ -85,7 +89,7 @@
                                                             <hr>
                                                             <p>
                                                                 <strong>Precio:</strong>
-                                                                ${{ number_format($producto->precio,2,',','.') }}
+                                                                ${{ number_format($producto->precio, 2, ',', '.') }}
                                                             </p>
                                                             <p>
                                                                 <strong>Stock:</strong>
@@ -112,7 +116,8 @@
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <a href="/backend/admin/productos/{{ $producto->id }}/edit" class="btn btn-warning">
+                                                    <a href="/backend/admin/productos/{{ $producto->id }}/edit"
+                                                        class="btn btn-warning">
                                                         <i class="bi bi-pencil"></i>
                                                         Editar producto
                                                     </a>
@@ -124,18 +129,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                
+
                                     <a href="/backend/admin/productos/{{ $producto->id }}/edit" class="btn btn-warning btn-sm"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="top"
-                                        title="Editar producto">
+                                        data-bs-toggle="tooltip" data-bs-placement="top" title="Editar producto">
                                         <i class="bi bi-pencil"></i>
                                     </a>
                                     <!--btn eliminar-->
-                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                        data-bs-toggle="tooltip"
-                                        data-bs-placement="top"
-                                        title="Eliminar producto"
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-toggle="tooltip"
+                                        data-bs-placement="top" title="Eliminar producto"
                                         data-bs-target="#modalEliminar{{ $producto->id }}">
                                         <i class="bi bi-trash"></i>
                                     </button>
@@ -170,10 +171,8 @@
                                                 </div>
 
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-toggle="tooltip"
-                                                        data-bs-placement="top"
-                                                        title="Cancelar eliminación de producto"
+                                                    <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Cancelar eliminación de producto"
                                                         data-bs-dismiss="modal">Cancelar</button>
                                                     <form action="/backend/admin/productos/{{ $producto->id }}" method="POST">
                                                         @csrf
@@ -194,6 +193,89 @@
                     @endforeach
                 </tbody>
             </table>
+
+            @if ($productosInactivos->count() > 0)
+                <div class="accordion mt-5" id="accordionInactivos">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#productosInactivos">
+                                Productos desactivados:
+                                {{ $productosInactivos->count() }}
+                            </button>
+                        </h2>
+
+                        <div id="productosInactivos" class="accordion-collapse collapse" data-bs-parent="#accordionInactivos">
+                            <div class="accordion-body">
+                                <div class="table-responsive">
+                                    <table class="table align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Imagen</th>
+                                                <th>Productos</th>
+                                                <th>precio</th>
+                                                <th>Stock</th>
+                                                <th>Tipo</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            @foreach ($productosInactivos as $producto)
+                                                <tr>
+                                                    <td>
+                                                        <img src="{{ asset('storage/' . $producto->imagen) }}" class="tabla-img">
+                                                    </td>
+
+                                                    <td>
+                                                        {{ $producto->nombre }}
+                                                        <br>
+                                                        <span class="badge bg-secondary">Desactivado</span>
+                                                        @if ($producto->stock <= 0)
+                                                            <small class="text-danger d-block mt-1">Sin stock</small>
+                                                        @endif
+                                                    </td>
+
+                                                    <td>
+                                                        ${{ number_format($producto->precio, 2, ',', '.') }}
+                                                    </td>
+
+                                                    <td>
+                                                        @if ($producto->stock <= 5)
+                                                            <span class="badge bg-danger">{{ $producto->stock }}</span>
+                                                        @else
+                                                            <span class="badge bg-secondary">{{ $producto->stock }}</span>
+                                                        @endif
+                                                    </td>
+
+                                                    <td>
+                                                        {{ $producto->categoriaProducto?->nombre ?? 'Sin tipo' }}
+                                                    </td>
+
+                                                    <td>
+                                                        <div class="d-flex gap-2">
+                                                            <a href="/backend/admin/productos/{{ $producto->id }}/edit" class="btn btn-warning btn-sm" title="Editar Producto">
+                                                                <i class="bi bi-pencil"></i>
+                                                            </a>
+                                                            <form action="/backend/admin/productos/{{ $producto->id }}/toggle" method="POST">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <button type="submit" class="btn btn-success btn-sm" title="Reactivar Producto" {{ $producto->stock <= 0 ? 'disabled' : '' }}>
+                                                                    <i class="bi bi-eye"></i>
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 @endsection

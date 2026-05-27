@@ -44,6 +44,12 @@ class AuthController extends Controller
         if(Auth::attempt($credenciales, $request->remember)){
             $request->session()->regenerate();
 
+            //recuperar carrito guardado del usuario
+            $carrito = Auth::user()->carrito;
+            session([
+                'carrito' => json_decode($carrito, true) ?? []
+            ]);
+
             //admin
             if(Auth::user()->rol_id == 1){
                 return redirect('/backend/admin');
@@ -60,6 +66,8 @@ class AuthController extends Controller
 
     //logout
     public function logout(Request $request){
+        //eliminar carrito de la sesión
+        $request->session()->forget('carrito');
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
