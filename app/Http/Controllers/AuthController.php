@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Carrito;
+use App\Models\CarritoItem;
+use App\Models\Producto;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +15,54 @@ use App\Mail\RecuperarPasswordMail;
 
 class AuthController extends Controller
 {
+    private function mergeSessionCartToUser(Request $request, Usuario $usuario = null)
+    {
+        $usuario = $usuario ?? Auth::user();
+        if (!$usuario) {
+            return;
+        }
+
+        $carrito = $usuario->carrito()->firstOrCreate([]);
+        $sessionCarrito = $request->session()->get('carrito', []);
+
+        if (empty($sessionCarrito)) {
+            return;
+        }
+
+        foreach ($sessionCarrito as $item) {
+            if (!isset($item['producto_id'], $item['cantidad'])) {
+                continue;
+            }
+
+            $producto = Producto::find($item['producto_id']);
+            if (!$producto || $producto->stock <= 0) {
+                continue;
+            }
+
+            $cantidad = min((int) $item['cantidad'], $producto->stock);
+            if ($cantidad <= 0) {
+                continue;
+            }
+
+            $carritoItem = $carrito->items()
+                ->where('producto_id', $producto->id)
+                ->first();
+
+            if ($carritoItem) {
+                $carritoItem->cantidad = min($carritoItem->cantidad + $cantidad, $producto->stock);
+                $carritoItem->save();
+            } else {
+                CarritoItem::create([
+                    'carrito_id' => $carrito->id,
+                    'producto_id' => $producto->id,
+                    'cantidad' => $cantidad,
+                ]);
+            }
+        }
+
+        $request->session()->forget('carrito');
+    }
+
     //registro
     public function registrar(Request $request){
         $request->validate([ //validate. revisa que los datos del formu sean correctos.
@@ -37,6 +87,9 @@ class AuthController extends Controller
         //hacemos login automatico
         Auth::login($usuario);
 
+        //fusionar carrito de sesión de invitado con el carrito del usuario
+        $this->mergeSessionCartToUser($request, $usuario);
+
         return redirect('/principal')->with('success', 'Cuenta creada correctamente');
     }
 
@@ -51,6 +104,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             Auth::user()->carrito()->firstOrCreate([]);
+            $this->mergeSessionCartToUser($request);
 
             //admin
             if(Auth::user()->rol_id == 1){
