@@ -194,7 +194,8 @@ class AdminController extends Controller
         $consulta->estado = 'confirmada';
         $consulta->save();
 
-        return back()->with('success', 'Consulta confirmada');
+        return redirect('/backend/admin/consultas')
+                ->with('success', 'Consulta confirmada');
     }
 
     public function destroyConsulta(Request $request, Consulta $consulta){
