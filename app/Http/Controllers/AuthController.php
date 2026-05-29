@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carrito;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,11 @@ class AuthController extends Controller
             'rol_id' => 2
         ]);
 
+        //crear carrito vacío para el usuario
+        Carrito::create([
+            'usuario_id' => $usuario->id
+        ]);
+
         //hacemos login automatico
         Auth::login($usuario);
 
@@ -44,11 +50,7 @@ class AuthController extends Controller
         if(Auth::attempt($credenciales, $request->remember)){
             $request->session()->regenerate();
 
-            //recuperar carrito guardado del usuario
-            $carrito = Auth::user()->carrito;
-            session([
-                'carrito' => json_decode($carrito, true) ?? []
-            ]);
+            Auth::user()->carrito()->firstOrCreate([]);
 
             //admin
             if(Auth::user()->rol_id == 1){

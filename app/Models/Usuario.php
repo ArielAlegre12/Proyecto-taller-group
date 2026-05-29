@@ -37,4 +37,8 @@ class Usuario extends Authenticatable{
     public function ventas(){
         return $this->hasMany(Venta::class);
     }
+
+    public function carrito(){
+        return $this->hasOne(Carrito::class);
+    }
 }

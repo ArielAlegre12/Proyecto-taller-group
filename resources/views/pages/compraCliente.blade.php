@@ -33,16 +33,17 @@
 
                         @foreach ($carrito as $item)
                             @php
-                                $subtotal = $item['precio'] * $item['cantidad'];
+                                $producto = $item->producto;
+                                $subtotal = $producto->precio * $item->cantidad;
                                 $total += $subtotal;
                             @endphp
 
                             <div class="d-flex align-items-center gap-3 producto-item">
-                                <img src="{{ asset('storage/' . $item['imagen']) }}" class="producto-img">
+                                <img src="{{ asset('storage/' . $producto->imagen) }}" class="producto-img">
 
                                 <div class="flex-grow-1">
-                                    <h5 class="producto-nombre mb-1">{{ $item['nombre'] }}</h5>
-                                    <p class="producto-cantidad mb-1">Cantidad: {{ $item['cantidad'] }}</p>
+                                    <h5 class="producto-nombre mb-1">{{ $producto->nombre }}</h5>
+                                    <p class="producto-cantidad mb-1">Cantidad: {{ $item->cantidad }}</p>
                                     <strong class="producto-precio">${{ number_format($subtotal, 2, ',', '.') }}</strong>
                                 </div>
                             </div>

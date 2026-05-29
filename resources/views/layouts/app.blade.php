@@ -65,14 +65,18 @@
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script type="module" src="/js/global/cart.js"></script>
     <script type="module" src="{{ asset('js/global/toast.js') }}"></script>
-    @push('scripts')
         @if (session('success'))
             <script type="module">
                 mostrarToast("{{ session('success') }}", 3000);
             </script>
         @endif
-    @endpush
-    <script>window.carritoUsuario = @json(session('carrito', []));</script>
+
+        @if (session('error'))
+            <script type="module">
+                mostrarToast("{{ session('error') }}", "error");
+            </script>
+        @endif
+
     @stack('scripts')
     <script src="//code.tidio.co/gadbg2xxdfpixlgurzjm4uerf2bqvwlx.js" async></script>
 

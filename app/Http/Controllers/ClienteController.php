@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CarritoItem;
 use Illuminate\Http\Request;
 use App\Models\Venta;
 use App\Models\Producto;
@@ -10,28 +11,124 @@ use Illuminate\Support\Facades\DB;
 
 class ClienteController extends Controller
 {
-    public function checkout(){
-        $carrito = session()->get('carrito', []);
+    private function obtenerCarritoUsuario(){
+        $user = auth()->user();
+        return $user->carrito()->firstOrCreate([]);
+    }
 
+    public function checkout(){
+        $carrito = $this->obtenerCarritoUsuario()
+            ->items()
+            ->with('producto')
+            ->get();
         return view('pages.compraCliente', compact('carrito'));
     }
 
-    public function guardarCarrito(Request $request){
-        session([
-            'carrito' => $request->carrito
+    public function obtenerCarrito(){
+        $items = $this->obtenerCarritoUsuario()
+            ->items()
+            ->with('producto')
+            ->get();
+
+        return response()->json($items);
+    }
+
+    public function agregarProducto(Request $request){
+        $request->validate([
+            'producto_id' => 'required|exists:productos,id',
+            'cantidad' => 'required|integer|min:1'
         ]);
+        $carrito = $this->obtenerCarritoUsuario();
+
+        $producto = Producto::findOrFail($request->producto_id);
+
+        $item = $carrito->items()
+            ->where('producto_id', $request->producto_id)
+            ->first();
+
+        if($item){
+            $nuevaCantidad = $item->cantidad + $request->cantidad;
+
+            if($nuevaCantidad > $producto->stock){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Stock insuficiente'
+                ], 400);
+            }
+
+            $item->cantidad = $nuevaCantidad;
+            $item->save();
+        }else{
+            if($request->cantidad > $producto->stock){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Stock insuficiente'
+                ], 400);
+            }
+
+            CarritoItem::create([
+                'carrito_id' => $carrito->id,
+                'producto_id' => $request->producto_id,
+                'cantidad' => $request->cantidad
+            ]);
+        }
 
         return response()->json([
-            'success' =>true
+            'success' => true
         ]);
     }
 
-    public function guardarCarritoUsuario(Request $request){
-        $usuario = auth()->user();
-        $usuario->carrito = json_encode($request->carrito);
-        $usuario->save();
+    public function eliminarProducto(Request $request){
+        $request->validate([
+            'producto_id' => 'required'
+        ]);
+
+        $this->obtenerCarritoUsuario()
+            ->items()
+            ->where('producto_id', $request->producto_id)
+            ->delete();
+
         return response()->json([
             'success' => true
+        ]);
+    }
+
+    public function cambiarCantidad(Request $request){
+        $request->validate([
+            'producto_id' => 'required',
+            'cantidad' => 'required|integer|min:1'
+        ]);
+
+        $producto = Producto::findOrFail($request->producto_id);
+        
+        $item = $this->obtenerCarritoUsuario()
+            ->items()
+            ->where('producto_id', $request->producto_id)
+            ->first();
+
+        if($item){
+            if($request->cantidad > $producto->stock){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Stock insuficiente'
+                ], 400);
+            }
+            $item->cantidad = $request->cantidad;
+            $item->save();
+        }
+
+        return response()->json([
+            'success' => true
+        ]);
+    }
+
+    public function vaciarCarrito(){
+        $this->obtenerCarritoUsuario()
+            ->items()
+            ->delete();
+        
+        return response()->json([
+            'success' =>true
         ]);
     }
 
@@ -50,10 +147,13 @@ class ClienteController extends Controller
             ]);
         }
 
-        $carrito = session()->get('carrito', []);
+        $carrito = $this->obtenerCarritoUsuario()
+            ->items()
+            ->with('producto')
+            ->get();
 
         //si el carrito está vacío
-        if(empty($carrito)){
+        if($carrito->isEmpty()){
             return back()->with('error', 'El carrito está vacío');
         }
 
@@ -72,26 +172,26 @@ class ClienteController extends Controller
             $total = 0;
 
             foreach($carrito as $item){
-                $subtotal = $item['precio'] * $item['cantidad'];
+                $subtotal = $item->producto->precio * $item->cantidad;
 
                 //guardar detalle
                 DetalleVenta::create([
                     'venta_id' => $venta->id,
-                    'producto_id' => $item['id'],
-                    'nombre_producto' =>$item['nombre'],
-                    'imagen_producto' => $item['imagen'],
-                    'cantidad' => $item['cantidad'],
-                    'precio' => $item['precio'],
+                    'producto_id' => $item->producto->id,
+                    'nombre_producto' =>$item->producto->nombre,
+                    'imagen_producto' => $item->producto->imagen,
+                    'cantidad' => $item->cantidad,
+                    'precio' => $item->producto->precio,
                     'subtotal' => $subtotal
                 ]);
 
                 //buscar producto para descontar del stock
-                $producto = Producto::find($item['id']);
+                $producto = $item->producto;
                 //descontar del stock
-                if($producto->stock < $item['cantidad']){
+                if($producto->stock < $item->cantidad){
                     throw new \Exception("Stock insuficiente para {$producto->nombre}");
                 }
-                $producto->stock -= $item['cantidad'];
+                $producto->stock -= $item->cantidad;
                 if($producto->stock <=0){
                     $producto->stock = 0;
                     $producto->activo = false;
@@ -120,15 +220,16 @@ class ClienteController extends Controller
 
             DB::commit();
 
-            //vaciar carrito
-            session()->forget('carrito');
+            $this->obtenerCarritoUsuario()
+                ->items()
+                ->delete();
 
             return redirect('/perfil')
                 ->with('success', 'Compra realizada correctamente');
         }catch(\Exception $e){
             DB::rollBack();
 
-            return back()->with('error', 'Error al procesar la compra');
+            return back()->with('error', $e->getMessage());
         }
     }
 }

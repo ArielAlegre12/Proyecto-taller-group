@@ -126,8 +126,11 @@ Route::middleware('auth')->group(function () {
         ->name('domestico.store');
     Route::get('/compra', [ClienteController::class, 'checkout'])
         ->name('cliente.checkout');
-    Route::post('/guardar-carrito', [ClienteController::class, 'guardarCarrito']);
-    Route::post('/guardar-carrito-usuario', [ClienteController::class, 'guardarCarritoUsuario']);
+    Route::get('/carrito', [ClienteController::class, 'obtenerCarrito']);
+    Route::post('/carrito/agregar', [ClienteController::class, 'agregarProducto']);
+    Route::post('/carrito/eliminar', [ClienteController::class, 'eliminarProducto']);
+    Route::post('/carrito/cantidad', [ClienteController::class, 'cambiarCantidad']);
+    Route::post('/carrito/vaciar', [ClienteController::class, 'vaciarCarrito']);
     Route::post('/compra/finalizar', [ClienteController::class, 'finalizarCompra'])
         ->name('cliente.finalizarCompra');
     Route::post('/consultas', [ConsultaController::class, 'store'])
