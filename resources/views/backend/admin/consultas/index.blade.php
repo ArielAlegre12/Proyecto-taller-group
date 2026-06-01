@@ -66,10 +66,10 @@
                                         </button>
                                     </form>
 
-                                    <!--boton eliminar-->
+                                    <!--boton Cancelar-->
                                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                                        data-bs-target="#modalEliminarConsulta{{ $consulta->id }}">
-                                        <i class="bi bi-trash"></i>
+                                        data-bs-target="#modalEliminarConsulta{{ $consulta->id }}" title="Cancelar Consulta">
+                                        <i class="bi bi-x-circle"></i>
                                     </button>
 
                                     <!--modal-->
@@ -80,7 +80,7 @@
 
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">
-                                                        Eliminar consulta
+                                                        Cancelar consulta
                                                     </h5>
 
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal">
@@ -94,7 +94,7 @@
                                                     <div class="modal-body">
 
                                                         <label class="form-label">
-                                                            Motivo de eliminación
+                                                            Motivo de la cancelación
                                                         </label>
 
                                                         <textarea name="motivo" class="form-control" rows="4"
@@ -109,7 +109,7 @@
                                                         </button>
 
                                                         <button type="submit" class="btn btn-danger">
-                                                            Eliminar Consulta
+                                                            Cancelar Consulta
                                                         </button>
 
                                                     </div>
