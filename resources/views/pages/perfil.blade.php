@@ -278,18 +278,12 @@
                                             <strong>${{ number_format($venta->total, 2, ',', '.') }}</strong>
                                         </div>
                                         @if ($venta->estado == 'pendiente')
-                                            <form action="{{ route('ventas.cancelar', $venta->id) }}" method="POST">
-                                                @csrf
-                                                @method('PATCH')
-
-                                                <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('¿Seguro que deseas cancelar esta compra?')">
-                                                    Cancelar compra
-                                                </button>
-                                            </form>
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                                data-bs-target="#cancelarModal{{ $venta->id }}">
+                                                Cancelar compra
+                                            </button>
                                         @endif
                                     </div>
-
                                 </div>
                                 <hr>
 
@@ -300,15 +294,48 @@
                             @endforelse
                         </div>
                     </div>
+
+                    @foreach ($ventas as $venta)
+                        @if ($venta->estado == 'pendiente')
+                            <div class="modal fade" id="cancelarModal{{ $venta->id }}" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Cancelar compra</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <p>
+                                                ¿Seguro que deseas cancelar el pedido
+                                                <strong>#{{ $venta->id }}</strong>?
+                                            </p>
+                                            <p class="text-danger mb-0">
+                                                Esta acción no se puede deshacer.
+                                            </p>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                Volver
+                                            </button>
+                                            <form action="{{ route('ventas.cancelar', $venta->id) }}" method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="bi bi-x-circle"></i>
+                                                    Sí, cancelar compra
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
             </div>
-        </section>
+        </div>
     </div>
+</section>
 @endsection
-
-@if (session('success'))
-    <script type="module">
-        localStorage.removeItem('carrito');
-        mostrarToast("Compra realizada correctamente");
-    </script>
-@endif

@@ -4,6 +4,10 @@
     <link rel="stylesheet" href="{{ asset('css/tiendaStyle.css') }}">
 @endpush
 
+@php
+    $esAdmin = auth()->check() && auth()->user()->rol->nombre === 'admin';
+@endphp
+
 @section('title')
     Tienda
 @endsection
@@ -71,7 +75,15 @@
                             @endif
                         </div>
                         @if ($producto->stock > 0)
-                            <button class="btn-agregar">Agregar</button>
+                            @if ($esAdmin)
+                                <button class="btn-agregar btn-disabled" disabled>
+                                    Solo clientes
+                                </button>
+                            @else
+                                <button class="btn-agregar">
+                                    Agregar
+                                </button>
+                            @endif
                         @else
                             <button class="btn-agregar btn-disabled" disabled>Sin stock</button>
                         @endif

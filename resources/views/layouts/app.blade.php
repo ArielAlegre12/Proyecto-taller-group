@@ -19,7 +19,6 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-
     <!--Cabezera-->
     <header>
         @include('partials.nav')
@@ -55,8 +54,10 @@
         <div id="carrito-total"></div>
 
         <div class="p-3 border-top">
-            <button id="btn-vaciar-carrito" class="btn btn-danger w-100 mb-2" onclick="vaciarCarrito()">Vaciar carrito</button>
-            <a id="btn-checkout" href="/compra" class="btn btn-success w-100" onclick="event.preventDefault(); irCheckout()">
+            <button id="btn-vaciar-carrito" class="btn btn-danger w-100 mb-2" onclick="vaciarCarrito()">Vaciar
+                carrito</button>
+            <a id="btn-checkout" href="/compra" class="btn btn-success w-100"
+                onclick="event.preventDefault(); irCheckout()">
                 Seguir Compra
             </a>
         </div>
@@ -65,17 +66,17 @@
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script type="module" src="/js/global/cart.js"></script>
     <script type="module" src="{{ asset('js/global/toast.js') }}"></script>
-        @if (session('success'))
-            <script type="module">
-                mostrarToast("{{ session('success') }}", 3000);
-            </script>
-        @endif
+    @if (session('success'))
+        <script type="module">
+            mostrarToast("{{ session('success') }}", 3000);
+        </script>
+    @endif
 
-        @if (session('error'))
-            <script type="module">
-                mostrarToast("{{ session('error') }}", "error");
-            </script>
-        @endif
+    @if (session('error'))
+        <script type="module">
+            mostrarToast("{{ session('error') }}", "error");
+        </script>
+    @endif
 
     @stack('scripts')
     <script src="//code.tidio.co/gadbg2xxdfpixlgurzjm4uerf2bqvwlx.js" async></script>

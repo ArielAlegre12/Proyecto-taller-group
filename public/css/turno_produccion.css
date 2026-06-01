@@ -1,4 +1,6 @@
 
+
+
 .form-container{
     max-width: 600px;
     margin: 40px auto;
@@ -18,14 +20,14 @@
     font-weight: 600;
 }
 
-.btn-success{
+.btn-turno{
     border-radius: 10px;
     padding: 12px;
     font-size: 18px;
     transition: 0,3s;
 }
 
-.btn-success:hover{
+.btn-turno:hover{
     transform: scale(1.03);
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }

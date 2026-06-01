@@ -23,6 +23,10 @@
     </script>
 @endpush
 
+@php
+    $esAdmin = auth()->check() && auth()->user()->rol->nombre === 'admin';
+@endphp
+
 @section('h1')
     Consultas
     <p class="lead">Programa una cita con nuestros veterinarios expertos.</p>
@@ -157,9 +161,15 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-success w-100 mt-4">
+                        @if ($esAdmin)
+                            <button class="btn btn-success w-100 mt-4 btn-disabled" disabled>
+                                Solo clientes
+                            </button>
+                        @else
+                            <button type="submit" class="btn btn-success w-100 mt-4">
                             Agendar Consulta
-                        </button>
+                            </button>
+                        @endif
 
                         <p class="texto-aviso">* Campos obligatorios. Te contactaremos para confirmar tu cita.</p>
                     </form>

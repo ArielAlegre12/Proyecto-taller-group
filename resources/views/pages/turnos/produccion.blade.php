@@ -13,17 +13,22 @@
     <script src="{{ asset('js/animaciones.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-                    flatpickr("#fechaHora", {
-                        enableTime: true,
-                        dateFormat: "Y-m-d H:i",
-                        minDate: "today",
-                        time_24hr: true
-                    });
-                </script>
+        flatpickr("#fechaHora", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            minDate: "today",
+            time_24hr: true
+        });
+    </script>
 @endpush
+
+@php
+    $esAdmin = auth()->check() && auth()->user()->rol->nombre === 'admin';
+@endphp
 
 @section('h1')
     Animales de producción
+    <p class="lead">Registra el turno y nos pondremos en contacto con vos</p>
 @endsection
 
 @section('content')
@@ -31,71 +36,79 @@
     <div class="container">
         <div class="form-container animar">
             <div class="container mt-5">
-            <form action="{{ route('produccion.store') }}" method="POST">    
-            @csrf
+                <form action="{{ route('produccion.store') }}" method="POST">
+                    @csrf
 
-                @if (session('error'))
-                    <div class="alert alert-danger">
+                    @if (session('error'))
+                        <div class="alert alert-danger">
                             {{ session('error') }}
-                    </div>
-                
-                @endif
+                        </div>
 
-                @if (session('success'))
-                    <div class="alert alert-success">
+                    @endif
+
+                    @if (session('success'))
+                        <div class="alert alert-success">
                             {{ session('success') }}
+                        </div>
+
+                    @endif
+
+                    <div class="mb-3">
+                        <label class="form-label">Nombre del productor</label>
+                        <input type="text" name="nombreProdu" class="form-control" placeholder="Ingrese su nombre">
                     </div>
-                
-                @endif
 
-                <div class="mb-3">
-                    <label class="form-label">Nombre del productor</label>
-                    <input type="text" name="nombreProdu" class="form-control" placeholder="Ingrese su nombre">
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nombre del establecimiento</label>
+                        <input type="text" name="nombreEstablo" class="form-control"
+                            placeholder="Nombre del establecimiento">
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Nombre del establecimiento</label>
-                    <input type="text" name="nombreEstablo" class="form-control" placeholder="Nombre del establecimiento">
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tipo del animal</label>
+                        <input type="text" name="tipoAnimal" class="form-control" placeholder="Tipo del animal">
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Tipo del animal</label>
-                    <input type="text" name="tipoAnimal" class="form-control" placeholder="Tipo del animal">
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label">Cantidad de Animales</label>
+                        <input type="number" name="cantidad" class="form-control" placeholder="0">
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Cantidad de Animales</label>
-                    <input type="number" name="cantidad" class="form-control" placeholder="0">
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label">Motivo</label>
+                        <select name="motivo" class="form-select">
+                            <option selected disabled>Seleccionar</option>
+                            <option>Control sanitario</option>
+                            <option>Vacunacion masiva</option>
+                            <option>Reproduccion</option>
+                            <option>Emergencia</option>
+                        </select>
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Motivo</label>
-                    <select name="motivo" class="form-select">
-                        <option selected disabled>Seleccionar</option>
-                        <option>Control sanitario</option>
-                        <option>Vacunacion masiva</option>
-                        <option>Reproduccion</option>
-                        <option>Emergencia</option>
-                    </select>
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label">Tipo de servicio</label>
+                        <select name="tipoServicio" class="form-select">
+                            <option selected disabled>Seleccionar</option>
+                            <option>Visita en campo</option>
+                            <option>Atencion en clinica</option>
+                        </select>
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Tipo de servicio</label>
-                    <select name="tipoServicio" class="form-select">
-                        <option selected disabled>Seleccionar</option>
-                        <option>Visita en campo</option>
-                        <option>Atencion en clinica</option>
-                    </select>
-                </div>
+                    <div class="mb-3">
+                        <label class="form-label">Fecha y Hora</label>
+                        <input type="text" name="fechaYHora" id="fechaHora" class="form-control"
+                            placeholder="Seleccionar fecha y Hora">
+                    </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Fecha y Hora</label>
-                    <input type="text" name="fechaYHora" id="fechaHora" class="form-control" placeholder="Seleccionar fecha y Hora">
-                </div>
-
-                <button type="submit" class="btn btn-success w-100">
-                    Confirmar Turno
-                </button>
+                    @if ($esAdmin)
+                        <button class="btn btn-success w-100 btn-turno btn-disabled" disabled>
+                            Solo clientes
+                        </button>
+                    @else
+                        <button type="submit" class="btn btn-success btn-turno w-100">
+                        Confirmar Turno
+                    </button>
+                    @endif
             </div>
             </form>
         </div>

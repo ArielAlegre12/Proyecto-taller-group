@@ -68,7 +68,7 @@
                                 @elseif($venta->estado == 'pagado')
                                     <span class="badge bg-primary">Pagado</span>
                                 @elseif($venta->estado == 'cancelada')
-                                    <span class="badge bg-danger">Cancelado</span>
+                                    <span class="badge bg-danger">Cancelada</span>
                                 @endif
                             </td>
                             <td>
