@@ -8,6 +8,8 @@ use App\Models\Venta;
 use App\Models\Producto;
 use App\Models\DetalleVenta;
 use Illuminate\Support\Facades\DB;
+use App\Mail\CompraRealizadaMail;
+use Illuminate\Support\Facades\Mail;
 
 class ClienteController extends Controller
 {
@@ -313,6 +315,10 @@ class ClienteController extends Controller
             $venta->save();
 
             DB::commit();
+
+            $venta->load('detalles', 'usuario');
+
+            Mail::to(auth()->user()->email)->send(new CompraRealizadaMail($venta));
 
             $this->obtenerCarritoUsuario()
                 ->items()
