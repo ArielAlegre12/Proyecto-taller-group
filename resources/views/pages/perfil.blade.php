@@ -250,6 +250,10 @@
                                                         Entregado
                                                     </span>
                                                 @endif
+                                            @elseif($venta->estado == 'cancelada')
+                                                <span class="badge bg-danger">
+                                                    Compra cancelada
+                                                </span>
 
                                             @endif
                                         </div>
@@ -268,11 +272,24 @@
                                         </div>
                                     @endforeach
 
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>Total</strong>
+                                            <strong>${{ number_format($venta->total, 2, ',', '.') }}</strong>
+                                        </div>
+                                        @if ($venta->estado == 'pendiente')
+                                            <form action="{{ route('ventas.cancelar', $venta->id) }}" method="POST">
+                                                @csrf
+                                                @method('PATCH')
 
-                                    <div class="d-flex justify-content-between">
-                                        <strong>Total</strong>
-                                        <strong>${{ number_format($venta->total, 2, ',', '.') }}</strong>
+                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('¿Seguro que deseas cancelar esta compra?')">
+                                                    Cancelar compra
+                                                </button>
+                                            </form>
+                                        @endif
                                     </div>
+
                                 </div>
                                 <hr>
 

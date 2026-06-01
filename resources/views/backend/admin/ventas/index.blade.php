@@ -11,7 +11,14 @@
     <div class="resumen-grid mb-5">
         <div class="resumen-card">
             <i class="bi bi-cash-stack"></i>
-            <h3>${{ number_format($ventas->sum('total'), 2, ',', '.') }}</h3>
+            <h3>
+                ${{ number_format(
+                    $ventas->whereIn('estado', ['pagado', 'enviado', 'entregado'])->sum('total'),
+                    2,
+                    ',',
+                    '.'
+                ) }}
+            </h3>
             <p>Total vendido</p>
         </div>
 
@@ -60,7 +67,7 @@
                                     <span class="badge bg-success">Entregado</span>
                                 @elseif($venta->estado == 'pagado')
                                     <span class="badge bg-primary">Pagado</span>
-                                @elseif($venta->estado == 'cancelado')
+                                @elseif($venta->estado == 'cancelada')
                                     <span class="badge bg-danger">Cancelado</span>
                                 @endif
                             </td>

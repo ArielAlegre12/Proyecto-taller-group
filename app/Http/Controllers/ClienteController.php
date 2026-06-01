@@ -326,4 +326,43 @@ class ClienteController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
+
+    public function cancelarCompra($id){
+    $venta = Venta::where('usuario_id', auth()->id())
+        ->where('id', $id)
+        ->firstOrFail();
+
+    //solo cancelar pendientes
+    if($venta->estado !== 'pendiente'){
+        return back()->with('error', 'La compra no puede cancelarse');
+    }
+
+    DB::beginTransaction();
+    try{
+        foreach($venta->detalles as $detalle){
+            $producto = Producto::find($detalle->producto_id);
+            
+            if($producto){
+                $producto->stock += $detalle->cantidad;
+
+                //si estaba desactivado por stock
+                if($producto->stock > 0){
+                    $producto->activo = true;
+                }
+                $producto->save();
+            }
+        }
+
+        $venta->estado = 'cancelada';
+        $venta->save();
+
+        DB::commit();
+
+        return back()->with('success', 'Compra cancelada');
+    }catch(\Exception $e){
+        DB::rollBack();
+
+        return back()->with('error', 'Error al cancelar compra');
+    }
+    }
 }
