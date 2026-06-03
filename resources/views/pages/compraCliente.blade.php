@@ -6,9 +6,15 @@
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/finalizarCompra.css') }}">
 @endpush
+
 @push('scripts')
     <script src="{{ asset('js/global/checkout.js') }}"></script>
 @endpush
+
+@php
+    $esAdmin = auth()->check() && auth()->user()->rol->nombre === 'admin';
+@endphp
+
 
 @section('content')
     <div class="container py-5 checkout-container">
@@ -77,9 +83,11 @@
                                     <!--direeción-->
                                     <div id="direccionContainer" class="mt-3 d-none">
                                         <label class="form-label fw-bold">Dirección de envío</label>
-                                        <input type="text" class="form-control mb-2" name="direccion" placeholder="Calle y número">
+                                        <input type="text" class="form-control mb-2" name="direccion"
+                                            placeholder="Calle y número">
                                         <input type="text" class="form-control mb-2" name="ciudad" placeholder="Ciudad">
-                                        <input type="text" class="form-control mb-2" name="codigo_postal" placeholder="Código postal">
+                                        <input type="text" class="form-control mb-2" name="codigo_postal"
+                                            placeholder="Código postal">
                                     </div>
                                 </div>
 
@@ -121,7 +129,7 @@
                                 <div class="d-flex justify-content-between mb-2">
                                     <span>Subtotal</span>
                                     <span id="subtotal">
-                                        ${{ number_format($total,2,',','.') }}
+                                        ${{ number_format($total, 2, ',', '.') }}
                                     </span>
                                 </div>
 
@@ -139,8 +147,15 @@
 
                                 <div id="checkoutData" data-total="{{ $total }}"></div>
 
-                                <button type="submit" class="btn btn-success w-100 py-3 btn-confirmar">Confirmar
-                                    compra</button>
+                                @if ($esAdmin)
+                                    <button class="btn btn-success w-100 py-3 btn-disabled">
+                                        Sólo clientes
+                                    </button>
+                                @else
+                                    <button type="submit" class="btn btn-success w-100 py-3 btn-confirmar">
+                                        Confirmar compra
+                                    </button>
+                                @endif
                             </div>
                         </div>
                     </form>

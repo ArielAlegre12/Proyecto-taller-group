@@ -35,8 +35,29 @@
         </div>
     </div>
 
+    <!--productos más vendidos-->
+    <div class="admin-panel mb-5">
+        <h4 class="mb-4">Productos más vendidos</h4>
+        
+        <div class="row">
+            @foreach ($productosMasVendidos as $producto)
+                <div class="col-md-4 col-lg-2 mb-3">
+                    <div class="top-producto-card text-center" >
+                        <div class="top-producto-numero">
+                            {{ $loop->iteration }}
+                        </div>
+                        <img src="{{ asset('storage/' .$producto->imagen) }}" alt="{{ $producto->nombre }}">
+                        <strong>{{ $producto->nombre }}</strong>
+                        <small>{{ $producto->total_vendidos }} Vendidos</small>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+
     <!--tabla ventas-->
     <div class="admin-panel">
+        <h4 class="mb-4">Tabla de ventas</h4>
         <div class="table-responsive">
             <table class="table align-middle">
                 <thead>

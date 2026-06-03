@@ -10,6 +10,7 @@ use App\Models\Venta;
 use App\Models\Consulta;
 use App\Mail\ConsultaEliminadaMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -156,7 +157,25 @@ class AdminController extends Controller
         $ventas = Venta::with('usuario')
             ->latest()
             ->get();
-        return view('backend.admin.ventas.index', compact('ventas'));
+
+        $productosMasVendidos = DB::table('detalle_ventas')
+            ->join('ventas', 'detalle_ventas.venta_id', '=', 'ventas.id')
+            ->join('productos', 'detalle_ventas.producto_id', '=', 'productos.id')
+            ->where('ventas.estado', 'entregado')
+            ->select(
+                'productos.nombre',
+                'productos.imagen',
+                DB::raw('SUM(detalle_ventas.cantidad) as total_vendidos')
+            )
+            ->groupBy('productos.id', 'productos.nombre', 'productos.imagen')
+            ->orderByDesc('total_vendidos')
+            ->take(5)
+            ->get();
+        
+        return view('backend.admin.ventas.index', compact(
+            'ventas',
+            'productosMasVendidos'
+        ));
     }
 
     public function marcarPagado(Venta $venta){
@@ -201,9 +220,9 @@ class AdminController extends Controller
     public function destroyConsulta(Request $request, Consulta $consulta){
         Mail::to($consulta->email)->send(new ConsultaEliminadaMail($consulta, $request->motivo));
     
-    $consulta->delete();
+        $consulta->delete();
 
-    return redirect('/backend/admin/consultas')
-        ->with('success', 'Consulta eliminada');
-}
+        return redirect('/backend/admin/consultas')
+            ->with('success', 'Consulta eliminada');
+    }
 }

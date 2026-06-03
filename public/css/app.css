@@ -16,6 +16,12 @@ html{
     margin: 0;
 }
 
+/*btn tienda desactivado*/
+.btn-disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 /*estilos toast*/
 .toast-global{
     position: fixed;
