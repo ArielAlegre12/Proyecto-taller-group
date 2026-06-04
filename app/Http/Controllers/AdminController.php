@@ -12,6 +12,9 @@ use App\Mail\ConsultaEliminadaMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Mail\TurnoReprogramadoMail;
+use App\Mail\TurnoConfirmadoMail;
+use App\Mail\TurnoCanceladoMail;
 
 class AdminController extends Controller
 {
@@ -100,12 +103,18 @@ class AdminController extends Controller
         $domestico->estado = 'confirmado';
         $domestico->save();
 
+        Mail::to($domestico->usuario->email)->send(new TurnoConfirmadoMail($domestico));
+
         return back()->with('success', 'Turno confirmado');
     }
     
-    public function cancelarDomestico(Domestico $domestico){
+    public function cancelarDomestico(Request $request, Domestico $domestico){
         $domestico->estado = 'cancelado';
         $domestico->save();
+
+        $usuario = Usuario::find($domestico->usuario_id);
+
+        Mail::to($usuario->email)->send(new TurnoCanceladoMail($domestico, $request->motivo));
 
         return back()->with('success', 'Turno cancelado');
     }
@@ -117,10 +126,14 @@ class AdminController extends Controller
 
         $domestico->fechaYHora = $request->fechaYHora;
 
-        //vuelve a pendiente
-        $domestico->estado = 'pendiente';
+        //se coloca en reprogramado
+        $domestico->fecha_original = $domestico->fechaYHora;
+        $domestico->fechaYHora = $request->fechaYHora;
+        $domestico->estado = 'reprogramado';
 
         $domestico->save();
+
+        Mail::to($domestico->usuario->email)->send(new TurnoReprogramadoMail($domestico));
 
         return back()->with('success', 'Turno repogramado');
     }
@@ -129,12 +142,17 @@ class AdminController extends Controller
         $produccion->estado = 'confirmado';
         $produccion->save();
 
+        Mail::to($produccion->usuario->email)->send(new TurnoConfirmadoMail($produccion));
+
         return back()->with('success', 'Turno confirmado');
     }
 
-    public function cancelarProduccion(Produccion $produccion){
+    public function cancelarProduccion(Request $request, Produccion $produccion){
         $produccion->estado = 'cancelado';
         $produccion->save();
+        
+
+        Mail::to($produccion->usuario->email)->send(new TurnoCanceladoMail($produccion, $request->motivo));
 
         return back()->with('success', 'Turno cancelado');
     }
@@ -144,11 +162,13 @@ class AdminController extends Controller
             'fechaYHora' => 'required|date'
         ]);
 
+        $produccion->fecha_original = $produccion->fechaYHora;
         $produccion->fechaYHora = $request->fechaYHora;
-
-        $produccion->estado = 'pendiente';
+        $produccion->estado = 'reprogramado';
 
         $produccion->save();
+
+        Mail::to($produccion->usuario->email)->send(new TurnoReprogramadoMail($produccion));
 
         return back()->with('success', 'Turno reprogramado');
     }

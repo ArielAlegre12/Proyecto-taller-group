@@ -118,6 +118,7 @@
                         @forelse($turnosDomesticos as $turno)
 
                             <div class="turno-card">
+
                                 <h4>
                                     {{ $turno->nombreMascota }}
                                 </h4>
@@ -141,12 +142,73 @@
                                     <strong>Fecha:</strong>
                                     {{ \Carbon\Carbon::parse($turno->fechaYHora)->format('d/m/y | H:i') }}
                                 </p>
+
+                                <p>
+                                    <strong>Estado:</strong>
+
+                                    @if ($turno->estado == 'pendiente')
+                                        <span class="badge bg-warning text-dark">Pendiente</span>
+                                    @elseif($turno->estado == 'reprogramado')
+                                        <span class="badge bg-info">Reprogramado</span>
+                                    @elseif($turno->estado == 'confirmado')
+                                        <span class="badge bg-success">Confirmado</span>
+                                    @elseif($turno->estado == 'cancelado')
+                                        <span class="badge bg-danger">Cancelado</span>
+                                    @endif
+                                </p>
+
+                                <div class="turno-acciones">
+                                    @if ($turno->estado == 'pendiente')
+                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#cancelarDomestico{{ $turno->id }}">
+                                            Cancelar turno
+                                        </button>
+                                    @endif
+
+                                    @if ($turno->estado == 'reprogramado')
+                                        <div class="alert alert-warning mt-3">
+                                            <strong>El horario fue modificado por la veterinaria.</strong>
+
+                                            <br>
+
+                                            Fecha anterior:
+                                            {{ \Carbon\Carbon::parse($turno->fecha_original)->format('d/m/Y H:i') }}
+
+                                            <br>
+
+                                            Nueva fecha:
+                                            {{ \Carbon\Carbon::parse($turno->fechaYHora)->format('d/m/Y H:i') }}
+                                        </div>
+
+                                        <div class="d-flex gap-2">
+                                            <form action="/perfil/turnos/domesticos/{{ $turno->id }}/aceptar" method="POST">
+                                                @csrf
+                                                @method('PUT')
+
+                                                <button class="btn btn-success">
+                                                    Aceptar horario
+                                                </button>
+                                            </form>
+
+                                            <form action="/perfil/turnos/domesticos/{{ $turno->id }}/rechazar" method="POST">
+                                                @csrf
+                                                @method('PUT')
+
+                                                <button class="btn btn-danger">
+                                                    Cancelar turno
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
                         @empty
                             <div class="sin-turnos">
                                 No tiene turnos domesticos.
                             </div>
                         @endforelse
+
+
                     </div>
                     <div class="card-perfil mt-5 animar">
                         <div class="d-flex justify-content-between align-items-center mb-4">
@@ -159,6 +221,7 @@
                         @forelse($turnosProduccion as $turno)
 
                             <div class="turno-card">
+
                                 <h4>
                                     {{ $turno->nombreProdu }}
                                 </h4>
@@ -187,12 +250,73 @@
                                     <strong>Fecha:</strong>
                                     {{ \Carbon\Carbon::parse($turno->fechaYHora)->format('d/m/y | H:i') }}
                                 </p>
+
+                                <p>
+                                    <strong>Estado:</strong>
+
+                                    @if ($turno->estado == 'pendiente')
+                                        <span class="badge bg-warning text-dark">Pendiente</span>
+                                    @elseif($turno->estado == 'reprogramado')
+                                        <span class="badge bg-info">Reprogramado</span>
+                                    @elseif($turno->estado == 'confirmado')
+                                        <span class="badge bg-success">Confirmado</span>
+                                    @elseif($turno->estado == 'cancelado')
+                                        <span class="badge bg-danger">Cancelado</span>
+                                    @endif
+                                </p>
+
+                                <div class="turno-acciones">
+                                    @if ($turno->estado == 'pendiente')
+                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                            data-bs-target="#cancelarProduccion{{ $turno->id }}">
+                                            Cancelar turno
+                                        </button>
+                                    @endif
+
+                                    @if ($turno->estado == 'reprogramado')
+                                        <div class="alert alert-warning mt-3">
+                                            <strong>El horario fue modificado por la veterinaria.</strong>
+
+                                            <br>
+
+                                            Fecha anterior:
+                                            {{ \Carbon\Carbon::parse($turno->fecha_original)->format('d/m/Y H:i') }}
+
+                                            <br>
+
+                                            Nueva fecha:
+                                            {{ \Carbon\Carbon::parse($turno->fechaYHora)->format('d/m/Y H:i') }}
+                                        </div>
+
+                                        <div class="d-flex gap-2">
+                                            <form action="/perfil/turnos/produccion/{{ $turno->id }}/aceptar" method="POST">
+                                                @csrf
+                                                @method('PUT')
+
+                                                <button class="btn btn-success">
+                                                    Aceptar horario
+                                                </button>
+                                            </form>
+
+                                            <form action="/perfil/turnos/produccion/{{ $turno->id }}/rechazar" method="POST">
+                                                @csrf
+                                                @method('PUT')
+
+                                                <button class="btn btn-danger">
+                                                    Cancelar turno
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
                         @empty
                             <div class="sin-turnos">
                                 No tiene turnos de produccion.
                             </div>
                         @endforelse
+
+
                     </div>
                 </div>
 
@@ -335,7 +459,73 @@
                     @endforeach
                 </div>
             </div>
-        </div>
     </div>
-</section>
+    </div>
+    </section>
+    @foreach ($turnosDomesticos as $turno)
+        @if ($turno->estado == 'pendiente')
+            <div class="modal fade" id="cancelarDomestico{{ $turno->id }}" tabindex="-1">
+                <div class="modal-dialog ">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Cancelar turno</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            ¿Seguro que deseas cancelar este turno?
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" data-bs-dismiss="modal">
+                                Volver
+                            </button>
+
+                            <form action="/perfil/turnos/domesticos/{{ $turno->id }}/cancelar" method="POST">
+                                @csrf
+                                @method('PUT')
+
+                                <button class="btn btn-danger">
+                                    Si, cancelar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    @endforeach
+    @foreach ($turnosProduccion as $turno)
+        @if ($turno->estado == 'pendiente')
+            <div class="modal fade" id="cancelarProduccion{{ $turno->id }}" tabindex="-1">
+                <div class="modal-dialog ">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Cancelar turno</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            ¿Seguro que deseas cancelar este turno?
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" data-bs-dismiss="modal">
+                                Volver
+                            </button>
+
+                            <form action="/perfil/turnos/produccion/{{ $turno->id }}/cancelar" method="POST">
+                                @csrf
+                                @method('PUT')
+
+                                <button class="btn btn-danger">
+                                    Si, cancelar
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    @endforeach
 @endsection

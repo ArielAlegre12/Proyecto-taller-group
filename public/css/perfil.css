@@ -148,6 +148,14 @@
     margin-bottom: 20px;
     transition: .3s;
     background: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.turno-acciones{
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .turno-card:hover {
