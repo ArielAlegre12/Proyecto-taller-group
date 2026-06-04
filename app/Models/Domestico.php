@@ -13,4 +13,8 @@ class Domestico extends Model
     protected $table = 'domesticos';
 
     protected $fillable = ['usuario_id','nombreDueño', 'nombreMascota','tipoMascota', 'motivo', 'fechaYHora'];
+
+    public function usuario(){
+        return $this->belongsTo(Usuario::class);
+    }
 }

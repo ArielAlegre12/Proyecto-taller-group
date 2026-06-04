@@ -14,4 +14,8 @@ class Produccion extends Model
     protected $table = 'producciones';
 
     protected $fillable = ['usuario_id', 'nombreProdu', 'nombreEstablo', 'tipoAnimal', 'cantidad', 'motivo', 'tipoServicio', 'fechaYHora'];
+
+    public function usuario(){
+        return $this->belongsTo(Usuario::class);
+    }
 }

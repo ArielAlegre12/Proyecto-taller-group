@@ -149,3 +149,9 @@ Route::post('/recuperar-password/codigo', [AuthController::class, 'verificarCodi
 Route::post('/recuperar-password/cambiar', [AuthController::class, 'cambiarPassword'])
         ->name('password.cambiar');
 
+Route::put('/perfil/turnos/domesticos/{domestico}/cancelar', [PerfilController::class, 'cancelarDomestico']);
+Route::put('/perfil/turnos/produccion/{produccion}/cancelar', [PerfilController::class, 'cancelarProduccion']);
+Route::put('/perfil/turnos/domesticos/{domestico}/aceptar', [PerfilController::class, 'aceptarDomestico']);
+Route::put('/perfil/turnos/produccion/{produccion}/aceptar', [PerfilController::class, 'aceptarProduccion']);
+Route::put('/perfil/turnos/domesticos/{domestico}/rechazar', [PerfilController::class, 'rechazarDomestico']);
+Route::put('/perfil/turnos/produccion/{produccion}/rechazar', [PerfilController::class, 'rechazarProduccion']);
