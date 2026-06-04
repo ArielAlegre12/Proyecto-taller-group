@@ -66,13 +66,15 @@
             <div class="row g-3">
                 <!--buscar cliente-->
                 <div class="col-md-3">
+                    <label class="form-label filtro-label">Cliente</label>
                     <input type="text" name="cliente" class="form-control" placeholder="Buscar cliente..." value="{{ request('cliente') }}">
                 </div>
 
                 <!--estado-->
                 <div class="col-md-2">
+                    <label class="form-label filtro-label">Estado</label>
                     <select name="estado" class="form-select">
-                        <option value="">Estado</option>
+                        <option value="">Seleccionar</option>
 
                         <option value="pendiente" {{ request('estado') == 'pendiente' ? 'selected' : '' }}>
                             Pendiente
@@ -94,18 +96,21 @@
 
                 <!--rango de fecha desde-->
                 <div class="col-md-2">
+                    <label class="form-label filtro-label">Desde</label>
                     <input type="date" name="desde" class="form-control" value="{{ request('desde') }}" max="{{ now()->toDateString() }}">
                 </div>
 
                 <!--rango de fecha hasta-->
                 <div class="col-md-2">
+                    <label class="form-label filtro-label">hasta</label>
                     <input type="date" name="hasta" class="form-control" value="{{ request('hasta') }}" min="{{ request('desde')}}" max="{{ now()->toDateString() }}">
                 </div>
 
                 <!--método de entrega-->
                 <div class="col-md-2">
+                    <label class="form-label filtro-label">Entrega</label>
                     <select name="entrega" class="form-select">
-                        <option value="">Entrega</option>
+                        <option value="">Seleccionar</option>
 
                         <option value="domicilio" {{ request('entrega') == 'domicilio' ? 'selected' : ''}}>
                             Domicilio
@@ -118,20 +123,33 @@
                 </div>
 
                 <!--botones-->
-                <div class="col-md-1 d-flex gap-2">
-                    <!--buscar-->
-                    <button class="btn btn-success w-100">
-                        <i class="bi bi-search"></i>
-                    </button>
-                    <!--resetear filtros-->
-                    <a href="{{ route('admin.ventas') }}" class="btn btn-outline-secondary preserve-link w-100">
-                        <i class="bi bi-arrow-counterclockwise"></i>
-                    </a>
+                <div class="col-md-1">
+                    <!--label invisible para alinear. sino queda más arriba de lo que deberia estar-->
+                    <label class="form-label filtro-label opacity-0">
+                        Acciones
+                    </label>
+
+                    <div class="d-flex gap-2">
+                        <!--buscar-->
+                        <button class="btn btn-success w-100" title="Filtrar">
+                            <i class="bi bi-search"></i>
+                        </button>
+                        <!--resetear filtros-->
+                        <a href="{{ route('admin.ventas') }}" class="btn btn-outline-secondary preserve-link w-100" title="Restaurar tabla">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                        </a>
+                    </div>
                 </div>
 
             </div>
         </form>
     </div>
+
+    <!--btn para ver resumen-->
+    <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#resumenVentasModal">
+        <i class="bi bi-graph-up"></i>
+        Ver resumen
+    </button>
 
     <!--tabla ventas-->
     <div class="admin-panel">
@@ -313,6 +331,137 @@
                     @endforelse
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <!--modal resumen ventas-->
+    <div class="modal fade" id="resumenVentasModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+
+                <!--cabecera-->
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <i class="bi bi-chart-line-fill text-success"></i>
+                        Resumen de ventas
+                    </h4>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!--body-->
+                <div class="modal-body">
+                    
+                    <!--cards-->
+                    <div class="row g-4 mb-4">
+
+                        <div class="col-md-3">
+                            <div class="resumen-stat-card">
+                                <small>Total vendido</small>
+
+                                    <h3>
+                                        ${{ number_format($totalVendido,2,',','.') }}
+                                    </h3>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="resumen-stat-card">
+                                <small>Pedidos</small>
+
+                                <h3>
+                                    {{ $totalPedidos }}
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="resumen-stat-card">
+                                <small>Ticket promedio</small>
+
+                                <h3>
+                                    ${{ number_format($ticketPromedio,2,',','.') }}
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="resumen-stat-card">
+                                <small>Productos vendidos</small>
+
+                                <h3>
+                                    {{ $totalProductosVendidos }}
+                                </h3>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                    <!--rankings-->
+                    <div class="row g-4">
+
+                        <!--clientes top-->
+                        <div class="col-md-6">
+                            <div class="ranking-card">
+                                
+                                <h5 class="mb-3">
+                                    <i class="bi bi-people-fill text-primary"></i>
+                                    Mejores clientes
+                                </h5>
+
+                                @forelse($clienteTop as $cliente => $total)
+
+                                    <div class="ranking-item">
+                                        <span>{{ $cliente }}</span>
+
+                                        <strong>
+                                            ${{ number_format($total,2,',','.') }}
+                                        </strong>
+                                    </div>
+                                
+                                @empty
+
+                                    <p class="text-muted">
+                                        Sin datos
+                                    </p>
+
+                                @endforelse
+                            </div>
+                        </div>
+
+                        <!--info general-->
+                        <div class="col-md-6">
+                            <div class="ranking-card">
+
+                                <h5 class="nb-3">
+                                    <i class="bi bi-pie-chart-fill text-success"></i>
+                                    Información general
+                                </h5>
+
+                                <div class="ranking-item">
+                                    <span>Entrega más usada</span>
+
+                                    <strong>
+                                        {{ ucfirst($metodoEntregaTop ?? '-') }}
+                                    </strong>
+                                </div>
+
+                                <div class="ranking-item">
+                                    <span>Estado más frecuente</span>
+
+                                    <strong>
+                                        {{ ucfirst($estadoTop ?? '-') }}
+                                    </strong>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </div>
         </div>
     </div>
 @endsection

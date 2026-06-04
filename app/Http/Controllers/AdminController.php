@@ -183,7 +183,11 @@ class AdminController extends Controller
             'hasta.after_or_equal' => 'La fecha final no puede ser menor a la inicial'
         ]);
 
-        $ventas = Venta::with('usuario');
+        $ventas = Venta::with([
+            'usuario',
+            'detalles',
+            'detalles.producto'
+        ]);
 
         //buscar clientes
         if($request->cliente){
@@ -215,6 +219,50 @@ class AdminController extends Controller
         //ordenar y obtener resultados
         $ventas = $ventas->latest()->get();
 
+        //resumen-estadisticas
+
+        //total vendido
+        $totalVendido = $ventas
+            ->whereIn('estado', ['pagado', 'enviado', 'entregado'])
+            ->sum('total');
+
+        //cantidad pedidos
+        $totalPedidos = $ventas->count();
+
+        //ticket promedio
+        $ticketPromedio = $totalPedidos > 0
+            ? $totalVendido / $totalPedidos
+            : 0;
+        
+        //productos vendidos
+        $totalProductosVendidos = $ventas
+            ->flatMap->detalles
+            ->sum('cantidad');
+
+        //método de entrega más usado
+        $metodoEntregaTop = $ventas
+            ->groupBy('metodo_entrega')
+            ->map(fn($ventas) => $ventas->count())
+            ->sortDesc()
+            ->keys()
+            ->first();
+
+        //cliente que más tarasca gastó
+        $clienteTop = $ventas
+            ->groupBy('usuario.nombre')
+            ->map(fn($ventas) => $ventas->sum('total'))
+            ->sortDesc()
+            ->take(5);
+
+        //estado más frecuente
+        $estadoTop = $ventas
+            ->groupBy('estado')
+            ->map(fn($ventas) => $ventas->count())
+            ->sortDesc()
+            ->keys()
+            ->first();
+
+
         //productos más vendidos
         $productosMasVendidos = DB::table('detalle_ventas')
             ->join('ventas', 'detalle_ventas.venta_id', '=', 'ventas.id')
@@ -232,7 +280,15 @@ class AdminController extends Controller
 
         return view('backend.admin.ventas.index', compact(
             'ventas',
-            'productosMasVendidos'
+            'productosMasVendidos',
+
+            'totalVendido',
+            'totalPedidos',
+            'ticketPromedio',
+            'totalProductosVendidos',
+            'metodoEntregaTop',
+            'clienteTop',
+            'estadoTop'
         ));
     }
 

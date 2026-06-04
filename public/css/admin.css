@@ -463,6 +463,64 @@
     color: #adb5bd;
 }
 
+/*estilos label de fechas desde-hasta*/
+.filtro-label{
+    font-size: 13px;
+    font-weight: 600;
+    color: #6c757d;
+
+    margin-bottom: 6px;
+}
+
+/*modal resumen ventas*/
+.resumen-stat-card{
+    background: #f8f9fa;
+
+    border-radius: 16px;
+
+    padding: 25px;
+
+    text-align: center;
+
+    height: 100%;
+
+    border: 1px solid #e9ecef;
+}
+
+.resumen-stat.card small{
+    color: #6c757d;
+    font-size: 14px;
+}
+
+.resumen-stat-card h3{
+    margin-top: 10px;
+
+    font-size: 28px;
+    font-weight: bold;
+
+    color: #198754;
+}
+
+.ranking-card{
+    background: #f8f9fa;
+
+    border-radius: 16px;
+
+    padding: 25px;
+
+    height: 100%;
+}
+
+.ranking-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid #e9ecef;
+}
+
 /*responsive*/
 @media(max-width: 992px){
     .admin-container{
