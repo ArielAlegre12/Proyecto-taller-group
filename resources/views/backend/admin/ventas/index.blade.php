@@ -46,13 +46,91 @@
                         <div class="top-producto-numero">
                             {{ $loop->iteration }}
                         </div>
-                        <img src="{{ asset('storage/' .$producto->imagen) }}" alt="{{ $producto->nombre }}">
+                        <img src="{{ asset('storage/' . $producto->imagen) }}" alt="{{ $producto->nombre }}">
                         <strong>{{ $producto->nombre }}</strong>
                         <small>{{ $producto->total_vendidos }} Vendidos</small>
                     </div>
                 </div>
             @endforeach
         </div>
+    </div>
+
+    <!--filtros-->
+    <div class="admin-panel filtros-ventas mb-4">
+        <div class="d-flex align-items-center gap-2 mb-4">
+            <i class="bi bi-funnel-fill text-success"></i>
+            <h5 class="mb-0">Filtros</h5>
+        </div>
+
+        <form action="{{ route('admin.ventas') }}" method="GET" class="preserve-scroll">
+            <div class="row g-3">
+                <!--buscar cliente-->
+                <div class="col-md-3">
+                    <input type="text" name="cliente" class="form-control" placeholder="Buscar cliente..." value="{{ request('cliente') }}">
+                </div>
+
+                <!--estado-->
+                <div class="col-md-2">
+                    <select name="estado" class="form-select">
+                        <option value="">Estado</option>
+
+                        <option value="pendiente" {{ request('estado') == 'pendiente' ? 'selected' : '' }}>
+                            Pendiente
+                        </option>
+
+                        <option value="pagado" {{ request('estado') == 'pagado' ? 'selected' : '' }}>
+                            Pagado
+                        </option>
+
+                        <option value="enviado" {{ request('estado') == 'enviado' ? 'selected' : '' }}>
+                            Enviado
+                        </option>
+
+                        <option value="entregado" {{ request('estado') == 'entregado' ? 'selected' : '' }}>
+                            Entregado
+                        </option>
+                    </select>
+                </div>
+
+                <!--rango de fecha desde-->
+                <div class="col-md-2">
+                    <input type="date" name="desde" class="form-control" value="{{ request('desde') }}" max="{{ now()->toDateString() }}">
+                </div>
+
+                <!--rango de fecha hasta-->
+                <div class="col-md-2">
+                    <input type="date" name="hasta" class="form-control" value="{{ request('hasta') }}" min="{{ request('desde')}}" max="{{ now()->toDateString() }}">
+                </div>
+
+                <!--método de entrega-->
+                <div class="col-md-2">
+                    <select name="entrega" class="form-select">
+                        <option value="">Entrega</option>
+
+                        <option value="domicilio" {{ request('entrega') == 'domicilio' ? 'selected' : ''}}>
+                            Domicilio
+                        </option>
+
+                        <option value="retiro" {{ request('entrega') == 'retiro' ? 'selected' : '' }}>
+                            Retiro
+                        </option>
+                    </select>
+                </div>
+
+                <!--botones-->
+                <div class="col-md-1 d-flex gap-2">
+                    <!--buscar-->
+                    <button class="btn btn-success w-100">
+                        <i class="bi bi-search"></i>
+                    </button>
+                    <!--resetear filtros-->
+                    <a href="{{ route('admin.ventas') }}" class="btn btn-outline-secondary preserve-link w-100">
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                    </a>
+                </div>
+
+            </div>
+        </form>
     </div>
 
     <!--tabla ventas-->
