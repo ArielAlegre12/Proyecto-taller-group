@@ -390,6 +390,79 @@
     background: linear-gradient(135deg, #198754, #157347);
 }
 
+/*filtros de ventas*/
+.filtros-ventas{
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    padding: 25px;
+
+    border: 1px solid #eef1f4;
+
+    box-shadow: 0 14px 15px rgba(0, 0, 0, 0.04);
+}
+
+/*inputs y selects*/
+.filtros-ventas .form-control,
+.filtros-ventas .form-select{
+    height: 48px;
+
+    border-radius: 14px;
+    border: 1px solid #dee2e6;
+
+    padding: 0 15px;
+    
+    transition: all .25s ease;
+
+    box-shadow: none;
+}
+
+/*focus más ajustado*/¨
+.filtros-ventas .form-control:focus,
+.filtros-ventas .form-select:focus{
+    border-color: #198754;
+
+    box-shadow: 0 0 0 4px rgba(25, 135, 84, .12);
+
+    transform: translateY(-1px);
+}
+
+/*botones*/
+.filtros-ventas .btn{
+    height: 48px;
+
+    border-radius: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: .25s ease;
+}
+
+.filtros-ventas .btn:hover{
+    transform: translateY(-2px);
+}
+
+/*btn reset*/
+.filtros-ventas .btn-outline-secondary{
+    border: 1px solid #dee2e6;
+}
+
+.filtros-ventas .btn-outline-secondary:hover{
+    background: #f1f3f5;
+    color: #212529;
+}
+
+/*espacio interno*/
+.filtros-ventas .row{
+    align-items: center;
+}
+
+/*placeholder más elegante, jei*/
+.filtros-ventas input::placeholder{
+    color: #adb5bd;
+}
+
 /*responsive*/
 @media(max-width: 992px){
     .admin-container{

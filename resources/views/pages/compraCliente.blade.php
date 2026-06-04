@@ -148,7 +148,7 @@
                                 <div id="checkoutData" data-total="{{ $total }}"></div>
 
                                 @if ($esAdmin)
-                                    <button class="btn btn-success w-100 py-3 btn-disabled">
+                                    <button class="btn btn-success w-100 py-3 btn-disabled" disabled>
                                         Sólo clientes
                                     </button>
                                 @else

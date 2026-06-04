@@ -153,11 +153,49 @@ class AdminController extends Controller
         return back()->with('success', 'Turno reprogramado');
     }
 
-    public function ventas(){
-        $ventas = Venta::with('usuario')
-            ->latest()
-            ->get();
+    public function ventas(Request $request){
+        $request->validate([
+            'desde' => 'nullable|date|before_or_equal:today',
+            'hasta' => 'nullable|date|after_or_equal:desde|before_or_equal:today'
+        ], [
+            'desde.before_or_equal' => 'La fecha desde no puede ser mayor a hoy',
+            'hasta.before_or_equal' => 'La fecha hasta no puede ser mayor a hoy',
+            'hasta.after_or_equal' => 'La fecha final no puede ser menor a la inicial'
+        ]);
 
+        $ventas = Venta::with('usuario');
+
+        //buscar clientes
+        if($request->cliente){
+        $ventas->whereHas('usuario', function($query) use ($request){
+            $query->where('nombre', 'like', '%' . $request->cliente . '%');
+        });
+        }
+
+        //filtrar estado
+        if($request->estado){
+            $ventas->where('estado', $request->estado);
+        }
+
+        //filtrar desde
+        if($request->desde){
+            $ventas->whereDate('created_at', '>=', $request->desde);
+        }
+
+        //filtrar hasta 
+        if($request->hasta){
+            $ventas->whereDate('created_at', '<=', $request->hasta);
+        }
+
+        //metodo de entrega
+        if($request->entrega){
+            $ventas->where('metodo_entrega', $request->entrega);
+        }
+
+        //ordenar y obtener resultados
+        $ventas = $ventas->latest()->get();
+
+        //productos más vendidos
         $productosMasVendidos = DB::table('detalle_ventas')
             ->join('ventas', 'detalle_ventas.venta_id', '=', 'ventas.id')
             ->join('productos', 'detalle_ventas.producto_id', '=', 'productos.id')
@@ -171,7 +209,7 @@ class AdminController extends Controller
             ->orderByDesc('total_vendidos')
             ->take(5)
             ->get();
-        
+
         return view('backend.admin.ventas.index', compact(
             'ventas',
             'productosMasVendidos'

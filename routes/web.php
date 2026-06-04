@@ -99,7 +99,8 @@ Route::middleware(['auth', 'rol:admin'])->prefix('backend/admin')->group(functio
     Route::put('/turnos/produccion/{produccion}/reprogramar', [AdminController::class, 'reprogramarProduccion']);
 
     //ventas
-    Route::get('/ventas', [AdminController::class, 'ventas']);
+    Route::get('/ventas', [AdminController::class, 'ventas'])
+        ->name('admin.ventas');
     Route::put('/ventas/{venta}/pagado', [AdminController::class, 'marcarPagado']);
     Route::put('/ventas/{venta}/enviado', [AdminController::class, 'marcarEnviado']);
     Route::put('/ventas/{venta}/entregado', [AdminController::class, 'marcarEntregado']);
