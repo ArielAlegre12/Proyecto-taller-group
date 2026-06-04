@@ -68,6 +68,15 @@
                                         <i class="bi bi-calendar-event"></i>
                                     </button>
 
+                                    <!--cancelar-->
+                                    <button class="btn btn-danger btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#cancelarDomestico{{ $turno->id }}"
+                                        title="Cancelar turno"
+                                        {{ $turno->estado == 'cancelado' ? 'disabled' : '' }}>
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+
                                     <!--modal-->
                                     <div class="modal fade" id="modalReprogramarDomestico{{ $turno->id }}" tabindex="-1">
                                         <div class="modal-dialog modal-dialog-centered">
@@ -96,7 +105,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!--cancelar-->
+                                    <!--modal cancelar-->
                                     <div class="modal fade" id="cancelarDomestico{{ $turno->id }}" tabindex="-1">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -200,6 +209,15 @@
                                         <i class="bi bi-calendar-event"></i>
                                     </button>
 
+                                    <!--cancelar-->
+                                    <button class="btn btn-danger btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#cancelarProduccion{{ $turno->id }}"
+                                        title="Cancelar turno"
+                                        {{ $turno->estado == 'cancelado' ? 'disabled' : '' }}>
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+
                                     <!--modal-->
                                     <div class="modal fade" id="modalReprogramarProduccion{{ $turno->id }}" tabindex="-1">
                                         <div class="modal-dialog modal-dialog-centered">
@@ -229,18 +247,33 @@
                                         </div>
                                     </div>
 
-                                    <!--cancelar-->
-                                    <form action="/backend/admin/turnos/produccion/{{ $turno->id }}/cancelar" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <button class="btn btn-danger btn-sm"
-                                            data-bs-toggle="tooltip"
-                                            data-bs-placement="top"
-                                            title="Cancelar turno"
-                                            {{ $turno->estado == 'cancelado' ? 'disabled' : '' }}>
-                                            <i class="bi bi-x-lg"></i>
-                                        </button>
-                                    </form>
+                                    <!--modal cancelar-->
+                                    <div class="modal fade" id="cancelarProduccion{{ $turno->id }}" tabindex="-1">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Cancelar turno</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                </div>
+                                                 
+                                                <form action="/backend/admin/turnos/produccion/{{ $turno->id }}/cancelar" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="modal-body">
+                                                        <label class="form-label">Motivo de cancelacion</label>
+
+                                                        <textarea name="motivo" class="form-control" rows="4" required></textarea>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Volver</button>
+
+                                                        <button class="btn btn-danger">Cancelar turno</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </td>

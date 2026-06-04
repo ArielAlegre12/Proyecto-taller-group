@@ -147,9 +147,12 @@ class AdminController extends Controller
         return back()->with('success', 'Turno confirmado');
     }
 
-    public function cancelarProduccion(Produccion $produccion){
+    public function cancelarProduccion(Request $request, Produccion $produccion){
         $produccion->estado = 'cancelado';
         $produccion->save();
+        
+
+        Mail::to($produccion->usuario->email)->send(new TurnoCanceladoMail($produccion, $request->motivo));
 
         return back()->with('success', 'Turno cancelado');
     }

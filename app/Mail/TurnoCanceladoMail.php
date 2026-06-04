@@ -19,7 +19,7 @@ class TurnoCanceladoMail extends Mailable
 
     public function __construct($turno, $motivo){
         $this->turno = $turno;
-        $this->turno = $motivo;
+        $this->motivo = $motivo;
     }
 
     public function build(){
