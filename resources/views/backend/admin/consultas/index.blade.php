@@ -32,7 +32,7 @@
                     @forelse ($consultas as $consulta)
                         <tr>
                             <td>{{ $consulta->nombre }}</td>
-                            <td>{{ $consulta->nombre_animal }}</td>
+                            <td>{{ $consulta->tipo_animal }}</td>
                             <td>{{ $consulta->tipo_consulta }}</td>
                             <td>{{ \Carbon\Carbon::parse($consulta->fecha_hora)->format('d/m/y | H:i') }}</td>
                             <td>
