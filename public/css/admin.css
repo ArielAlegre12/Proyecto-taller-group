@@ -521,6 +521,20 @@
     border-bottom: 1px solid #e9ecef;
 }
 
+/*estilos para resumen modal/imagenes de ventas más y menos vendidas*/
+.ranking-producto-img{
+    width: 55px;
+    height: 55px;
+
+    object-fit: contain;
+    
+    border-radius: 12px;
+
+    background: #f8f9fa;
+    padding: 6px;
+    border: 1px solid #e9ecef;
+}
+
 /*responsive*/
 @media(max-width: 992px){
     .admin-container{

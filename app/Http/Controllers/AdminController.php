@@ -278,9 +278,28 @@ class AdminController extends Controller
             ->take(5)
             ->get();
 
+        //producto menos vendido
+        $productoMenosVendido = DB::table('detalle_ventas')
+            ->join('ventas', 'detalle_ventas.venta_id', 'ventas.id')
+            ->join('productos', 'detalle_ventas.producto_id', '=', 'productos.id')
+            ->where('ventas.estado', 'entregado')
+            ->select(
+                'productos.nombre',
+                'productos.imagen',
+                DB::raw('SUM(detalle_ventas.cantidad) as total_vendidos')
+            )
+            ->groupBy(
+                'productos.id',
+                'productos.nombre',
+                'productos.imagen'
+            )
+            ->orderBy('total_vendidos')
+            ->first();
+
         return view('backend.admin.ventas.index', compact(
             'ventas',
             'productosMasVendidos',
+            'productoMenosVendido',
 
             'totalVendido',
             'totalPedidos',
