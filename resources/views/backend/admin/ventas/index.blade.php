@@ -238,7 +238,7 @@
                                 $venta->estado != 'pagado'
                             )
                             ? 'disabled' : ''
-                                                                                                            }}>
+                                                                                                                                                    }}>
                                                         <i class="bi bi-check2-circle"></i>
                                                     </button>
                                                 </form>
@@ -439,56 +439,63 @@
                                     <i class="bi bi-box-seam-fill text-warning"></i>
                                     Productos destacados
                                 </h5>
+                                @if ($cantidadProductos ==  0)
+                                    <p class="text-muted mb-0">
+                                        No hay datos suficientes para mostrar productos destacados.
+                                    </p>
+                                @else
+                                    <!--producto más vendido-->
+                                    <div class="ranking-item">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <img src="{{ asset('storage/' . $productosMasVendidos->first()?->imagen) }}"
+                                                class="ranking-producto-img">
 
-                                <!--producto más vendido-->
-                                <div class="ranking-item">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="{{ asset('storage/' . $productosMasVendidos->first()?->imagen) }}"
-                                            class="ranking-producto-img">
+                                            <div>
+                                                <small class="text-muted d-block">
+                                                    Producto más vendido
+                                                </small>
 
-                                        <div>
-                                            <small class="text-muted d-block">
-                                                Producto más vendido
-                                            </small>
+                                                <strong>
+                                                    {{ $productosMasVendidos->first()?->nombre ?? '-' }}
+                                                </strong>
 
-                                            <strong>
-                                                {{ $productosMasVendidos->first()?->nombre ?? '-' }}
-                                            </strong>
+                                                <small class="d-block text-success">
+                                                    {{ $productosMasVendidos->first()?->total_vendidos ?? 0 }}
+                                                    Vendido{{ ($productosMasVendidos->first()?->total_vendidos ?? 0) != 1 ? 's' : '' }}
+                                                </small>
+                                            </div>
 
-                                            <small class="d-block text-success">
-                                                {{ $productosMasVendidos->first()?->total_vendidos ?? 0 }}
-                                                Vendido{{ ($productosMasVendidos->first()?->total_vendidos ?? 0) != 1 ? 's' : '' }}
-                                            </small>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <!--producto menos vendido-->
-                                <div class="ranking-item">
-                                    <div class="d-flex align-items-center gap-2">
-                                        <img src="{{ asset('storage/' . $productoMenosVendido?->imagen) }}"
-                                            class="ranking-producto-img">
-
-                                        <div>
-                                            <small class="text-muted d-block">
-                                                Producto menos vendido
-                                            </small>
-
-                                            <strong>
-                                                {{ $productoMenosVendido?->nombre ?? '-' }}
-                                            </strong>
-
-                                            <small class="d-block text-danger">
-                                                {{ $productoMenosVendido?->total_vendidos ?? 0 }}
-                                                Vendido{{ ($productoMenosVendido?->total_vendidos ?? 0) != 1 ? 's' : '' }}
-                                            </small>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
 
-                            </div>
-                        </div>
+                                @if ($cantidadProductos > 1)
+                                            <!--producto menos vendido-->
+                                            <div class="ranking-item">
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <img src="{{ asset('storage/' . $productoMenosVendido?->imagen) }}"
+                                                        class="ranking-producto-img">
+
+                                                    <div>
+                                                        <small class="text-muted d-block">
+                                                            Producto menos vendido
+                                                        </small>
+
+                                                        <strong>
+                                                            {{ $productoMenosVendido?->nombre ?? '-' }}
+                                                        </strong>
+
+                                                        <small class="d-block text-danger">
+                                                            {{ $productoMenosVendido?->total_vendidos ?? 0 }}
+                                                            Vendido{{ ($productoMenosVendido?->total_vendidos ?? 0) != 1 ? 's' : '' }}
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                @endif
 
                         <!--info general-->
                         <div class="col-md-6">

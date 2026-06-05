@@ -189,6 +189,7 @@ class AdminController extends Controller
             'detalles.producto'
         ]);
 
+
         //buscar clientes
         if($request->cliente){
         $ventas->whereHas('usuario', function($query) use ($request){
@@ -219,6 +220,15 @@ class AdminController extends Controller
         //ordenar y obtener resultados
         $ventas = $ventas->latest()->get();
 
+        //ventas validas para el agrupado
+        $ventasValidas = $ventas->filter(function($venta){
+            return in_array($venta->estado, [
+                'pagado',
+                'enviado',
+                'entregado'
+            ]);
+        });
+
         //resumen-estadisticas
 
         //total vendido
@@ -227,20 +237,20 @@ class AdminController extends Controller
             ->sum('total');
 
         //cantidad pedidos
-        $totalPedidos = $ventas->count();
+        $totalPedidos = $ventasValidas->count();
 
         //ticket promedio
         $ticketPromedio = $totalPedidos > 0
             ? $totalVendido / $totalPedidos
             : 0;
-        
+
         //productos vendidos
-        $totalProductosVendidos = $ventas
+        $totalProductosVendidos = $ventasValidas
             ->flatMap->detalles
             ->sum('cantidad');
 
         //método de entrega más usado
-        $metodoEntregaTop = $ventas
+        $metodoEntregaTop = $ventasValidas
             ->groupBy('metodo_entrega')
             ->map(fn($ventas) => $ventas->count())
             ->sortDesc()
@@ -248,7 +258,7 @@ class AdminController extends Controller
             ->first();
 
         //cliente que más tarasca gastó
-        $clienteTop = $ventas
+        $clienteTop = $ventasValidas
             ->groupBy('usuario.nombre')
             ->map(fn($ventas) => $ventas->sum('total'))
             ->sortDesc()
@@ -261,45 +271,44 @@ class AdminController extends Controller
             ->sortDesc()
             ->keys()
             ->first();
+        
+        
 
+        //productos vendidos según el filtro
+        $productosAgrupados = $ventasValidas
+            ->flatMap->detalles
+            ->groupBy('producto_id')
+            ->map(function($detalles){
+                $producto = $detalles->first()->producto;
 
-        //productos más vendidos
-        $productosMasVendidos = DB::table('detalle_ventas')
-            ->join('ventas', 'detalle_ventas.venta_id', '=', 'ventas.id')
-            ->join('productos', 'detalle_ventas.producto_id', '=', 'productos.id')
-            ->where('ventas.estado', 'entregado')
-            ->select(
-                'productos.nombre',
-                'productos.imagen',
-                DB::raw('SUM(detalle_ventas.cantidad) as total_vendidos')
-            )
-            ->groupBy('productos.id', 'productos.nombre', 'productos.imagen')
-            ->orderByDesc('total_vendidos')
-            ->take(5)
-            ->get();
+                if(!$producto){
+                    return null;
+                }
 
-        //producto menos vendido
-        $productoMenosVendido = DB::table('detalle_ventas')
-            ->join('ventas', 'detalle_ventas.venta_id', 'ventas.id')
-            ->join('productos', 'detalle_ventas.producto_id', '=', 'productos.id')
-            ->where('ventas.estado', 'entregado')
-            ->select(
-                'productos.nombre',
-                'productos.imagen',
-                DB::raw('SUM(detalle_ventas.cantidad) as total_vendidos')
-            )
-            ->groupBy(
-                'productos.id',
-                'productos.nombre',
-                'productos.imagen'
-            )
-            ->orderBy('total_vendidos')
-            ->first();
+                return (object)[
+                    'nombre' => $producto->nombre,
+                    'imagen' => $producto->imagen,
+                    'total_vendidos' => $detalles->sum('cantidad')
+                ];
+            })
+            ->filter()
+            ->sortByDesc('total_vendidos');
+
+        $cantidadProductos = $productosAgrupados->count();
+
+        //top productos
+        $productosMasVendidos = $productosAgrupados
+            ->take(5);
+
+        //menos vendido
+        $productoMenosVendido = $productosAgrupados
+            ->last();
 
         return view('backend.admin.ventas.index', compact(
             'ventas',
             'productosMasVendidos',
             'productoMenosVendido',
+            'cantidadProductos',
 
             'totalVendido',
             'totalPedidos',
