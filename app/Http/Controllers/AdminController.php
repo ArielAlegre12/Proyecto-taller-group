@@ -90,8 +90,39 @@ class AdminController extends Controller
 
     public function turnos(){
 
-        $turnosDomesticos = Domestico::latest()->get();
-        $turnosProduccion = Produccion::latest()->get();
+        $turnosDomesticos = Domestico::query();
+        $turnosProduccion = Produccion::query();
+
+        if(request('buscar')){
+            $turnosDomesticos->where('nombreDueño', '%' . request('buscar') . '%');
+            $turnosProduccion->where('nombreEstablo', 'like', '%' . request('buscar') . '%');
+        }
+
+        if(request('estado')){
+            $turnosDomesticos->where('estado', request('estado'));
+            $turnosProduccion->where('estado',request('estado'));
+        }
+
+        if(request('desde')){
+            $turnosDomesticos->whereDate('fechaYHora', '>=', request('desde'));
+            $turnosProduccion->whereDate('fehaYHora', '>=', request('desde'));
+        }
+
+        if(request('hasta')){
+            $turnosDomesticos->whereDate('fechaYHora', '<=', request('hasta'));
+            $turnosProduccion->whereDate('fechaYHora', '<=', request('hasta'));
+        }
+
+        if(request('tipo') == 'domestico'){
+            $turnosProduccion->whereRaw('1 = 0');
+        }
+        
+        if(request('tipo') == 'produccion'){
+            $turnosDomesticos->whereRaw('1 = 0');
+        }
+
+        $turnosDomesticos = $turnosDomesticos->latest()->get();
+        $turnosProduccion = $turnosProduccion->latest()->get();
 
         return view('backend.admin.turnos.index', compact(
             'turnosDomesticos',
@@ -342,7 +373,29 @@ class AdminController extends Controller
     }
 
     public function consultas(){
-        $consultas = Consulta::latest()->get();
+        
+        $consultas = Consulta::query();
+
+        if(request('buscar')){
+            $consultas->where('nombre', 'like', '%' . request('buscar') . '%');
+        }
+
+        if(request('animal')){
+            $consultas->where('tipo_animal', 'like', '%' . request('animal') . '%');
+        }
+
+        if(request('estado')){
+            $consultas->where('estado', request('estado'));
+        }
+
+        if(request('desde')){
+            $consultas->whereDate('fecha_hora', '>=', request('desde'));
+        }
+
+        if(request('hasta')){
+            $consultas->whereDate('fecha_hora', '<=', request('hasta'));
+        }
+        $consultas = $consultas->latest()->get();
 
         return view('backend.admin.consultas.index', compact('consultas'));
     }

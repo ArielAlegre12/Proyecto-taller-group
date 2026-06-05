@@ -7,6 +7,67 @@
         </div>
     </div>
 
+    <div class="admin-panel mb-4">
+        <div class="d-flex align-items-center gap-2 mb-4">
+            <i class="bi bi-funnel-fill text-success"></i>
+            <h5 class="mb-0">Filtros</h5>
+        </div>
+
+        <form action="{{ route('admin.turnos') }}" method="GET" class="preserve-scroll">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">Cliente/establo</label>
+                    <input type="text" name="buscar" class="form-control" placeholder="Buscar..." value="{{ request('buscar') }}">
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label">Estado</label>
+                    <select name="estado" class="form-select">
+                        <option value="">Todos</option>
+                        <option value="pendiente" {{ request('estado') == 'pendiente' ? 'selected' : '' }}>Pendiente</option>
+                        <option value="confirmado" {{ request('estado') == 'confirmado' ? 'selected' : '' }}>Confirmado</option>
+                        <option value="reprogramado" {{ request('estado') == 'reprogrmado' ? 'selected' : '' }}>Reprogramado</option>
+                        <option value="cancelado" {{ request('estado') == 'cancelado' ? 'selected' : '' }}>Cancelado</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label">Tipo</label>
+                    <select name="tipo" class="form-select">
+                        <option value="">Todos</option>
+                        <option value="domestico" {{ request('tipo') == 'domestico' ? 'selected' : '' }}>Domestico</option>
+                        <option value="produccion" {{ request('tipo') == 'produccion' ? 'selected' : '' }}>Produccion</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label">Desde</label>
+                    <input type="date" name="desde" class="form-control" value="{{ request('desde') }}">
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label">Hasta</label>
+
+                    <input type="date" name="hasta" class="form-control" value="{{ request('hasta') }}">
+                </div>
+
+                <div class="col-md-1">
+                    <label class="form-label opacity-0">Accion</label>
+
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-success">
+                            <i class="bi bi-search"></i>
+                        </button>
+
+                        <a href="{{ route('admin.turnos') }}" class="btn btn-outline-secondary preserve-link"> 
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <!--turnos domésticos-->
     <div class="admin-panel mb-5">
         <h3 class="mb-4">

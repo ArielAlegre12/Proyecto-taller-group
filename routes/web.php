@@ -90,7 +90,8 @@ Route::middleware(['auth', 'rol:admin'])->prefix('backend/admin')->group(functio
     Route::put('/usuarios/{usuario}/rol', [AdminController::class, 'cambiarRol']);
 
     //turnos
-    Route::get('/turnos', [AdminController::class, 'turnos']);
+    Route::get('/turnos', [AdminController::class, 'turnos'])
+            ->name('admin.turnos');
     Route::put('/turnos/domesticos/{domestico}/confirmar', [AdminController::class, 'confirmarDomestico']);
     Route::put('/turnos/domesticos/{domestico}/cancelar', [AdminController::class, 'cancelarDomestico']);
     Route::put('/turnos/domesticos/{domestico}/reprogramar', [AdminController::class, 'reprogramarDomestico']);
@@ -106,7 +107,8 @@ Route::middleware(['auth', 'rol:admin'])->prefix('backend/admin')->group(functio
     Route::put('/ventas/{venta}/entregado', [AdminController::class, 'marcarEntregado']);
 
     //consultas
-    Route::get('/consultas', [AdminController::class, 'consultas']);
+    Route::get('/consultas', [AdminController::class, 'consultas'])
+            ->name('admin.consultas');
     Route::get('/consultas/{consulta}', [AdminController::class, 'showConsulta']);
     Route::put('/consultas/{consulta}/confirmar', [AdminController::class, 'confirmarConsulta']);
     Route::delete('/consultas/{consulta}', [AdminController::class, 'destroyConsulta']);

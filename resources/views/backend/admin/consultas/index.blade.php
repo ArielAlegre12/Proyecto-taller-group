@@ -8,6 +8,60 @@
         </div>
     </div>
 
+    <div class="admin-panel mb-4">
+        <div class="d-flex align-items-center gap-2 mb-4">
+            <i class="bi bi-funnel-fill text-success"></i>
+            <h5 class="mb-0">Filtros</h5>
+        </div>
+
+        <form action="{{ route('admin.consultas') }}" method="GET" class="preserve-scroll">
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label class="form-label">Cliente</label>
+                    <input type="text" name="buscar" class="form-control" placeholder="Buscar cliente..."
+                        value="{{ request('buscar') }}">
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Animal</label>
+                    <input type="text" name="animal" class="form-control" placeholder="Tipo de animal..."
+                        value="{{ request('animal') }}">
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label">Estado</label>
+                    <select name="estado" class="form-select">
+                        <option value="">Todos</option>
+                        <option value="Pendiente" {{ request('estado') == 'Pendiente' ? 'selected' : ''}}>Pendiente
+                        </option>
+                        <option value="confirmada" {{ request('estado') == 'confirmada' ? 'selected' : '' }}>Confirmada
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label">Desde</label>
+                    <input type="date" name="desde" class="form-control" value="{{ request('desde') }}">
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label">Hasta</label>
+                    <input type="date" name="hasta" class="form-control" value="{{ request('hasta') }}">
+                </div>
+
+                
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-success">
+                            <i class="bi bi-search"></i>
+                        </button>
+                        <a href="{{ route('admin.consultas') }}" class="btn btn-outline-secondary preserve-link">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                        </a>
+                    </div>
+            </div>
+        </form>
+    </div>
+
     <div class="admin-panel">
         <h3 class="mb-4">
             <i class="bi bi -chats-dots">
