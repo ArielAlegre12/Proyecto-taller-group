@@ -183,7 +183,12 @@ class AdminController extends Controller
             'hasta.after_or_equal' => 'La fecha final no puede ser menor a la inicial'
         ]);
 
-        $ventas = Venta::with('usuario');
+        $ventas = Venta::with([
+            'usuario',
+            'detalles',
+            'detalles.producto'
+        ]);
+
 
         //buscar clientes
         if($request->cliente){
@@ -215,24 +220,103 @@ class AdminController extends Controller
         //ordenar y obtener resultados
         $ventas = $ventas->latest()->get();
 
-        //productos más vendidos
-        $productosMasVendidos = DB::table('detalle_ventas')
-            ->join('ventas', 'detalle_ventas.venta_id', '=', 'ventas.id')
-            ->join('productos', 'detalle_ventas.producto_id', '=', 'productos.id')
-            ->where('ventas.estado', 'entregado')
-            ->select(
-                'productos.nombre',
-                'productos.imagen',
-                DB::raw('SUM(detalle_ventas.cantidad) as total_vendidos')
-            )
-            ->groupBy('productos.id', 'productos.nombre', 'productos.imagen')
-            ->orderByDesc('total_vendidos')
-            ->take(5)
-            ->get();
+        //ventas validas para el agrupado
+        $ventasValidas = $ventas->filter(function($venta){
+            return in_array($venta->estado, [
+                'pagado',
+                'enviado',
+                'entregado'
+            ]);
+        });
+
+        //resumen-estadisticas
+
+        //total vendido
+        $totalVendido = $ventas
+            ->whereIn('estado', ['pagado', 'enviado', 'entregado'])
+            ->sum('total');
+
+        //cantidad pedidos
+        $totalPedidos = $ventasValidas->count();
+
+        //ticket promedio
+        $ticketPromedio = $totalPedidos > 0
+            ? $totalVendido / $totalPedidos
+            : 0;
+
+        //productos vendidos
+        $totalProductosVendidos = $ventasValidas
+            ->flatMap->detalles
+            ->sum('cantidad');
+
+        //método de entrega más usado
+        $metodoEntregaTop = $ventasValidas
+            ->groupBy('metodo_entrega')
+            ->map(fn($ventas) => $ventas->count())
+            ->sortDesc()
+            ->keys()
+            ->first();
+
+        //cliente que más tarasca gastó
+        $clienteTop = $ventasValidas
+            ->groupBy('usuario.nombre')
+            ->map(fn($ventas) => $ventas->sum('total'))
+            ->sortDesc()
+            ->take(5);
+
+        //estado más frecuente
+        $estadoTop = $ventas
+            ->groupBy('estado')
+            ->map(fn($ventas) => $ventas->count())
+            ->sortDesc()
+            ->keys()
+            ->first();
+        
+        
+
+        //productos vendidos según el filtro
+        $productosAgrupados = $ventasValidas
+            ->flatMap->detalles
+            ->groupBy('producto_id')
+            ->map(function($detalles){
+                $producto = $detalles->first()->producto;
+
+                if(!$producto){
+                    return null;
+                }
+
+                return (object)[
+                    'nombre' => $producto->nombre,
+                    'imagen' => $producto->imagen,
+                    'total_vendidos' => $detalles->sum('cantidad')
+                ];
+            })
+            ->filter()
+            ->sortByDesc('total_vendidos');
+
+        $cantidadProductos = $productosAgrupados->count();
+
+        //top productos
+        $productosMasVendidos = $productosAgrupados
+            ->take(5);
+
+        //menos vendido
+        $productoMenosVendido = $productosAgrupados
+            ->last();
 
         return view('backend.admin.ventas.index', compact(
             'ventas',
-            'productosMasVendidos'
+            'productosMasVendidos',
+            'productoMenosVendido',
+            'cantidadProductos',
+
+            'totalVendido',
+            'totalPedidos',
+            'ticketPromedio',
+            'totalProductosVendidos',
+            'metodoEntregaTop',
+            'clienteTop',
+            'estadoTop'
         ));
     }
 
