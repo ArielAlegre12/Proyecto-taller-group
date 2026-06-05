@@ -238,7 +238,7 @@
                                 $venta->estado != 'pagado'
                             )
                             ? 'disabled' : ''
-                                                                                                                                                    }}>
+                                                                                                                                                                                                                                                                                                                                        }}>
                                                         <i class="bi bi-check2-circle"></i>
                                                     </button>
                                                 </form>
@@ -353,47 +353,92 @@
 
                 <!--body-->
                 <div class="modal-body">
+                    <p class="text-muted mb-4">
+                        <i class="bi bi-calendar-range"></i>
+                        Resumen desde
+                        <strong>
+                            {{ request('desde') ? \Carbon\Carbon::parse(request('desde'))->format('d/m/Y') : 'Inicio' }}
+                        </strong>
+
+                        hasta
+                        <strong>
+                            {{ request('hasta') ? \Carbon\Carbon::parse(request('hasta'))->format('d/m/Y') : 'Hoy' }}
+                        </strong>
+                    </p>
 
                     <!--cards-->
                     <div class="row g-4 mb-4">
 
                         <div class="col-md-3">
-                            <div class="resumen-stat-card">
-                                <small>Total vendido</small>
+                            <div class="resumen-stat-card total-card">
 
-                                <h3>
-                                    ${{ number_format($totalVendido, 2, ',', '.') }}
-                                </h3>
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <small>Total vendido</small>
+
+                                        <h3>
+                                            ${{ number_format($totalVendido, 2, ',', '.') }}
+                                        </h3>
+                                    </div>
+
+                                    <i class="bi bi-cash-stack resumen-icon"></i>
+                                </div>
+
                             </div>
                         </div>
 
                         <div class="col-md-3">
-                            <div class="resumen-stat-card">
-                                <small>Pedidos</small>
+                            <div class="resumen-stat-card pedidos-card">
 
-                                <h3>
-                                    {{ $totalPedidos }}
-                                </h3>
+                                <div class="d-flex justify-content-between align-items-start">
+
+                                    <div>
+                                        <small>Pedidos</small>
+
+                                        <h3>
+                                            {{ $totalPedidos }}
+                                        </h3>
+                                    </div>
+
+                                    <i class="bi bi-bag-check-fill resumen-icon"></i>
+                                </div>
+
                             </div>
                         </div>
 
                         <div class="col-md-3">
-                            <div class="resumen-stat-card">
-                                <small>Ticket promedio</small>
+                            <div class="resumen-stat-card ticket-card">
 
-                                <h3>
-                                    ${{ number_format($ticketPromedio, 2, ',', '.') }}
-                                </h3>
+                                <div class="d-flex justify-content-between align-items-start">
+
+                                    <div>
+                                        <small>Ticket promedio</small>
+
+                                        <h3>
+                                            ${{ number_format($ticketPromedio, 2, ',', '.') }}
+                                        </h3>
+                                    </div>
+
+                                    <i class="bi bi-graph-up-arrow resumen-icon"></i>
+                                </div>
                             </div>
                         </div>
 
                         <div class="col-md-3">
-                            <div class="resumen-stat-card">
-                                <small>Productos vendidos</small>
+                            <div class="resumen-stat-card productos-card">
 
-                                <h3>
-                                    {{ $totalProductosVendidos }}
-                                </h3>
+                                <div class="d-flex justify-content-between align-items-start">
+
+                                    <div>
+                                        <small>Productos vendidos</small>
+
+                                        <h3>
+                                            {{ $totalProductosVendidos }}
+                                        </h3>
+                                    </div>
+
+                                    <i class="bi bi-box-seam-fill resumen-icon"></i>
+                                </div>
                             </div>
                         </div>
 
@@ -439,7 +484,7 @@
                                     <i class="bi bi-box-seam-fill text-warning"></i>
                                     Productos destacados
                                 </h5>
-                                @if ($cantidadProductos ==  0)
+                                @if ($cantidadProductos == 0)
                                     <p class="text-muted mb-0">
                                         No hay datos suficientes para mostrar productos destacados.
                                     </p>
@@ -450,7 +495,7 @@
                                             <img src="{{ asset('storage/' . $productosMasVendidos->first()?->imagen) }}"
                                                 class="ranking-producto-img">
 
-                                            <div>
+                                            <div class="producto-destacado">
                                                 <small class="text-muted d-block">
                                                     Producto más vendido
                                                 </small>
@@ -467,34 +512,34 @@
 
                                         </div>
                                     </div>
-                                @endif
 
-                                @if ($cantidadProductos > 1)
-                                            <!--producto menos vendido-->
-                                            <div class="ranking-item">
-                                                <div class="d-flex align-items-center gap-2">
-                                                    <img src="{{ asset('storage/' . $productoMenosVendido?->imagen) }}"
-                                                        class="ranking-producto-img">
+                                    @if ($cantidadProductos > 1)
+                                                <!--producto menos vendido-->
+                                                <div class="ranking-item">
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <img src="{{ asset('storage/' . $productoMenosVendido?->imagen) }}"
+                                                            class="ranking-producto-img">
 
-                                                    <div>
-                                                        <small class="text-muted d-block">
-                                                            Producto menos vendido
-                                                        </small>
+                                                        <div class="producto-destacado">
+                                                            <small class="text-muted d-block">
+                                                                Producto menos vendido
+                                                            </small>
 
-                                                        <strong>
-                                                            {{ $productoMenosVendido?->nombre ?? '-' }}
-                                                        </strong>
+                                                            <strong>
+                                                                {{ $productoMenosVendido?->nombre ?? '-' }}
+                                                            </strong>
 
-                                                        <small class="d-block text-danger">
-                                                            {{ $productoMenosVendido?->total_vendidos ?? 0 }}
-                                                            Vendido{{ ($productoMenosVendido?->total_vendidos ?? 0) != 1 ? 's' : '' }}
-                                                        </small>
+                                                            <small class="d-block text-danger">
+                                                                {{ $productoMenosVendido?->total_vendidos ?? 0 }}
+                                                                Vendido{{ ($productoMenosVendido?->total_vendidos ?? 0) != 1 ? 's' : '' }}
+                                                            </small>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endif
                                 @endif
 
                         <!--info general-->
