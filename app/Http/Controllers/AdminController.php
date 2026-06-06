@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PagoConfirmadoMail;
 use App\Models\Domestico;
 use App\Models\Produccion;
 use App\Models\Producto;
@@ -15,6 +16,8 @@ use Illuminate\Http\Request;
 use App\Mail\TurnoReprogramadoMail;
 use App\Mail\TurnoConfirmadoMail;
 use App\Mail\TurnoCanceladoMail;
+use App\Mail\PedidoEnviadoMail;
+use App\Mail\PedidoEntregadoMail;
 
 class AdminController extends Controller
 {
@@ -355,21 +358,27 @@ class AdminController extends Controller
         $venta->estado = 'pagado';
         $venta->save();
 
-        return back();
+        Mail::to($venta->usuario->email)->send(new PagoConfirmadoMail($venta));
+
+        return back()->with('success', 'Pago confirmado y correo enviado');
     }
 
     public function marcarEnviado(Venta $venta){
         $venta->estado = 'enviado';
         $venta->save();
 
-        return back();
+        Mail::to($venta->usuario->email)->send(new PedidoEnviadoMail($venta));
+
+        return back()->with('success', 'Pedido enviado y correo notificado');
     }
 
     public function marcarEntregado(Venta $venta){
         $venta->estado = 'entregado';
         $venta->save();
 
-        return back();
+        Mail::to($venta->usuario->email)->send(new PedidoEntregadoMail($venta));
+
+        return back()->with('success', 'Pedido entregado y correo notificado');
     }
 
     public function consultas(){
