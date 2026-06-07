@@ -10,6 +10,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Venta;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CompraRealizadaMail extends Mailable
 {
@@ -22,6 +23,8 @@ class CompraRealizadaMail extends Mailable
     }
 
     public function build(){
-        return $this->subject('Factura de tu compra')->view('emails.compra-realizada');
+        $pdf = Pdf::loadView('emails.compra-realizada', ['venta' => $this->venta]);
+        return $this->subject('Factura de tu compra')->view('emails.compra-realizada')
+                ->attachData($pdf->output(), 'Factura-' . $this->venta->id . '.pdf', ['mime' => 'application/pdf', ]);
     }
 }
