@@ -1,0 +1,273 @@
+/*estilos generales*/
+body {
+    font-family: DejaVu Sans, sans-serif;
+    background: #f8f9fa;
+    color: #212529;
+    padding: 18px;
+    font-size: 14px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    margin: 0;
+}
+
+.header {
+    margin-bottom: 25px;
+}
+
+.header-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #198754;
+}
+
+.fecha-resumen {
+    margin-top: 8px;
+    color: #6c757d;
+    font-size: 13px;
+}
+
+/*cards*/
+
+.cards {
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    width: 22.5%;
+    display: inline-block;
+    vertical-align: top;
+
+    background: #fff;
+    border-radius: 12px;
+
+    padding: 14px;
+
+    margin-right: 1%;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    border-left: 5px solid #198754;
+}
+
+.stat-card:last-child {
+    margin-right: 0;
+}
+
+.stat-card small {
+    color: #6c757d;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.stat-card h3 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.total-card {
+    border-left-color: #198754;
+}
+
+.pedidos-card {
+    border-left-color: #0d6efd;
+}
+
+.ticket-card {
+    border-left-color: #ffc107;
+}
+
+.productos-card {
+    border-left-color: #6f42c1;
+}
+
+/*sections*/
+
+.section {
+    background: #fff;
+
+    border-radius: 14px;
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    border: 1px solid #eee;
+}
+
+.section-left {
+    margin-right: 2%;
+}
+
+.section h4 {
+    margin-bottom: 18px;
+    font-size: 18px;
+    color: #212529;
+}
+
+/*ranking*/
+
+.ranking-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #ececec;
+}
+
+.ranking-item:last-child {
+    border-bottom: none;
+}
+
+.ranking-item span {
+    float: right;
+    font-weight: bold;
+}
+
+/*productos*/
+
+.producto-item {
+    margin-bottom: 18px;
+}
+
+.producto-img {
+    width: 55px;
+    height: 55px;
+
+    border-radius: 10px;
+
+    object-fit: cover;
+
+    vertical-align: middle;
+
+    margin-right: 12px;
+}
+
+.producto-info {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.producto-info small {
+    display: block;
+    color: #6c757d;
+    margin-bottom: 4px;
+}
+
+.producto-info strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+.cantidad-success {
+    color: #198754;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.cantidad-danger {
+    color: #dc3545;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/*info general*/
+
+.info-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #ececec;
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item strong {
+    float: right;
+}
+
+/*footer*/
+
+.footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 12px;
+    color: #6c757d;
+}
+
+.section,
+.producto-item,
+.ranking-card,
+.full-width,
+.half,
+.stat-card{
+    page-break-inside: avoid;
+}
+
+.cards,
+.section{
+    overflow: hidden;
+}
+
+.two-columns{
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 18px;
+}
+
+.half{
+    width: 48%;
+    float: left;
+}
+
+.half:last-child{
+    float: right;
+}
+
+.full-width{
+    width: 95%;
+    clear: both;
+}
+
+.two-columns::after{
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.footer{
+    margin-top: 30px;
+    text-align: center;
+    color: #6c757d;
+    font-size: 11px;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+/*estilos para el logo*/
+.logo-container{
+    position: absolute;
+    top: 18px;
+    right: 18px;
+}
+
+.logo{
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}
+
+.nombre-sitio{
+    font-size: 24px;
+    font-weight: bold;
+    color: #198754;
+}
+
+.subtitulo{
+    font-size: 12px;
+    color: #6c757d;
+}

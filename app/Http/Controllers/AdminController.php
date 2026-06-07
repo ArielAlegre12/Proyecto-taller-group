@@ -429,4 +429,140 @@ class AdminController extends Controller
         return redirect('/backend/admin/consultas')
             ->with('success', 'Consulta eliminada');
     }
+
+    public function descargarResumenPDF(Request $request){
+        $ventas = Venta::with([
+            'usuario',
+            'detalles',
+            'detalles.producto'
+        ]);
+
+        //buscar clientes
+        if($request->cliente){
+            $ventas->whereHas('usuario', function($query) use ($request){
+                $query->where('nombre', 'like', '%' . $request->cliente . '%');
+            });
+        }
+
+        //filtrar estado
+        if($request->estado){
+            $ventas->where('estado', $request->estado);
+        }
+
+        //filtrar desde
+        if($request->desde){
+            $ventas->whereDate('created_at', '>=', $request->desde);
+        }
+
+        //filtrar hasta 
+        if($request->hasta){
+            $ventas->whereDate('created_at', '<=', $request->hasta);
+        }
+
+        //metodo de entrega
+        if($request->entrega){
+            $ventas->where('metodo_entrega', $request->entrega);
+        }
+
+        //ordenar y obtener resultados
+        $ventas = $ventas->latest()->get();
+
+        //ventas validas para el agrupado
+        $ventasValidas = $ventas->filter(function($venta){
+            return in_array($venta->estado, [
+                'pagado',
+                'enviado',
+                'entregado'
+            ]);
+        });
+
+        //resumen-estadisticas
+
+        //total vendido
+        $totalVendido = $ventas
+            ->whereIn('estado', ['pagado', 'enviado', 'entregado'])
+            ->sum('total');
+
+        //cantidad pedidos
+        $totalPedidos = $ventasValidas->count();
+
+        //ticket promedio
+        $ticketPromedio = $totalPedidos > 0
+            ? $totalVendido / $totalPedidos
+            : 0;
+
+        //productos vendidos
+        $totalProductosVendidos = $ventasValidas
+            ->flatMap->detalles
+            ->sum('cantidad');
+
+        //método de entrega más usado
+        $metodoEntregaTop = $ventasValidas
+            ->groupBy('metodo_entrega')
+            ->map(fn($ventas) => $ventas->count())
+            ->sortDesc()
+            ->keys()
+            ->first();
+
+        //cliente que más tarasca gastó
+        $clienteTop = $ventasValidas
+            ->groupBy('usuario.nombre')
+            ->map(fn($ventas) => $ventas->sum('total'))
+            ->sortDesc()
+            ->take(5);
+
+        //estado más frecuente
+        $estadoTop = $ventas
+            ->groupBy('estado')
+            ->map(fn($ventas) => $ventas->count())
+            ->sortDesc()
+            ->keys()
+            ->first();
+
+        //productos vendidos según el filtro
+        $productosAgrupados = $ventasValidas
+            ->flatMap->detalles
+            ->groupBy('producto_id')
+            ->map(function($detalles){
+                $producto = $detalles->first()->producto;
+
+                if(!$producto){
+                    return null;
+                }
+
+                return (object)[
+                    'nombre' => $producto->nombre,
+                    'imagen' => $producto->imagen,
+                    'total_vendidos' => $detalles->sum('cantidad')
+                ];
+            })
+            ->filter()
+            ->sortByDesc('total_vendidos');
+
+        $cantidadProductos = $productosAgrupados->count();
+
+        //top productos
+        $productosMasVendidos = $productosAgrupados
+            ->take(5);
+
+        //menos vendido
+        $productoMenosVendido = $productosAgrupados
+            ->last();
+
+        $pdf = \PDF::loadView('backend.admin.ventas.resumen-pdf', compact(
+            'totalVendido',
+            'totalPedidos',
+            'ticketPromedio',
+            'totalProductosVendidos',
+            'clienteTop',
+            'productosMasVendidos',
+            'productoMenosVendido',
+            'cantidadProductos',
+            'estadoTop',
+            'metodoEntregaTop'
+        ))
+        ->setPaper('a4', 'lasdscape');
+
+        return $pdf->download('resumen-ventas-' . now()->format('d-m-Y-H-i-s') . '.pdf');
+    }
 }

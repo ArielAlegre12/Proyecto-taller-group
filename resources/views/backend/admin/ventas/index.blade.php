@@ -343,12 +343,31 @@
 
                 <!--cabecera-->
                 <div class="modal-header">
-                    <h4 class="modal-title">
+                    <h4 class="modal-title me-auto">
                         <i class="bi bi-chart-line-fill text-success"></i>
                         Resumen de ventas
                     </h4>
 
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <!--acciones header-->
+                    <div class="d-flex align-items-center gap-2">
+                        
+                        <form action="{{ route('admin.ventas.descargar-pdf') }}" method="POST" class="m-0">
+                            @csrf
+
+                            <input type="hidden" name="desde" value="{{ request('desde') }}">
+                            <input type="hidden" name="hasta" value="{{ request('hasta') }}">
+                            <input type="hidden" name="cliente" value="{{ request('cliente') }}">
+                            <input type="hidden" name="estado" value="{{ request('estado') }}">
+                            <input type="hidden" name="entrega" value="{{ request('entrega') }}">
+
+                            <button type="submit" class="btn btn-success btn-sm d-flex align-items-center gap-1" title="Descargar como PDF">
+                                <i class="bi bi-download"></i>
+                                PDF
+                            </button>
+                        </form>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" title="Cerrar modal"></button>
+                    </div>
                 </div>
 
                 <!--body-->
