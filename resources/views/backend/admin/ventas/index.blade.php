@@ -238,7 +238,7 @@
                                 $venta->estado != 'pagado'
                             )
                             ? 'disabled' : ''
-                                                                                                                                                                                                                                                                                                                                        }}>
+                                                                                                                                                                                                                                                                                                                                                            }}>
                                                         <i class="bi bi-check2-circle"></i>
                                                     </button>
                                                 </form>

@@ -51,9 +51,42 @@ class AdminController extends Controller
         ));
     }
 
-    public function usuarios(){
-        $usuarios = Usuario::with('rol')->get();
-        return view('backend.admin.usuarios.index', compact('usuarios'));
+    public function usuarios(Request $request){
+       $usuarios = Usuario::with('rol');
+
+       //nombre
+       if($request->nombre){
+        $usuarios->where('nombre', 'like', '%' . $request->nombre . '%');
+       }
+
+       //email
+       if($request->email){
+        $usuarios->where('email', 'like', '%' . $request->email . '%');
+       }
+
+       //rol
+       if($request->rol){
+        $usuarios->whereHas('rol', function ($query) use ($request){
+            $query->where('nombre', $request->rol);
+        });
+       }
+
+       //desde
+       if($request->desde){
+        $usuarios->whereDate('created_at', '>=', $request->desde);
+       }
+
+       //hasta
+       if($request->hasta){
+        $usuarios->whereDate('created_at', '<=', $request->hasta);
+       }
+
+       $usuarios = $usuarios->latest()->get();
+
+       return view(
+        'backend.admin.usuarios.index',
+        compact('usuarios')
+       );
     }
 
     public function showUsuario(Usuario $usuario){
