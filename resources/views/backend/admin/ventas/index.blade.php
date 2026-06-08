@@ -56,7 +56,7 @@
     </div>
 
     <!--filtros-->
-    <div class="admin-panel filtros-ventas mb-4">
+    <div class="admin-panel filtros-ventas mb-4" id="ventas">
         <div class="d-flex align-items-center gap-2 mb-4">
             <i class="bi bi-funnel-fill text-success"></i>
             <h5 class="mb-0">Filtros</h5>
@@ -334,6 +334,10 @@
                 </tbody>
             </table>
         </div>
+    </div>
+
+    <div class="mt-4">
+        {{ $ventas->fragment('ventas')->links() }}
     </div>
 
     <!--modal resumen ventas-->

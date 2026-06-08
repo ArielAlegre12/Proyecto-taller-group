@@ -8,7 +8,7 @@
     </div>
 
     <!--filtros usuarios-->
-    <div class="admin-panel filtros-ventas mb-4">
+    <div class="admin-panel filtros-ventas mb-4" id="usuarios">
 
         <div class="d-flex align-items-center gap-2 mb-4">
             <i class="bi bi-funnel-fill text-success"></i>
@@ -19,7 +19,7 @@
             <div class="row g-3">
 
                 <!--nombre-->
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label class="form-label filtro-label">
                         Usuario
                     </label>
@@ -29,7 +29,7 @@
                 </div>
 
                 <!--email-->
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <label class="form-label filtro-label">
                         Email
                     </label>
@@ -69,7 +69,7 @@
                 </div>
 
                 <!--hasta-->
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <label class="form-label filtro-label">
                         Hasta
                     </label>
@@ -79,7 +79,7 @@
                 </div>
 
                 <!--botones-->
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <label class="form-label filtro-label opacity-0">
                         Acciones
                     </label>
@@ -216,5 +216,8 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="mt-4">
+        {{ $usuarios->fragment('usuarios')->links() }}
     </div>
 @endsection

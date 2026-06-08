@@ -14,8 +14,20 @@ class ProductosController extends Controller
      */
     public function index()
     {
-        $productos = Producto::latest()->get();
-        return view('backend.admin.productos.index', compact('productos'));
+        $productosActivos = Producto::where('activo', true)
+            ->latest()
+            ->paginate(10, ['*'], 'activos_page')
+            ->withQueryString();
+
+        $productosInactivos = Producto::where('activo', false)
+            ->latest()
+            ->paginate(10, ['*'], 'inactivos_page')
+            ->withQueryString();
+
+        return view('backend.admin.productos.index', compact(
+            'productosActivos',
+            'productosInactivos'
+        ));
     }
 
     /**

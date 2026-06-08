@@ -81,7 +81,10 @@ class AdminController extends Controller
         $usuarios->whereDate('created_at', '<=', $request->hasta);
        }
 
-       $usuarios = $usuarios->latest()->get();
+       $usuarios = $usuarios
+        ->latest()
+        ->paginate(10)
+        ->withQueryString();
 
        return view(
         'backend.admin.usuarios.index',
@@ -282,7 +285,10 @@ class AdminController extends Controller
         }
 
         //ordenar y obtener resultados
-        $ventas = $ventas->latest()->get();
+        $ventas = $ventas
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         //ventas validas para el agrupado
         $ventasValidas = $ventas->filter(function($venta){

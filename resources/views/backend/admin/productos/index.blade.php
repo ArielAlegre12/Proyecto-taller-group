@@ -13,7 +13,7 @@
         </a>
     </div>
 
-    <div class="admin-panel">
+    <div class="admin-panel" id="productos-activos">
         <div class="table-responsive">
             <table class="table align-middle">
                 <thead>
@@ -28,10 +28,6 @@
                 </thead>
 
                 <tbody>
-                    @php
-                        $productosActivos = $productos->where('activo', true);
-                        $productosInactivos = $productos->where('activo', false);
-                    @endphp
                     @foreach ($productosActivos as $producto)
                         <tr>
                             <td>
@@ -194,6 +190,10 @@
                 </tbody>
             </table>
 
+            <div class="mt-4">
+                {{ $productosActivos->fragment('productos-activos')->links() }}
+            </div>
+
             @if ($productosInactivos->count() > 0)
                 <div class="accordion mt-5" id="accordionInactivos">
                     <div class="accordion-item">
@@ -274,6 +274,9 @@
                             </div>
                         </div>
                     </div>
+                        <div class="mt-4">
+                           {{ $productosInactivos->fragment('accordionInactivos')->links() }}
+                        </div>
                 </div>
             @endif
         </div>
