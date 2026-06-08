@@ -74,35 +74,40 @@
                                 Editar
                             </button>
                         </div>
-                        <form>
+                        <form action="{{ route('perfil.actualizar') }}" method="POST">
+                            @csrf
+                            @method('PUT')
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <label>
                                         Nombre
                                     </label>
-                                    <input type="text" class="form-control campo-editable" value="{{ $usuario->nombre}}"
-                                        disabled>
+
+                                    <input type="text" name="nombre" class="form-control campo-editable" value="{{ $usuario->nombre }}" disabled>
                                 </div>
+
                                 <div class="col-md-6 mb-4">
                                     <label>
                                         Email
                                     </label>
 
-                                    <input type="text" class="form-control campo-editable" value="{{ $usuario->email }}"
-                                        disabled>
+                                    <input type="email" name="email" class="form-control campo-editable" value="{{ $usuario->email }}" disabled>
                                 </div>
+
                             </div>
 
                             <div class="botones-edicion d-none" id="botonesGuardar">
-                                <button class="btn-guardar">
+                                <button type="submit" class="btn-guardar">
                                     Guardar
                                 </button>
 
                                 <button type="button" class="btn-cancelar" id="btnCancelar">
                                     Cancelar
                                 </button>
+
                             </div>
                         </form>
+                        
                     </div>
                 </div>
 

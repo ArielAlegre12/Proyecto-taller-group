@@ -82,4 +82,23 @@ class PerfilController extends Controller
 
         return back()->with('success', 'El turno fue cancelado porque el nuevo horario no fue aceptado');
     }
+
+    //método para actualizar datos del usuario
+    public function actualizar(Request $request){
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:usuarios,email,' . auth()->id(),
+        ]);
+
+        $usuario = auth()->user();
+
+        $usuario->update([
+            'nombre' => $request->nombre,
+            'email' => $request->email,
+        ]);
+
+        return redirect()
+            ->route('perfil')
+            ->with('success', 'Perfil actualizado correctamente.');
+    }
 }

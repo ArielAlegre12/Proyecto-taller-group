@@ -143,6 +143,8 @@ Route::middleware('auth')->group(function () {
         ->name('consulta.store');
     Route::patch('/ventas/{id}/cancelar', [ClienteController::class, 'cancelarCompra'])
         ->name('ventas.cancelar');
+    Route::put('/perfil/actualizar', [PerfilController::class, 'actualizar'])
+        ->name('perfil.actualizar');
 });
 
 Route::get('/recuperar-password', [AuthController::class, 'mostrarRecuperar'])
