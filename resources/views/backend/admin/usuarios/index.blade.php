@@ -7,6 +7,112 @@
         </div>
     </div>
 
+    <!--filtros usuarios-->
+    <div class="admin-panel filtros-ventas mb-4" id="usuarios">
+
+        <div class="d-flex align-items-center gap-2 mb-4">
+            <i class="bi bi-funnel-fill text-success"></i>
+            <h5 class="mb-0">Filtros</h5>
+        </div>
+
+        <form action="{{ url('/backend/admin/usuarios') }}" method="GET" class="preserve-scroll">
+            <div class="row g-3">
+
+                <!--nombre-->
+                <div class="col-md-2">
+                    <label class="form-label filtro-label">
+                        Usuario
+                    </label>
+
+                    <input type="text" name="nombre" class="form-control" placeholder="Buscar usuario..."
+                        value="{{ request('nombre') }}">
+                </div>
+
+                <!--email-->
+                <div class="col-md-2">
+                    <label class="form-label filtro-label">
+                        Email
+                    </label>
+
+                    <input type="text" name="email" class="form-control" placeholder="Correo..."
+                        value="{{ request('email') }}">
+                </div>
+
+                <!--rol-->
+                <div class="col-md-2">
+                    <label class="form-label filtro-label">
+                        Rol
+                    </label>
+
+                    <select name="rol" class="form-select">
+                        <option value="">
+                            Seleccionar
+                        </option>
+                        <option value="admin" {{ request('rol') == 'admin' ? 'selected' : '' }}>
+                            Admin
+                        </option>
+                        <option value="cliente" {{ request('rol') == 'cliente' ? 'selected' : '' }}>
+                            Cliente
+                        </option>
+
+                    </select>
+                </div>
+
+                <!--desde-->
+                <div class="col-md-2">
+                    <label class="form-label filtro-label">
+                        Desde
+                    </label>
+
+                    <input type="date" name="desde" class="form-control" value="{{ request('desde') }}"
+                        max="{{ now()->toDateString() }}">
+                </div>
+
+                <!--hasta-->
+                <div class="col-md-2">
+                    <label class="form-label filtro-label">
+                        Hasta
+                    </label>
+
+                    <input type="date" name="hasta" class="form-control" value="{{ request('hasta') }}"
+                        min="{{ request('desde') }}" max="{{ now()->toDateString() }}">
+                </div>
+
+                <!--botones-->
+                <div class="col-md-2">
+                    <label class="form-label filtro-label opacity-0">
+                        Acciones
+                    </label>
+
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-success w-100 ">
+                            <i class="bi bi-search"></i>
+                        </button>
+
+                        <a href="{{ url('/backend/admin/usuarios') }}"
+                            class="btn btn-outline-secondary w-100 preserve-link">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    @if (request()->hasAny(['nombre', 'email', 'rol', 'desde', 'hasta']))
+        <p class="text-muted mb-3">
+            Resultados filtrados:
+            {{ $usuarios->count() }} usuario{{ ($usuarios->count() ?? 0) != 1 ? 's' : '' }}
+        </p>
+    @else
+        <p class="text-muted mb-3">
+            Mostrando {{ $usuarios->count() }} usuario{{ ($usuarios->count() ?? 0) != 1 ? 's' : '' }}
+        </p>
+    @endif
+
     <div class="admin-panel">
         <div class="table-responsive">
             <table class="table align-middle">
@@ -110,5 +216,8 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="mt-4">
+        {{ $usuarios->fragment('usuarios')->links() }}
     </div>
 @endsection
