@@ -105,7 +105,10 @@
                                 <div id="datosTarjeta">
                                     <div class="mb-3">
                                         <input type="text" class="form-control" name="numero_tarjeta"
+                                            inputmode="numeric"
                                             placeholder="Número de tarjeta">
+
+                                            <div id="tipoTarjeta" class="mt-2 small text-muted"></div>
                                     </div>
 
                                     <div class="mb-3">
@@ -119,7 +122,7 @@
                                         </div>
 
                                         <div class="col">
-                                            <input type="text" class="form-control" name="cvv" placeholder="CVV">
+                                            <input type="text" class="form-control" name="cvv" inputmode="numeric" placeholder="CVV">
                                         </div>
                                     </div>
                                 </div>

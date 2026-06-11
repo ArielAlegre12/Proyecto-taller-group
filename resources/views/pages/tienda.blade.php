@@ -25,9 +25,12 @@
         <aside class="sidebar"> <!--aside para contenido secundario-->
             <h4>Animales</h4>
             <ul>
-                <li data-filtro-animal="todos" class="activo">Todos</li>
+                <li data-filtro-animal="todos" class="{{ !request('animal') ? 'activo' : '' }}">
+                    Todos
+                </li>
                 @foreach ($categoriasAnimales as $categoria)
-                    <li data-filtro-animal="{{ strtolower($categoria->nombre) }}">
+                    <li data-filtro-animal="{{ strtolower($categoria->nombre) }}"
+                        class="{{ request('animal') == strtolower($categoria->nombre) ? 'activo' : '' }}">
                         {{ $categoria->nombre }}
                     </li>
                 @endforeach
@@ -37,9 +40,12 @@
         <div class="contenido-tienda">
             <!--BARRA DE TIPOS-->
             <div class="filtro-tipo">
-                <button data-tipo="todos" class="activo" aria-pressed="true">Todos</button>
+                <button data-tipo="todos" class="{{ !request('tipo') ? 'activo' : '' }}">
+                    Todos
+                </button>
                 @foreach ($categoriasProductos as $categoria)
-                    <button data-tipo="{{ strtolower($categoria->nombre) }}">
+                    <button data-tipo="{{ strtolower($categoria->nombre) }}"
+                        class="{{ request('tipo') == strtolower($categoria->nombre) ? 'activo' : '' }}">
                         {{ $categoria->nombre }}
                     </button>
                 @endforeach
@@ -94,13 +100,11 @@
                         <p>No hay productos disponibles</p>
                     </div>
                 @endforelse
-
-                <!--msj si no hay productos de la categoria-->
-                <div class="forelse-msj" id="mensaje-vacio" style="display:none;">
-                    <p>No hay productos en esta categoría</p>
-                </div>
-
             </main>
+
+            <div class="mt-4 d-flex justify-content-center">
+                {{ $productos->links() }}
+            </div>
         </div>
     </div>
 @endsection

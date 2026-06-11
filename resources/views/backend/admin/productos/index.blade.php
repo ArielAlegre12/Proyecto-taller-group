@@ -13,6 +13,111 @@
         </a>
     </div>
 
+    <!-- filtros producos-->
+     <div class="admin-panel filtros-ventas mb-4">
+        <div class="d-flex align-items-center gap-2 mb-4">
+            <i class="bi bi-funnel-fill text-success"></i>
+            <h5 class="mb-0">Filtros</h5>
+        </div>
+
+        <form action="{{ url('/backend/admin/productos') }}" method="GET" class="preserve-scroll">
+            <div class="row g-3">
+
+                <!--buscar productos-->
+                <div class="col-md-4">
+                    <label class="form-label filtro-label">
+                        Producto
+                    </label>
+
+                    <input type="text" name="producto" class="form-control" placeholder="Buscar producto..." value="{{ request('producto') }}">
+                </div>
+
+                <!--tipo-->
+                <div class="col-md-3">
+                    <label class="form-label filtro-label">
+                        Tipo
+                    </label>
+                    <select name="tipo" class="form-select">
+                        <option value="">Seleccionar</option>
+
+                        @foreach ($categoriasProductos as $categoria)
+                            <option value="{{ $categoria->id }}"
+                                {{ request('tipo') == $categoria->id ? 'selected' : '' }}>
+                                {{ $categoria->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!--estado-->
+                <div class="col-md-2">
+                    <label class="form-label filtro-label">
+                        Estado
+                    </label>
+                    <select name="estado" class="form-select">
+                        <option value="">Todos</option>
+                        <option value="activo" {{ request('estado') == 'activo' ? 'selected' : '' }}>
+                            Activos
+                        </option>
+                        <option value="inactivo" {{ request('estado') == 'inactivo' ? 'selected' : '' }}>
+                            Inactivos
+                        </option>
+                    </select>
+                </div>
+
+                <!--stock-->
+                <div class="col-md-2">
+                    <label class="form-label filtro-label">
+                        Stock
+                    </label>
+                    <select name="stock" class="form-select">
+                        <option value="">Todos</option>
+                        <option value="bajo-stock" {{ request('stock') == 'bajo-stock' ? 'selected' : '' }}>
+                            Bajo stock
+                        </option>
+                        <option value="sin-stock" {{ request('stock') == 'sin-stock' ? 'selected' : '' }}>
+                            Sin stock
+                        </option>
+                    </select>
+                </div>
+
+                <!--botones-->
+                <div class="col-md-1">
+                    <label class="form-label filtro-label opacity-0">
+                        Acciones
+                    </label>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-success w-100">
+                            <i class="bi bi-search"></i>
+                        </button>
+
+                        <a href="{{ url('/backend/admin/productos') }}" class="btn btn-outline-secondary preserve-link w-100">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+     </div>
+
+    <!--conteo de resultados de filtrado-->
+    @if (request()->hasAny(['producto', 'tipo', 'estado', 'stock']))
+        <p class="text-muted mb-3">
+            Resultados filtrados:
+            {{ $productosActivos->total() + $productosInactivos->total() }}
+            producto{{ ($productosActivos->total() + $productosInactivos->total()) != 1 ? 's' : '' }}
+        </p>
+    @else
+        <p class="text-muted mb-3">
+            Mostrando productos del catálogo
+        </p>
+    @endif
+
+    <!--tabla-->
     <div class="admin-panel" id="productos-activos">
         <div class="table-responsive">
             <table class="table align-middle">
@@ -198,14 +303,17 @@
                 <div class="accordion mt-5" id="accordionInactivos">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            <button class="accordion-button {{ request()->has('inactivos_page')  || request('estado') == 'inactivo' ? '' : 'collapsed' }}" 
+                                type="button" data-bs-toggle="collapse"
                                 data-bs-target="#productosInactivos">
                                 Productos desactivados:
                                 {{ $productosInactivos->count() }}
                             </button>
                         </h2>
 
-                        <div id="productosInactivos" class="accordion-collapse collapse" data-bs-parent="#accordionInactivos">
+                        <div id="productosInactivos" 
+                            class="accordion-collapse collapse {{ request()->has('inactivos_page') || request('estado') == 'inactivo' ? 'show' : '' }}" 
+                            data-bs-parent="#accordionInactivos">
                             <div class="accordion-body">
                                 <div class="table-responsive">
                                     <table class="table align-middle">
@@ -272,11 +380,11 @@
                                     </table>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                        <div class="mt-4">
+                            <div class="mt-4">
                            {{ $productosInactivos->fragment('accordionInactivos')->links() }}
                         </div>
+                        </div>
+                    </div>
                 </div>
             @endif
         </div>

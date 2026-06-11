@@ -12,21 +12,56 @@ class ProductosController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $productosActivos = Producto::where('activo', true)
+        $query = Producto::query();
+
+        //buscar producto
+        if($request->filled('producto')){
+            $query->where('nombre', 'like', '%' . $request->producto . '%');
+        }
+
+        //filtrar tipo
+        if($request->filled('tipo')){
+            $query->where('categoria_producto_id', $request->tipo);
+        }
+
+        //filtrar estado
+        if($request->estado === 'activo'){
+            $query->where('activo', true);
+        }
+
+        if($request->estado === 'inactivo'){
+            $query->where('activo', false);
+        }
+
+        //filtrar stock
+        if($request->stock === 'sin-stock'){
+            $query->where('stock', '<=', 0);
+        }
+
+        if($request->stock  === 'bajo-stock'){
+            $query->whereBetween('stock', [1,5]);
+        }
+
+        $productosActivos = (clone $query)
+            ->where('activo', true)
             ->latest()
-            ->paginate(10, ['*'], 'activos_page')
+            ->paginate(5, ['*'], 'activos_page')
             ->withQueryString();
 
-        $productosInactivos = Producto::where('activo', false)
+        $productosInactivos = (clone $query)
+            ->where('activo', false)
             ->latest()
-            ->paginate(10, ['*'], 'inactivos_page')
+            ->paginate(5, ['*'], 'inactivos_page')
             ->withQueryString();
+
+        $categoriasProductos = CategoriaProducto::all();
 
         return view('backend.admin.productos.index', compact(
             'productosActivos',
-            'productosInactivos'
+            'productosInactivos',
+            'categoriasProductos'
         ));
     }
 
@@ -122,6 +157,13 @@ class ProductosController extends Controller
         $producto->stock = $request->stock;
         $producto->categoria_animal_id = $request->categoria_animal_id;
         $producto->categoria_producto_id = $request->categoria_producto_id;
+
+        //activar/desactivar automaticamente según stock
+        if($producto->stock <= 0){
+            $producto->activo = false;
+        }else{
+            $producto->activo = true;
+        }
 
         $producto->save();
 
