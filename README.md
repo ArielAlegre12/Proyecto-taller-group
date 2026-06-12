@@ -68,7 +68,7 @@ PASO 4
 
 Base de datos
 
-mover el archivo database.sqlite a la carpeta database
+Renombrar el archivo database.txt a database.sqlite y moverlo a la carpeta database
 
 -----------------------------------------------------------------------------------------------
 
