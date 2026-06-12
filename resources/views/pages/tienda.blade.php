@@ -25,12 +25,12 @@
         <aside class="sidebar"> <!--aside para contenido secundario-->
             <h4>Animales</h4>
             <ul>
-                <li data-filtro-animal="todos" class="{{ !request('animal') ? 'activo' : '' }}">
+                <li data-filtro-animal="todos" class="{{ !request('animal') ? 'activo' : '' }} preserve-link">
                     Todos
                 </li>
                 @foreach ($categoriasAnimales as $categoria)
                     <li data-filtro-animal="{{ strtolower($categoria->nombre) }}"
-                        class="{{ request('animal') == strtolower($categoria->nombre) ? 'activo' : '' }}">
+                        class="{{ request('animal') == strtolower($categoria->nombre) ? 'activo' : '' }} preserve-link">
                         {{ $categoria->nombre }}
                     </li>
                 @endforeach
@@ -40,12 +40,12 @@
         <div class="contenido-tienda">
             <!--BARRA DE TIPOS-->
             <div class="filtro-tipo">
-                <button data-tipo="todos" class="{{ !request('tipo') ? 'activo' : '' }}">
+                <button data-tipo="todos" class="{{ !request('tipo') ? 'activo' : '' }} preserve-link">
                     Todos
                 </button>
                 @foreach ($categoriasProductos as $categoria)
                     <button data-tipo="{{ strtolower($categoria->nombre) }}"
-                        class="{{ request('tipo') == strtolower($categoria->nombre) ? 'activo' : '' }}">
+                        class="{{ request('tipo') == strtolower($categoria->nombre) ? 'activo' : '' }} preserve-link">
                         {{ $categoria->nombre }}
                     </button>
                 @endforeach

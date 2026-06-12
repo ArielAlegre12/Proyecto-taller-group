@@ -175,7 +175,11 @@ class ProductosController extends Controller
         $producto->activo = !$producto->activo;
         $producto->save();
 
-        return back();
+        $mensaje  = $producto->activo
+            ? 'Producto activado correctamente'
+            : 'Producto desactivado correctamente';
+
+        return back()->with('success', $mensaje);
     }
 
     /**

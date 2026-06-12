@@ -1,58 +1,179 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+HUELLAS FELICES
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Proyecto e-commerce desarrollado en Laravel para taller de programación I.
 
-## About Laravel
+-----------------------------------------------------------------------------------------------
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+DESCRIPCIÓN DEL SITIO
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Este sitio pretende brindar una manera efizcas y sencilla de relación cliente-proveedor de tal forma que pueda ser fácil
+el acceso a compras, servicios de turnos o emergencias. 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-----------------------------------------------------------------------------------------------
 
-## Learning Laravel
+Tecnologías utilizadas
+. Laravel
+. PHP
+. SQLite
+. Bootstrap 5
+. JavaScript
+. Blade
+. Tidio(chatBot)
+. Google authenticator(para el uso de mails)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+-----------------------------------------------------------------------------------------------
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Instalación
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+Requisitos
 
-## Agentic Development
+. PHP 8.2 o superior
+. Composer
+. Node.js y npm
+. Git
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+-----------------------------------------------------------------------------------------------
 
-```bash
-composer require laravel/boost --dev
+Clonar repositorio
 
-php artisan boost:install
-```
+git clone https://github.com/ArielAlegre12/Proyecto-taller-group
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Ingresar al proyecto:
 
-## Contributing
+cd Proyecto-taller-group
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+-----------------------------------------------------------------------------------------------
 
-## Code of Conduct
+Instalar dependencias
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+composer install
 
-## Security Vulnerabilities
+npm install
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+-----------------------------------------------------------------------------------------------
 
-## License
+Configurar entorno
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Copiar el archivo .env-copy
+
+cp .env-copy .env
+
+Generar clave:
+
+php artisan key:generate
+
+-----------------------------------------------------------------------------------------------
+
+Base de datos
+
+Ejecutar migraciones:
+
+php artisan migrate
+
+Ejecutar seeders:
+
+php artisan db:seed
+
+-----------------------------------------------------------------------------------------------
+
+Compilar assets
+
+npm run dev
+
+-----------------------------------------------------------------------------------------------
+
+Ejecutar servidor
+
+php artisan serve
+
+El proyecto quedará disponible en:
+
+http://taller-group.test/
+
+-----------------------------------------------------------------------------------------------
+
+Funcionalidades principales
+
+. Catálogo de productos
+. Carrito de compras
+. Checkout 
+. Gestión de productos
+. Gestión de usuarios
+. Panel administrativos
+. Filtros
+. Activación/desactivación de productos
+. Integración de chatbot Tidio
+. Generar resumenes de ventas y descargarlas en pdf(domPDF)
+
+-----------------------------------------------------------------------------------------------
+
+Usuarios de prueba
+
+Administrador
+
+Email:
+
+admin@test.com
+
+Contraseña:
+
+123456789
+
+Cliente
+
+cliente@test.com
+
+Contraseña:
+
+12345678
+
+-----------------------------------------------------------------------------------------------
+
+Pruebas de implementación
+
+Antes de esta entrega realizamos pruebas de: 
+. Registro e inicio de sesión, si se registra un cliente lleva a la vista de inicio y si es un admin al panel de administración.
+. Compra de productos, si se hace de manera sin logearse se pedira que lo haga al intentar "seguir compra" en el menú del carrito, los productos del carrito(sin logearse) se sumaran a su carrito personal junto a los productos que ya hayan quedado registrados anteriormente allí.
+. Actualización automática de stock(recién al momento de finalizar una compra), también si un cliente tiene en su carrito un 
+producto que su stock paso de 1 a 0 (se actualizó), no se le permitira la compra y se le indicará que ya no hay stock de ese producto.
+. Activación y desactivación de productos, lo puede ser el admin o de manera automática al pasar a stock 0, la activación también puede ser automática una vez se hayan agregado productos a su stock.
+. Filtros de productos, ventas, usuarios, turnos y consultas.
+. Panel administrativo.
+. Paginación
+. Validaciones de formularios
+. Checkout y métodos de pago simulados
+
+
+Problemas encontrados y soluciones que tuvimos
+
+Problema:
+
+Los productos stock 0 seguían apareciendo en la tienda.
+
+Solución:
+
+Se implementó lógica automática para desactivar productos sin stock.
+
+Problema:
+
+La paginación perdía el estado visual del acordeón de productos inactivos.
+
+Solución:
+
+Se utilizó request() para mantener abierto el acordeón dependiendo de la página y filtros activos.
+
+Problema:
+
+El scroll se reiniciaba al cambiar filtros 
+
+Solución:
+
+Se implemento un sistema de preservación de scroll utilizando sessionStorage.
+
+
+-----------------------------------------------------------------------------------------------
+
+Integrantes
+
+. Alegre, Ariel Santiago
+. Colman, Lucas Joaquín 
