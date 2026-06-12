@@ -34,6 +34,8 @@ Requisitos
 
 -----------------------------------------------------------------------------------------------
 
+PASO 1
+
 Clonar repositorio
 
 git clone https://github.com/ArielAlegre12/Proyecto-taller-group
@@ -44,6 +46,8 @@ cd Proyecto-taller-group
 
 -----------------------------------------------------------------------------------------------
 
+PASO 2
+
 Instalar dependencias
 
 composer install
@@ -52,43 +56,35 @@ npm install
 
 -----------------------------------------------------------------------------------------------
 
+PASO 3
+
 Configurar entorno
 
-Copiar el archivo .env-copy
-
-cp .env-copy .env
-
-Generar clave:
-
-php artisan key:generate
+Renombrar .env.copy a .env
 
 -----------------------------------------------------------------------------------------------
+
+PASO 4
 
 Base de datos
 
-Ejecutar migraciones:
-
-php artisan migrate
-
-Ejecutar seeders:
-
-php artisan db:seed
+mover el archivo database.sqlite a la carpeta database
 
 -----------------------------------------------------------------------------------------------
 
-Compilar assets
+PASO 5, IMPORTANTE
 
-npm run dev
+descomprimir el productos.zip y mover la carpeta "productos" a storage/app/public/
+esto es para que cargue las imagenes de los productos, porque el gitignore no deja subir a git la carpeta
 
 -----------------------------------------------------------------------------------------------
+
+PASO 6
 
 Ejecutar servidor
 
-php artisan serve
+Montar el proyecto en laravel y probar(si se sigue todos estos pasos deberia funcionar)
 
-El proyecto quedará disponible en:
-
-http://taller-group.test/
 
 -----------------------------------------------------------------------------------------------
 
