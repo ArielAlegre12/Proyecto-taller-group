@@ -63,11 +63,16 @@
         </div>
     </div>
 
+    <button id="btnScrollTop" title="Volver arriba">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script type="module" src="/js/global/cart.js"></script>
     <script type="module" src="{{ asset('js/global/toast.js') }}"></script>
     <script src="{{ asset('js/global/preservarScroll.js') }}"></script>
     <script src="{{ asset('js/global/filtrosVentas.js') }}"></script>
+    <script src="{{ asset('js/global/scrollTop.js') }}"></script>
     @if (session('success'))
         <script type="module">
             mostrarToast("{{ session('success') }}", 3000);
