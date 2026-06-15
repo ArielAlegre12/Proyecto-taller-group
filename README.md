@@ -98,7 +98,7 @@ Funcionalidades principales
 . Panel administrativos
 . Filtros
 . Activación/desactivación de productos
-. Integración de chatbot Tidio
+. Integración de chatbot Tidio(para cliente, y también para admin)
 . Generar resumenes de ventas y descargarlas en pdf(domPDF)
 
 -----------------------------------------------------------------------------------------------
