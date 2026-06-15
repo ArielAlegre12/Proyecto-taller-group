@@ -166,6 +166,11 @@ Solución:
 
 Se implemento un sistema de preservación de scroll utilizando sessionStorage.
 
+Problema:
+No se encontró manera de limpiar el historial del chat bot.
+
+Solución:
+Abrir en una pestaña incógnita para probar el funcionamiento del mismo, ahí funciona perfectamente.
 
 -----------------------------------------------------------------------------------------------
 
